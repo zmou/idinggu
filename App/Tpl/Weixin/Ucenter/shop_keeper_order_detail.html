@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>订单详情-{twotree#$webinfo.web_name}</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+body{ background:#E1E1E1;}
+
+.btn {
+	background: #EC584D;
+	font: normal 14px/25px "微软雅黑";
+	color: #FFF;
+	padding: 0 15px;
+	border-radius: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="header" style="position:relative">
+
+	订单详情
+	<div class="nav_r">
+
+	</div>
+</div>
+
+<!--<div class="space10"></div>-->
+
+<div class="white_bg">
+	<div class="confirm_list">
+		<ul>		
+			<li>订单号：{twotree#$info.order_sn}</li>
+		</ul>
+	</div>
+	<volist name="order_goods" id="item">
+	<dl class="cart_list arrow_right">
+		<dt style="width:30%;">
+		<a href="{twotree#:U('Index/product_show',array('id'=>$item['goods_id']))}">
+			<img src="{twotree#$item.goods_spic}" border="0" /></a> </dt>
+		<dd>
+		<b><a href="{twotree#:U('Index/product_show',array('id'=>$item['goods_id']))}">{twotree#$item.goods_name}</a></b>
+
+			<b align="right"><span style="float:left;">￥{twotree#$item.trade_price}</span>数量：{twotree#$item.goods_nums}x{twotree#$item.package_num}</b>
+			<b align="right">实付款：￥<?php echo $item['trade_price']*$item['goods_nums']*$item['package_num'];?></b>  
+
+		</dd>
+	</dl>
+	</volist>
+</div>
+
+<div class="confirm_list">	
+	<ul>
+		<li>联系人 <span>{twotree#$info.consignee}</span></li>
+		<li>联系电话 <span>{twotree#$info.mobile}</span></li>
+		<li>收货地址 <span>{twotree#$info.address}</span></li>
+		<li>下单时间 <span>{twotree#$info.order_time|date='m.d H:i',###}</span></li>
+
+	</ul>
+
+	<ul>		
+		<li>留言<span>{twotree#$info.order_message}</span></li>
+	</ul>
+
+	<h2>
+		<span class="font_red">
+			实付款：￥{twotree#$info.total_fee}
+
+		</span>
+		&nbsp;
+	</h2>
+</div>
+
+</body>
+</html>

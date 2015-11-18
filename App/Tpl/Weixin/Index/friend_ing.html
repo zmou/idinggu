@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>好友请进行中</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="friend_ing_top">
+	<div class="face">
+		<div class="user_face">
+			<img src="{twotree#$user_info.headimgurl}" />
+		</div>
+	</div>
+	
+	<p>{twotree#$order_info.order_message}</p>
+</div>
+
+<div class="friend_list">
+	<ul>
+		<volist name="photo_list" id="photo">
+		<li><img src="{twotree#$photo.image}" /></li>
+		</volist>
+	</ul>
+</div>
+<div class="white_bg">
+
+<volist name="order_goods" id="item">
+<dl class="cart_list arrow_right">
+	<dt style="width:30%;">
+		<a href="javascript:" onClick="new Dialog({type:'img',value:'{twotree#$item.goods_spic}'}).show();">
+        <img src="{twotree#$item.goods_spic}" border="0" /></a> </dt>
+	<dd>
+	  <b><a href="{twotree#:U('product_show',array('id'=>$item['goods_id']))}">{twotree#$item.goods_name}</a></b>
+	  <b><i>￥{twotree#$item.sub_total} &nbsp;&nbsp;&nbsp;&nbsp;</i></b>
+	</dd>
+</dl>
+</volist>
+
+<div class="friend_progress">
+	<ul>
+		<li>已完成{twotree#$friend_order.percent}% </li>
+		<li class="money">还差：<span class="font_red">￥{twotree#$friend_order.need_money}</span> </li>
+		<li>{twotree#$friend_order.total_friends}位支持者</li>
+	</ul>
+</div>
+
+<div class="friend_detail">
+	<h1>好友请详情</h1>
+	<eq name="total_friends" value="0">
+	<h2>还没有小伙伴为TA支付，快来抢沙发吧~</h2>
+	</eq>
+	<volist name="payed_friends" id="friend">
+	<dl>
+		<dt><img src="{twotree#$friend.headimgurl}" /></dt>
+		<dd>{twotree#$friend.message}</dd>
+		<dd class="font_gray">{twotree#$friend.pay_time|date="Y-m-d",###}</dd>
+	</dl>
+	</volist>
+	
+	<ul>
+		<li>
+			<b class="love" style="width:30%;">把爱大声说出来</b> <p><input name="" type="text" id="message" placeholder="分分钟就能凑满" class="talk"/></p>
+		</li>
+		<li>
+			<b>支持TA</b> <p><input name="" id="pay_money" type="text" value="1" class="money"/>元</p>
+		</li>
+	</ul>
+</div>
+
+<div class="myform">
+	<input name="" type="button" value="立即支付" class="button1 btn-pay" <eq name="is_done" value="1">disabled</eq>/>
+</div>
+
+
+<SCRIPT src="__PUBLIC__/js/jquery.min.js" type=text/javascript></SCRIPT>
+<SCRIPT src="__PUBLIC__/js/alert.js" type="text/javascript"></SCRIPT>
+<script>
+$(".btn-pay").click(function(){
+	
+	var post_data={};
+	post_data.order_id = '{twotree#$order_info.id}';
+	post_data.message = $("#message").val();
+	post_data.pay_money = $('#pay_money').val();
+	post_data.friend_openid = '{twotree#$friend_info.openid}';
+	post_data.friend_headingurl = '{twotree#$friend_info.headingurl}';
+
+	$.post("{twotree#:U('Ajax/friend_pay')}",post_data,function(json){
+		//alert(json.friend_pay_id);
+		if(json.friend_pay_id){
+		
+			goods_name = $('.cart_list b a').first().html();
+			location.href="./wxpay/do/index.php?order_id="+json.order_id+"&order_name="+goods_name;			//跳转到微信支付页面
+			location.href="http://m.idinggu.com/wxpay/do/index.php?order_id="+json.order_id+"&friend_pay_id="+json.friend_pay_id+"&pay_money="+json.pay_money+"&friend_openid="+json.friend_openid+"&order_name="+goods_name;			
+			//跳转到微信支付页面
+		}else{
+			alert('error');
+			//location.href = "{twotree#:U('index/friend_buy')}";
+		}
+		
+	},'json')
+	
+});
+</script>
+
+
+</body>
+</html>

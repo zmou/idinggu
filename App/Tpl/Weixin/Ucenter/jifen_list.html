@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>咕币明细-{twotree#$webinfo.web_name}</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<volist name="list" id="item">
+    <dl class="coin_detail_list">
+        <dt>
+            <b>{twotree#$item.way_name}</b>
+            <p class="font_gray">{twotree#$item.posttime|date='Y-m-d',###}</p>
+        </dt>
+        <dd>
+        <eq name="item.type" value="1">+<else/>-</eq>
+        {twotree#$item.amount}
+        </dd>
+    </dl>
+</volist>
+
+<if condition="count($list) eq 0">
+	<p><center>暂无数据</center></p>
+</if>
+
+<if condition="strlen($page) gt 1">
+<p id="page">{twotree#$page}</p>
+</if>
+
+</body>
+</html>

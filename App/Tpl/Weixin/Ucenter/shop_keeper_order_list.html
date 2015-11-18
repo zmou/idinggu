@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的订单-{twotree#$webinfo.web_name}</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body{ background:#E1E1E1;}
+</style>
+</head>
+<body>
+
+<div class="header" style="position:fixed; top:0; display:none;">
+	<div>
+		<a href="{twotree#:U('Index')}">返回</a>
+	</div>
+</div>
+
+<div style="" class="index_tab2">
+	<ul>
+	    <li style="width:50%;"><a href="{twotree#:U('order_list',array('pay_status'=>1))}" class="<eq name='Think.get.pay_status' value='1'>act</eq>">待收货</a></li>
+	    <li style="width:50%;"><a href="{twotree#:U('order_list',array('order_status'=>3))}" class="<eq name='Think.get.order_status' value='3'>act</eq>">已完成</a></li>
+	</ul>
+</div>
+
+                
+<volist name="list" id="v">
+
+<div class="friend_order_list" id="order_{twotree#$v.id}">
+	
+	<dl>
+		<volist name="v['goods']" id="g">
+		<dt><a href="{twotree#:U('Index/product_show', array('id'=>$g['goods_id']))}"><img src="{twotree#$g.goods_spic}" border="0" /></a> </dt>
+		<dd>
+			<p><a href="{twotree#:U('Index/product_show', array('id'=>$g['goods_id']))}">{twotree#$g.goods_name}</a></p>
+			<p align="right"><span style="float:left;">￥{twotree#$g.trade_price}</span>数量：{twotree#$g.goods_nums}x{twotree#$g.package_num}</p>
+			<p align="right">实付款：￥<?php echo $g['trade_price']*$g['goods_nums']*$g['package_num'];?></p>  
+		</dd>
+		<div style="clear:both;"></div>
+		<div style="margin-top:10px; margin-bottom:10px;"></div>
+		</volist>
+	</dl>
+	
+	<ul>
+		<eq name='Think.get.pay_status' value='0'><a href="{twotree#:U('cancel_order', array('id'=>$v['id']))}">取消订单</a> </eq>
+		<eq name='Think.get.pay_status' value='1'>
+		<a style="color:red;" href="javascript:confirm_order({twotree#$v.id})">确认收货</a> 
+		</eq>
+	    <a href="{twotree#:U('order_detail', array('id'=>$v['id']))}">订单详情</a> 
+
+		<eq name='v.pay_status' value='0'>
+		<a href="javascript:goto_pay({twotree#$v.id}, '{twotree#$v.order_title}_')" class="goto_pay" order_id="{twotree#$v.id}">去支付</a>
+		</eq>
+	</ul>
+</div>
+</volist>
+
+<p>{twotree#$page}</p>
+
+
+
+<SCRIPT src="__PUBLIC__/js/jquery.min.js" type=text/javascript></SCRIPT>
+<SCRIPT src="__PUBLIC__/js/alert.js" type="text/javascript"></SCRIPT>
+<script type="text/javascript">
+function goto_pay(order_id, order_title)
+{
+	location.href="./wxpay/do/index.php?order_id="+order_id+"&order_name="+order_title;			//跳转到微信支付页面
+}
+
+function confirm_order(order_id)
+{
+	/*
+			$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'add', 'package_num':package_num},function(data){
+				if(data==1){location.reload();}																				
+			});
+			*/
+
+	$.post("{twotree#:U('Ajax/confirm_order')}",{'order_id':order_id},function(data){
+		//window.location.reload();
+		window.location.href = "{twotree#:U('order_list',array('order_status'=>3))}";		
+	});
+}
+</script>
+</body>
+</html>
+

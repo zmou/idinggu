@@ -1,0 +1,67 @@
+<div id="sidebar">
+	<div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+      <h1 id="sidebar-title"><a href="#">奥克斯</a></h1>
+      <!-- Logo (221px wide) -->
+     <!-- <a href="{twotree#:U('Index/index')}"><center><img id="logo" src="__PUBLIC__/Images/logo.jpg"/></center></a>-->
+      <!-- Sidebar Profile links -->
+      <div id="profile-links">
+        <br />
+        <br />
+        <a href="{twotree#:U('Index/index')}" title="管理中心">管理中心</a> |
+         <a href="{twotree#:U('Login/logout')}" title="退 出">退 出</a>
+      </div>
+     
+      <ul id="main-nav">  
+      <!-- Accordion Menu -->
+		<li>
+			<a href="#" class="nav-top-item">
+			基本信息管理
+			</a>
+			<ul class="dlink">
+				<li><a href="{twotree#:U('User/pwd')}">修改密码</a></li>
+				<li><a href="{twotree#:U('User/shop')}">店铺信息</a></li>
+                <li><a href="{twotree#:U('User/edit')}">店长个人信息</a></li>
+			</ul>
+		</li>		
+        <li> 
+          <a href="#" class="nav-top-item">
+          订单管理
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Order/index')}">订单列表</a></li>
+          </ul>
+        </li>      
+        <li>
+          <a href="#" class="nav-top-item">
+             店铺商品管理
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Shopgoods/index')}">商品列表</a></li>
+            <li><a href="{twotree#:U('Mall/index')}">我要进货</a></li>
+          </ul>
+        </li>
+
+      </ul> <!-- End #main-nav -->
+      
+    </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var url=window.location.search;
+	$('#main-nav li ul li a').each(function(){
+		var aurl='?'+$(this).attr("href").split("?")[1];
+
+		var pul=$(this).parent().parent().prev();
+		var tul=$(this).parent().parent().parent();
+		if(aurl.indexOf(url)>=0){
+			$(this).addClass("current").siblings("a").removeClass("current");
+			$(".nav-top-item").removeClass("current");
+			pul.addClass("current");
+			$(".dlink").css("display","none");
+			$(this).parent().parent().css("display","block");
+			
+		}
+	});
+});
+</script> 
+
+</div> <!-- End #sidebar -->

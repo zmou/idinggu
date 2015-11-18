@@ -1,0 +1,39 @@
+<!--<div id="bottomNav">-->
+<div class="footer_menu">
+	<ul>
+		<li>
+		<a href="/" <if condition="(MODULE_NAME eq 'Index')  AND (ACTION_NAME eq 'index')">class="act"</if>>
+			<if condition="(MODULE_NAME eq 'Index')  AND (ACTION_NAME eq 'index')">
+			<img src="__PUBLIC__/images/index_r15_c3.png"/>
+			<else/>
+			<img src="__PUBLIC__/images/product_r12_c4.png"/>
+			</if>
+			<span><eq name="user_info.role_id" value="1">首页<else/>店面展示</eq></span>
+		</a>
+		</li>
+		<li>
+		<a href="<eq name="user_info.role_id" value="1">{twotree#:U('Index/cart')}<else/>{twotree#:U('Ucenter/replenishment', array('cid'=>1))}</eq>"  <if condition="(MODULE_NAME eq 'Index')  AND (in_array(ACTION_NAME,array('cart','cart2')))">class="act"</if>>
+
+			<if condition="(MODULE_NAME eq 'Index')  AND (in_array(ACTION_NAME,array('cart','cart2')))">
+			<img src="__PUBLIC__/images/product_r13_c7.png"/>
+			<else/>
+			<img src="__PUBLIC__/images/index_r16_c7.png"/>
+			</if>
+			<eq name="user_info.role_id" value="1"><em class="cart-count">{twotree#$cart_count|default=0}</em></eq>
+			<span><eq name="user_info.role_id" value="1">购物车<else/>补货</eq></span>
+		</a>
+		</li>
+		<li>
+		<a href="{twotree#:U('Ucenter/index')}"  <if condition="(MODULE_NAME eq 'Ucenter')  AND (in_array(ACTION_NAME,array('index','shop_center')))">class="act"</if>>
+
+			<if condition="(MODULE_NAME eq 'Ucenter')  AND (in_array(ACTION_NAME,array('index','shop_center')))">
+			<img src="__PUBLIC__/images/ucenter_r8_c7.png"/>
+			<else/>
+			<img src="__PUBLIC__/images/index_r14_c17.png"/>
+			</if>
+			<span>我的</span>
+		</a>
+		</li>
+	</ul>
+</div>
+<!--</div>-->

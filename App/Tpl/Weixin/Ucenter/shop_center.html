@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>店长中心-{twotree#$webinfo.web_name}</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/alert.js"></script>
+<style type="text/css">
+body{ background:#E1E1E1;}
+</style>
+</head>
+<body>
+
+<dl style="margin-top:-15px;" class="ucenter_top" onclick='location.href="{twotree#:U('edit_data')}"'>
+	<dt>
+	<img src="{twotree#$user_info.headimgurl}" />
+	</dt>
+	<dd>
+	{twotree#$user_info['name']}
+	</dd>
+</dl>
+
+<div class="ucenter_total2">
+	<ul>
+		<li><a href="#">{twotree#$today_order_count|default=0}<b>今日单量</b></a></li>
+		<li><a href="#">￥{twotree#$today_income|default=0}<b>今日收益</b></a></li>
+		<li class="s"><a id="take_money" href="javascript:">￥{twotree#$user_info.money_account}<b style="color:green;">可提现</b></a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+$('#take_money').click(function(){
+var can_withdraw = '{twotree#$can_withdraw}';
+if(can_withdraw == '0')
+{
+	alert('一天只能提现一次！');
+	return false;
+}
+else
+{
+	location.href = "{twotree#:U('take_money')}";
+}
+});
+</script>
+<div class="ucenter_list">
+	<ul>
+		<!--<li><a href="shopkeeper_order.html" class="a1">我的订单</a></li>-->
+		<li><a href="{twotree#:U('shop_order')}" class="a1">配送订单</a></li>
+	</ul>
+	<ul>
+		<!--<li><a href="shopkeeper_order.html" class="a1">我的订单</a></li>-->
+		<li><a href="{twotree#:U('order_list', array('pay_status'=>1))}" class="a2">补货订单</a></li>
+	</ul>
+
+	<ul>
+		<li>
+		<a href="{twotree#:U('shop_state')}" class="a4">营业状态 
+			<span style="margin-right:10%;">
+				<eq name="shop.shop_status" value="1">
+				<font color='green'>营业中</font><else/><font color="red">未营业</font></eq>
+		</span></a>
+		</li>
+	</ul>
+
+	<ul>
+		<li class="s"><span><font color='green'>{twotree#$webinfo.shop_hot_line}</font></span><a href="#" class="a5">店长专线</a></li>
+		<li><a href="{twotree#:U('replenishment')}" class="a6">我要补货</a></li>
+		<li><a href="{twotree#:U('Cms/read',array('id'=>5))}" class="a7">店长须知</a></li>
+		<li><a href="{twotree#:U('Cms/read',array('id'=>6))}" class="a7">店长协议</a></li>
+	</ul>
+
+</div>
+<div class="space60"></div>
+
+<div id="bottomNav">
+	<include file="Public:footbar"/>
+</div>
+</body>
+</html>

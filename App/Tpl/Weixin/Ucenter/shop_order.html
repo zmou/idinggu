@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>销售订单-{twotree#$webinfo.web_name}</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+<style type="text/css">
+body{ background:#E1E1E1;}
+</style>
+
+</head>
+<body>
+
+
+<div style="margin-top:-15px;" class="index_tab">
+	<ul>
+		<li><a href="{twotree#:U('shop_order',array('order_status'=>1))}" <eq name="order_status" value="1">class="act"</eq>>待配送</a></li>
+		<li><a href="{twotree#:U('shop_order',array('order_status'=>3))}" <eq name="order_status" value="3">class="act"</eq>>已完成</a></li>
+	</ul>
+</div>
+
+
+<volist name="list" id="v">
+
+<div class="friend_order_list" id="order_{twotree#$v.id}">
+	
+	<dl>
+		<volist name="v['goods']" id="g">
+		<dt><a href="{twotree#:U('Index/product_show', array('id'=>$g['goods_id']))}"><img src="{twotree#$g.goods_spic}" border="0" /></a> </dt>
+		<dd>
+			<p><a href="{twotree#:U('Index/product_show', array('id'=>$g['goods_id']))}">{twotree#$g.goods_name}</a></p>
+			<p align="right">数量：{twotree#$g.goods_nums}</p>  
+			<p align="right">实付款：￥<?php echo $g['goods_price']*$g['goods_nums'];?></p>  
+		</dd>
+		<div style="clear:both;"></div>
+		<div style="margin-top:10px; margin-bottom:10px;"></div>
+		</volist>
+	</dl>
+	
+	<ul>
+		<span style="float:left;margin-left:10px;">下单时间：{twotree#$v.order_time|date="m.d H:i",###}</span>
+		<a href="{twotree#:U('order_detail', array('id'=>$v['id']))}">订单详情</a>
+	</ul>
+</div>
+</volist>
+
+<p>{twotree#$page}</p>
+
+<if condition="empty($list)">
+<p><center>暂无数据</center></p>
+</if>
+
+<if condition="strlen($page) gt 1">
+<p id="page">{twotree#$page}</p>
+</if>
+
+<div class="line2"></div>
+</body>
+</html>

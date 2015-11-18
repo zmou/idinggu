@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>咕币兑换-{twotree#$webinfo.web_name}</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<style>
+select{height:38px;width:90%};
+</style>
+</head>
+<body>
+
+<div class="header" style="position:relative">
+	
+	咕币兑换
+	<div class="nav_r">
+	
+	</div>
+</div>
+
+<div class="space10"></div>
+
+<dl class="goods_list">
+    <dt>
+        <a href="javascript:" onClick="new Dialog({type:'img',value:'{twotree#$info.spic}'}).show();">
+        <img src="{twotree#$info.spic}"/></a> 
+     </dt>
+    <dd>
+      <b><a href="{twotree#:U('product_show',array('id'=>$info['id']))}">{twotree#$info.name}</a></b>
+      <i class="font_red">{twotree#$info.price} 咕币</i> 
+      </b>  
+    </dd>
+</dl>
+
+
+<div class="myform">
+	<ul>
+        <li>
+        	<b>收货人　：</b>
+        	<p><input name="consignee" type="text" placeholder="收货人" value="{twotree#$user_info.name}"/></p>
+        </li>
+        <li>
+            <b>联系电话：</b>
+            <p><input class="number" name="mobile" type="text" placeholder="联系电话" value="{twotree#$user_info.mobile}"/></p>
+        </li>
+        <!--<li>
+            <b>省　　份：</b>
+            <p><select name="province" id="province">
+                <option value="">-请选择-</option>
+            </select></p>
+        </li>
+        <li>
+        	<b>城　　市：</b>
+            <p><select name="city" id="city">
+                <option value="">-请选择-</option>
+            </select></p>
+        </li>
+        <li>
+            <b>区　　县：</b>
+            <p><select name="district" id="district">
+                <option value="">-请选择-</option>
+            </select></p>
+        </li>
+		<li>-->
+            <b>收货地址：</b>
+            <p><input name="shipping_address" type="text" placeholder="详细地址" value="{twotree#$user_info.shipping_address}"/></p>
+        </li>
+		<li>
+			<div class="space10"></div>
+			<input  type="button" value="立即兑换" class="button1" id="btn-sub"/>
+			<div class="space10"></div>
+		</li>
+	</ul>
+</div>
+</body>
+<script>
+$(function(){
+	//提交
+	$("#btn-sub").click(function(){
+		var post_data={};
+		post_data.goods_nums=1;
+		post_data.consignee=$("input[name='consignee']").val();
+		post_data.mobile=$("input[name='mobile']").val();
+		post_data.province=$("#province").val();
+		post_data.city=$("#city").val();
+		post_data.district=$("#district").val();
+		post_data.address=$("input[name='shipping_address']").val();
+		if(post_data.consignee==''){
+			alert('请选先写收货人');
+			$("input[name='consignee']").focus();
+			return false;
+		}
+		if(post_data.mobile==''){
+			alert('请选填写收货电话');
+			$("input[name='mobile']").focus();
+			return false;
+		}
+		/*
+		if(post_data.province==''){
+			alert('请选省份');
+			return false;
+		}
+		if(post_data.city==''){
+			alert('请选择城市');
+			return false;
+		}
+		if(post_data.district==''){
+			alert('请选择区县');
+			return false;
+		}*/
+		if(post_data.address==''){
+			alert('请填写收货地址');
+			$("input[name='shipping_address']").focus();
+			return false;
+		}
+		$.post("{twotree#:U('Ajax/jifen_order')}",post_data,function(errcode){
+			if(errcode==1){
+				alert('兑换失败，咕币不足');	
+			}
+			if(errcode==0){
+				alert('兑换成功');
+				location.href="{twotree#:U('Ucenter/jifen_order')}"
+			}
+		});
+		
+	});	
+});
+</script>
+</html>

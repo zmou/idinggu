@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我要补货</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<!--数量加减-->
+<script type="text/javascript"> 
+ $(document).ready (function () 
+    { 
+ //var pl = $("p:last"); 
+     var reg = /(.*[\:\：]\s*)([\+\d\.]+)(\s*元)/g; 
+     $ (".sy_minus").click (function () 
+     { 
+     var me = $ (this), txt = me.next (":text"), pc = me.closest("p"); 
+     var val = parseFloat (txt.val ()); 
+     val = val < 1 ? 1 : val; 
+     txt.val (val - 1); 
+     var price = parseFloat (pc.prev("p").text().replace(reg,'$2')) * txt.val (); 
+     pc.next("p").text (pc.next("p").text().replace(reg, "$1" + price + "$3")); 
+     var sum = 0; 
+     $(".p_num").next("p").each(function (i, dom) 
+     { 
+      sum += parseFloat ($(this).text().replace(reg, "$2")); 
+     }); 
+     pl.text(pl.text().replace(reg, "$1" + sum + "$3")); 
+     }); 
+       
+     $(".sy_plus").click (function () 
+     { 
+      var me = $ (this), txt = me.prev (":text"), pc = me.closest("p"); 
+     var val = parseFloat (txt.val ()); 
+     txt.val (val + 1); 
+     var price = parseFloat (pc.prev("p").text().replace(reg,'$2')) * txt.val (); 
+     pc.next("p").text (pc.next("p").text().replace(reg, "$1" + price + "$3")); 
+     var sum = 0; 
+     $(".p_num").next("p").each(function (i, dom) 
+     { 
+      sum += parseFloat ($(this).text().replace(reg, "$2")); 
+     }); 
+     pl.text(pl.text().replace(reg, "$1" + sum + "$3")); 
+     }); 
+    })[0].onselectstart = new Function ("return false"); 
+</script>
+</head>
+<body>
+<dl class="cart_list">
+	<dt>
+		<a href="javascript:" onClick="new Dialog({type:'img',value:'images/product_r6_c2.png'}).show();"><img src="images/product_r6_c2.png" border="0" /></a> </dt>
+	<dd>
+	  <b><a href="product_show.html">1樱桃季 台湾原装特产 南姜汁黑糖姜茶</a></b>
+	  <b>
+		  <p class="p_num"> 
+			 <span class="sy_minus" id="sy_minus_gid1">-</span>  
+			 <input class="sy_num" id="sy_num_gid1" readonly="readonly" type="text" name="number1" value="1" />  
+			 <span class="sy_plus" id="sy_plus_gid1">+</span> 
+			 </p>
+			 <i>合计：￥19.90</i>
+	  </b>
+	</dd>
+</dl>
+
+<dl class="cart_list">
+	<dt>
+		<a href="javascript:" onClick="new Dialog({type:'img',value:'images/product_r6_c2.png'}).show();"><img src="images/product_r6_c2.png" border="0" /></a> </dt>
+	<dd>
+	  <b><a href="product_show.html">2樱桃季 台湾原装特产 南姜汁黑糖姜茶</a></b>
+	  <b>
+		  <p class="p_num"> 
+			 <span class="sy_minus" id="sy_minus_gid2">-</span>  
+			 <input class="sy_num" id="sy_num_gid2" readonly="readonly" type="text" name="number1" value="1" />  
+			 <span class="sy_plus" id="sy_plus_gid2">+</span> 
+			 </p>
+			 <i>合计：￥19.90</i>
+	  </b>
+	</dd>
+</dl>
+
+<div class="space100"></div>
+
+<div id="bottomNav">
+	<dl class="balance_bar">
+		<dt>
+			<p class="font_red" style="padding-top:10px;">总额：￥29.90</p>
+		</dt>
+		
+		<dd>
+			<a href="confirm_order.html">确定</a>
+		</dd>
+	</dl>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的订单</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript"> 
+$(function(){
+   $(".index_tab li a").each(function(){
+    if(window.location.href.indexOf($(this).attr("href"))>=0){
+        $(this).addClass("act");
+    }
+})
+   $(".index_tab li a").click(function(){
+         $(this).parent().siblings("li ").find("a").removeClass("act")
+         $(this).addClass("act");
+   });
+})
+</script>
+</head>
+<body>
+<div class="index_tab">
+	<ul>
+		<li><a href="#a1" class="act">待配送</a></li>
+	    <li><a href="#a2">已完成</a></li>
+	</ul>
+</div>
+
+<dl class="goods_list">
+	<dt>
+		<a href="order_show.html"><img src="images/index_r12_c4.png" border="0" /></a> </dt>
+	<dd>
+	  <b><a href="order_show.html">樱桃季 台湾原装特产 南姜汁黑糖姜茶</a></b>
+	  <b>￥58.00</b>  
+	</dd>
+</dl>
+
+<dl class="goods_list">
+	<dt>
+		<img src="images/index_r12_c4.png" />
+	</dt>
+	<dd>
+	  <b>樱桃季 台湾原装特产 南姜汁黑糖姜茶</b>
+	  <b>￥58.00</b>  
+	</dd>
+</dl>
+
+<dl class="goods_list">
+	<dt>
+		<img src="images/index_r12_c4.png" />
+	</dt>
+	<dd>
+	  <b>樱桃季 台湾原装特产 南姜汁黑糖姜茶</b>
+	  <b>￥58.00</b>  
+	</dd>
+</dl>
+
+<dl class="goods_list">
+	<dt>
+		<img src="images/index_r12_c4.png" />
+	</dt>
+	<dd>
+	  <b>樱桃季 台湾原装特产 南姜汁黑糖姜茶</b>
+	  <b>￥58.00</b>  
+	</dd>
+</dl>
+
+<dl class="goods_list">
+	<dt>
+		<img src="images/index_r12_c4.png" />
+	</dt>
+	<dd>
+	  <b>樱桃季 台湾原装特产 南姜汁黑糖姜茶</b>
+	  <b>￥58.00</b>  
+	</dd>
+</dl>
+
+<div class="line2"></div>
+</body>
+</html>

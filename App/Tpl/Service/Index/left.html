@@ -1,0 +1,68 @@
+<div id="sidebar">
+	<div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+      <h1 id="sidebar-title"><a href="#">奥克斯</a></h1>
+      <!-- Logo (221px wide) -->
+     <!-- <a href="{twotree#:U('Index/index')}"><center><img id="logo" src="__PUBLIC__/Images/logo.jpg"/></center></a>-->
+      <!-- Sidebar Profile links -->
+      <div id="profile-links">
+        <!--你好, <a href="{twotree#:U('RBAC/editUser',array('id'=>1))}" title="修改密码">{twotree#:I('session.username')}</a>
+        , 您有 <a href="#messages" rel="modal" title="3 Messages">3 条未读消息</a>-->
+        <br />
+        <br />
+        <a href="{twotree#:U('Index/index')}" title="管理中心">管理中心</a> |
+         <a href="{twotree#:U('Login/logout')}" title="退 出">退 出</a>
+      </div>
+     
+      <ul id="main-nav">  
+      <!-- Accordion Menu -->
+		<li>
+			<a href="#" class="nav-top-item">
+			个人信息管理
+			</a>
+			<ul class="dlink">
+            	<li><a href="{twotree#:U('User/info')}">个人信息</a></li>
+				<li><a href="{twotree#:U('User/pwd')}">修改密码</a></li>
+                <li><a href="{twotree#:U('User/area_list')}">服务区域</a></li>
+			</ul>
+		</li>		<li> 
+          <a href="#" class="nav-top-item">
+          订单管理
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Order/index')}">订单列表</a></li>
+          </ul>
+        </li>      
+       <!-- <li>
+          <a href="#" class="nav-top-item">
+            财务管理
+          </a>
+          <ul class="dlink">
+            <li><a href="#">财务管理</a></li>
+          </ul>
+        </li>-->
+       
+        
+      </ul> <!-- End #main-nav -->
+      
+    </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var url=window.location.search;
+	$('#main-nav li ul li a').each(function(){
+		var aurl='?'+$(this).attr("href").split("?")[1];
+
+		var pul=$(this).parent().parent().prev();
+		var tul=$(this).parent().parent().parent();
+		if(aurl.indexOf(url)>=0){
+			$(this).addClass("current").siblings("a").removeClass("current");
+			$(".nav-top-item").removeClass("current");
+			pul.addClass("current");
+			$(".dlink").css("display","none");
+			$(this).parent().parent().css("display","block");
+			
+		}
+	});
+});
+</script> 
+
+</div> <!-- End #sidebar -->

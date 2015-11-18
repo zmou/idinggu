@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>我的购物车</title>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/base.css" media="all" />
+        <link source="widget" href="__PUBLIC__/css/cart.css" rel="stylesheet" type="text/css">
+        <link source="widget" href="__PUBLIC__/css/area.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="__PUBLIC__/css/jquery-1.6.4.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/css/base.js"></script>
+        <link type="text/css" rel="stylesheet"  href="__PUBLIC__/css/p-detect.css" source="widget"/>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+<div id="shortcut-2013">
+	<div class="w">
+		<ul class="fl lh">
+			<li class="fore1 ld"><b></b><a href="javascript:addToFavorite()" rel="nofollow">收藏京东</a></li>
+			<li class="fore2"><a href="#" title="#">京东首页</a></li>
+		</ul>
+		<ul class="fr lh">
+			<li class="fore1" id="loginbar">您好！欢迎来到京东！<a href="javascript:login()">[登录]</a></li>
+			<li class="fore2 ld">
+				<s></s>
+				<a href="#" rel="nofollow">我的订单</a>
+			</li>
+			<li class="fore2-1 ld" id="jd-vip">
+				<i></i>
+				<s></s>
+				<a target="_blank" rel="nofollow" href="#">京东会员</a>
+			</li>
+			<li class="fore3 ld menu" id="app-jd" data-widget="dropdown">
+				<s></s><i></i><span class="outline"></span><span class="blank"></span>
+				<a href="#" target="_blank">手机京东</a><b></b>
+			</li>
+			<li class="fore4 ld menu" id="biz-service" data-widget="dropdown">
+				<s></s>
+				<span class="outline"></span>
+				<span class="blank"></span>
+				客户服务
+				<b></b>
+				<div class="dd">
+					<div><a href="#" target="_blank">帮助中心</a></div>
+					<div><a href="#" target="_blank" rel="nofollow">售后服务</a></div>
+					<div><a href="#" target="_blank" rel="nofollow">在线客服</a></div>
+					<div><a href="#" target="_blank" rel="nofollow">意见建议</a></div>
+					<div><a href="#" target="_blank">客服邮箱</a></div>
+				</div>
+			</li>
+			<li class="fore5 ld menu" id="site-nav" data-widget="dropdown">
+				<s></s>
+				<span class="outline"></span>
+				<span class="blank"></span>
+				网站导航
+				<b></b>
+				<div class="dd lh">
+					<dl class="item fore1">
+						<dt>特色栏目</dt>
+						<dd>
+							<div><a target="_blank" href="#o">京东通信</a></div>
+							<div><a href="#" target="_blank">校园之星</a></div>
+							<div><a target="_blank" href="#">为我推荐</a></div>
+							<div><a target="_blank" href="#">视频购物</a></div>
+							<div><a target="_blank" href="#">京东社区</a></div>
+							<div><a target="_blank" href="#">在线读书</a></div>
+							<div><a target="_blank" href="#">装机大师</a></div>
+							<div><a target="_blank" href="#">京东E卡</a></div>
+							<div><a target="_blank" href="#">家装城</a></div>
+							<div><a target="_blank" href="#">搭配购</a></div>
+							<div><a target="_blank" href="#">我喜欢</a></div>
+						</dd>
+					</dl>
+					<dl class="item fore2">
+						<dt>企业服务</dt>
+						<dd>
+							<div><a target="_blank" href="#">企业客户</a></div>
+							<div><a target="_blank" href="#">办公直通车</a></div>
+						</dd>
+					</dl>
+					<dl class="item fore3">
+						<dt>旗下网站</dt>
+						<dd>
+							<div><a target="_blank" href="#">English Site</a></div>
+						</dd>
+					</dl>
+				</div>
+			</li>
+		</ul>
+		<span class="clr"></span>
+	</div>
+</div>
+<div class="w w1 header clearfix">
+	<div id="logo">
+		<a href="#" class="link1" target='_blank'>
+			<img clstag="clickcart|keycount|xincart|cart_logo" src="__PUBLIC__/images/logo-201305.png" alt="京东商城">
+		</a>
+		<a href="#none" class="link2">
+			<b></b>
+			"购物车"
+		</a>
+	</div>
+	<div class="cart-search">
+		<div class="form">
+			<input id="key" type="text" class="itxt" autocomplete="off" accesskey="s">
+			<input type="button" class="button" value="搜索" clstag="clickcart|keycount|xincart|cart_search" onClick="javascript:void(0);">
+		</div>
+	</div>
+</div>
+<!-- main -->
+<div id="container" class="cart">
+			<div class="w">
+			
+<div class="cart-filter-bar ui-switchable-tab">
+	<ul class="switch-cart">
+		<li class="switch-cart-item curr ui-switchable-selected">
+				<em>全部商品</em>
+				<span class="number">2</span>
+		</li>
+	</ul>
+	<div class="cart-store">
+		<input id="hiddenLocationId" type="hidden">
+		<input id="hiddenLocation" type="hidden">
+		<span class="label">配送至：</span>
+		<div id="jdarea" class="ui-area-wrap">
+			<div class="ui-area-text-wrap">
+                	<div class="ui-area-text" data-id="1-72-2799" title="北京朝阳区三环以内">北京朝阳区三环以内</div>
+
+				<b>
+				</b>
+			</div>
+			<div class="ui-area-content-wrap">
+				<div class="ui-area-tab">
+				</div>
+				<div class="ui-area-content"  clstag="clickcart|keycount|xincart|cart_changeArea" >
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clr"></div>
+	<div class="w-line">
+		<div class="floater"></div>
+	</div>
+	<div class="tab-con"></div>
+	<div class="tab-con hide"></div>
+	<div class="tab-con hide"></div>
+</div>		</div>
+		<div class="cart-warp">
+			<div class="w">	
+				<div id="jd-cart" >
+	<div class="cart-main">
+		<div class="cart-thead">
+			<div class="column t-checkbox">
+				<div class="cart-checkbox">
+					<input type="checkbox"  checked="checked" id="toggle-checkboxes_up"  name="toggle-checkboxes" class="jdcheckbox" clstag="clickcart|keycount|xincart|cart_allCheck">
+					<label  class="checked"  for="">勾选全部商品</label>
+				</div>
+				全选
+			</div>
+			<div class="column t-goods">商品</div>
+			<div class="column t-props"></div>
+			<div class="column t-price">单价(元)</div>
+			<div class="column t-quantity">数量</div>
+			<div class="column t-sum">小计(元)</div>
+			<div class="column t-action">操作</div>
+		</div>
+		<div id="cart-list">
+				<input type="hidden" id="allSkuIds" value="1526774717,1523576596" />
+	<input type="hidden" id="outSkus" value="" />
+	<input type="hidden" id="isLogin" value="0" />
+	<input type="hidden" id="isNoSearchStockState" value="0" />
+	<input type="hidden" id="hiddenLocationId" />
+	<input type="hidden" id="hiddenLocation"/>
+	<input type="hidden" id="ids" value="1526774717,1523576596" />
+	<!-- 修改数量之前的值 -->
+	<input type="hidden" id="changeBeforeValue" value="" />
+	<input type="hidden" id="changeBeforeId" value="" />
+	<input type="hidden" value="1" id="checkedCartState"/>
+	<input type="hidden" value="47720" id="venderIds"/>
+							<div class="cart-item-list" id="cart-item-list-01">
+				<div class="cart-tbody" id="vender_47720">
+	<div class="shop">
+		<div class="cart-checkbox">
+			<input type="checkbox"  checked="checked"  name='checkShop' class="jdcheckbox" clstag="clickcart|keycount|xincart|cart_checkOn_shop">
+			<label  for="">勾选店铺内全部商品</label>
+		</div>
+		<span class="shop-txt">
+												<a class="shop-name" href="javascript:;" target="_blank" id="venderId_47720" clstag="clickcart|keycount|xincart|cart_shopName"></a>
+									</span>
+	</div>
+	<div class="item-list">
+				 <!-- 满减 -->
+						<!-- 满减 -->
+		<div class="item-full minus-item" id="product_promo_183444373">
+		<div class="item-header">
+			<div class="f-txt">
+													<span class="full-icon">满减<b></b></span>
+											
+						活动商品已购满299.00元
+						 
+	                					（<span class="ftx-01">已减20.00</span>）
+													
+													<a href="#" clstag="clickcart|keycount|xincart|cart_couDan" target="_blank" class="ftx-05">&nbsp;去凑单&nbsp;&gt;</a>
+							</div>
+			<div class="f-price">
+				<strong>328.00</strong>
+								<div class="ar">
+				<span class="ftx-01">减：20.00</span>
+				</div>
+							</div>
+		</div>
+					<!-- 单品-->
+		<div class="  item-item item-selected  " >
+		<div class="item-form">
+			<div class="cell p-checkbox">
+				<div class="cart-checkbox">
+					 <!-- 满减 -->
+						<input p-type="1526774717_11" manFanZeng="0" type="checkbox" name='checkItem' value="1526774717_11_183444373"  checked="checked"  class="jdcheckbox" data-bind="cbid" clstag="clickcart|keycount|xincart|cart_checkOn_sku">
+										<label for=""   class="checked"  >勾选商品</label>
+					<span class="line-circle"></span>
+				</div>
+			</div>
+			<div class="cell p-goods">
+				<div class="goods-item">
+					<div class="p-img">
+						<a href="http://item.jd.com/1526774717.html" target='_blank'><img alt="衣香丽影2015夏装新款白色简约百搭气质优雅POLO领直筒短袖衬衫女950441325 白色81 S" clstag="clickcart|keycount|xincart|cart_sku_pic" src="__PUBLIC__/images/5549f40dNda624455.jpg"></a>
+					</div>
+					<div class="item-msg">
+						<div class="p-name">
+							<a clstag="clickcart|keycount|xincart|cart_sku_name" href="#" target='_blank'>衣香丽影2015夏装新款白色简约百搭气质优雅POLO领直筒短袖衬衫女950441325 白色81 S</a>
+						</div>
+						<div class="p-extend">
+							<span class="promise" _giftcard="giftcard_1526774717">
+							</span>
+							<!-- 满减 -->
+																						<span class="promise" _yanbao="yanbao_1526774717_183444373">
+								<!--<i class="jd-service-icon"></i>
+								<a href="#none" class="ftx-03 jd-service" clstag="clickcart|keycount|xincart|cart_fuWu" data-tips="购买京东服务">购买京东服务</a>-->
+							</span>
+													</div>
+					</div>
+				</div>
+			</div>
+			<div class="cell p-props">
+			</div>
+			<div class="cell p-price">
+				<strong>239.00</strong>
+														<a class="sales-promotion" href="#none" clstag="clickcart|keycount|xincart|cart_youHui" data-tips="促销优惠">
+						促销优惠<b></b>
+					</a>
+					<div id="sales-promotion_1526774717" class="promotion-tips">
+						<div class="promotion-tit">促销信息<b></b></div>
+						<div class="promotion-cont">
+							<ul>
+                			                					                				<!-- 满减 -->
+									<li><input type="radio" multiPromotion="0" name="radioPromotion_1526774717" value="47720_183444373_1526774717_11_183444373" title="满299.00减20.00,满399.00减50.00,满599.00减100.00"  checked>满299.00减20.00,满399.00减50.00,满599.00减100.00</li>
+									                    			                			                					                				<!-- 满减 -->
+									<li><input type="radio" multiPromotion="0" name="radioPromotion_1526774717" value="47720_-300_1526774717_11_183444373" title="不使用活动优惠" >不使用活动优惠</li>
+									                    			                										</ul>
+							<div class="op-btns ac mt20">
+								<a href="#none" class="btn-1 select-promotion" clstag="clickcart|keycount|xincart|cart_youHuiChange">确定</a>
+								<a href="#none" class="btn-9 ml10 del cancel-promotion">取消</a>
+							</div>
+						</div>
+					</div>
+																	                	            										                            				</div>
+			<div class="cell p-quantity">
+				 <!-- 满减 -->
+					<div class="quantity-form" promoid="183444373">
+						<a href="javascript:void(0);" clstag="clickcart|keycount|xincart|cart_num_down" class="decrement disabled" id="decrement_47720_1526774717_1_11_183444373">-</a>
+						<input autocomplete="off" type="text" class="itxt" value="1" id="changeQuantity_47720_1526774717_1_11_0_183444373"/>
+						<a href="javascript:void(0);" clstag="clickcart|keycount|xincart|cart_num_up" class="increment" id="increment_47720_1526774717_1_11_0_183444373">+</a>
+					</div>
+								<div class="ac ftx-03 quantity-txt" _stock="stock_1526774717"></div>
+			</div>
+			<div class="cell p-sum">
+									<strong>239.00</strong>
+							</div>
+			<div class="cell p-ops">
+				 <!-- 满减 -->
+					<a id="remove_47720_1526774717_11_183444373"  clstag="clickcart|keycount|xincart|cart_sku_del" data-name="衣香丽影2015夏装新款白色简约百搭气质优雅..." data-more="removed_239.00_1" class="cart-remove" href="javascript:void(0);">删除</a>
+											<a href="javascript:void(0);" class="cart-follow" id="follow_47720_1526774717_11_183444373" clstag="clickcart|keycount|xincart|cart_sku_guanzhu">移到我的关注</a>
+																	</div>
+		</div>
+		<div class="item-extra">
+								</div>
+		<div class="item-line"></div>
+	</div>					<!-- 单品-->
+		<div class=" item-last item-item item-selected  " >
+		<div class="item-form">
+			<div class="cell p-checkbox">
+				<div class="cart-checkbox">
+					 <!-- 满减 -->
+						<input p-type="1523576596_11" manFanZeng="0" type="checkbox" name='checkItem' value="1523576596_11_183444373"  checked="checked"  class="jdcheckbox" data-bind="cbid" clstag="clickcart|keycount|xincart|cart_checkOn_sku">
+										<label for=""   class="checked"  >勾选商品</label>
+					<span class="line-circle"></span>
+				</div>
+			</div>
+			<div class="cell p-goods">
+				<div class="goods-item">
+					<div class="p-img">
+						<a href="#" target='_blank'><img alt="衣香丽影2015夏装新款简约宽松灯笼袖绣花雪纺衫女 经典白81 S" clstag="clickcart|keycount|xincart|cart_sku_pic" src="__PUBLIC__/images/5549f40dNda624455.jpg"></a>
+					</div>
+					<div class="item-msg">
+						<div class="p-name">
+							<a clstag="clickcart|keycount|xincart|cart_sku_name" href="#" target='_blank'>衣香丽影2015夏装新款简约宽松灯笼袖绣花雪纺衫女 经典白81 S</a>
+						</div>
+						<div class="p-extend">
+							<span class="promise" _giftcard="giftcard_1523576596">
+							</span>
+							<!-- 满减 -->
+																						<span class="promise" _yanbao="yanbao_1523576596_183444373">
+								<!--<i class="jd-service-icon"></i>
+								<a href="#none" class="ftx-03 jd-service" clstag="clickcart|keycount|xincart|cart_fuWu" data-tips="购买京东服务">购买京东服务</a>-->
+							</span>
+													</div>
+					</div>
+				</div>
+			</div>
+			<div class="cell p-props">
+			</div>
+			<div class="cell p-price">
+				<strong>89.00</strong>
+														<a class="sales-promotion" href="#none" clstag="clickcart|keycount|xincart|cart_youHui" data-tips="促销优惠">
+						促销优惠<b></b>
+					</a>
+					<div id="sales-promotion_1523576596" class="promotion-tips">
+						<div class="promotion-tit">促销信息<b></b></div>
+						<div class="promotion-cont">
+							<ul>
+                			                				                			                				                			                					                				<!-- 满减 -->
+									<li><input type="radio" multiPromotion="0" name="radioPromotion_1523576596" value="47720_183444373_1523576596_11_183444373" title="满299.00减20.00,满399.00减50.00,满599.00减100.00"  checked>满299.00减20.00,满399.00减50.00,满599.00减100.00</li>
+									                    			                			                					                				<!-- 满减 -->
+									<li><input type="radio" multiPromotion="0" name="radioPromotion_1523576596" value="47720_-300_1523576596_11_183444373" title="不使用活动优惠" >不使用活动优惠</li>
+									                    			                										</ul>
+							<div class="op-btns ac mt20">
+								<a href="#none" class="btn-1 select-promotion" clstag="clickcart|keycount|xincart|cart_youHuiChange">确定</a>
+								<a href="#none" class="btn-9 ml10 del cancel-promotion">取消</a>
+							</div>
+						</div>
+					</div>
+																	                	            										                            				</div>
+			<div class="cell p-quantity">
+				 <!-- 满减 -->
+					<div class="quantity-form" promoid="183444373">
+						<a href="javascript:void(0);" clstag="clickcart|keycount|xincart|cart_num_down" class="decrement disabled" id="decrement_47720_1523576596_1_11_183444373">-</a>
+						<input autocomplete="off" type="text" class="itxt" value="1" id="changeQuantity_47720_1523576596_1_11_0_183444373"/>
+						<a href="javascript:void(0);" clstag="clickcart|keycount|xincart|cart_num_up" class="increment" id="increment_47720_1523576596_1_11_0_183444373">+</a>
+					</div>
+								<div class="ac ftx-03 quantity-txt" _stock="stock_1523576596"></div>
+			</div>
+			<div class="cell p-sum">
+									<strong>89.00</strong>
+							</div>
+			<div class="cell p-ops">
+				 <!-- 满减 -->
+					<a id="remove_47720_1523576596_11_183444373"  clstag="clickcart|keycount|xincart|cart_sku_del" data-name="衣香丽影2015夏装新款简约宽松灯笼袖绣花雪..." data-more="removed_89.00_1" class="cart-remove" href="javascript:void(0);">删除</a>
+											<a href="javascript:void(0);" class="cart-follow" id="follow_47720_1523576596_11_183444373" clstag="clickcart|keycount|xincart|cart_sku_guanzhu">移到我的关注</a>
+																	</div>
+		</div>
+		<div class="item-extra">
+								</div>
+		<div class="item-line"></div>
+	</div>			</div>				</div>
+</div>
+			</div>
+					</div>
+	</div>
+</div>
+<div id="cart-floatbar" >
+	<div class="cart-toolbar">
+		<div class="toolbar-wrap">
+			<div class="selected-item-list hide">
+			</div>
+			<div class="options-box">
+				<div class="select-all">
+					<div class="cart-checkbox">
+						<input type="checkbox"  checked="checked"  id="toggle-checkboxes_down" name="toggle-checkboxes" class="jdcheckbox" clstag="clickcart|keycount|xincart|cart_allCheckDown">
+						<label  class="checked"  for="">勾选全部商品</label>
+					</div>
+					全选
+				</div>
+				<div class="operation">
+					<a href="#none" clstag="clickcart|keycount|xincart|cart_somesku_del" class="remove-batch">删除选中的商品</a>
+											<a href="#none" class="follow-batch" clstag="clickcart|keycount|xincart|cart_somesku_guanzhu">移到我的关注</a>
+									</div>
+				<div class="clr"></div>
+				<div class="toolbar-right">
+					<div class="normal">
+						<div class="comm-right">
+							<div class="btn-area">
+								<a href="javascript:void(0);" onClick="return false;"  clstag="clickcart|keycount|xincart|cart_gotoOrder" class="submit-btn ">
+								去结算<b></b></a>
+								<!-- <a href="javascript:void(0);" class="submit-btn submit-btn-disabled">
+								去结算<b></b></a> -->
+							</div>
+							<div class="price-sum">
+								<div>
+									<span class="txt">总价（不含运费）：</span>
+									<span class="price sumPrice"><em>￥308.00</em></span >
+									<br>
+									<span class="txt">已节省：</span>
+									<span  class="price totalRePrice">-￥20.00</span >
+								</div>
+							</div>
+							<div class="amount-sum">
+								已选择<em>2</em>件商品<b class="up" clstag="clickcart|keycount|xincart|cart_thumbnailOpen"></b>
+							</div>
+							<div class="clr"></div>
+						</div>
+					</div>
+					<div class="combine">
+						<div class="comm-right">
+							<div class="btn-area">
+								<a href="javascript:void(0);" onClick="return false;" clstag="clickcart|keycount|xincart|cart_gotoOrderOut" class="jdInt-submit-btn">
+								去全球购结算<b></b></a>
+								<a href="javascript:void(0);" onClick="return false;" clstag="clickcart|keycount|xincart|cart_gotoOrder" class="common-submit-btn">
+								去京东结算<b></b></a>
+							</div>
+							<div class="price-sum">
+								<div>
+									<span class="txt">总价（不含运费）：</span>
+									<span class="price sumPrice"><em>￥308.00</em></span >
+									<br>
+									<span class="txt">已节省：</span>
+									<span  class="price totalRePrice">-￥20.00</span >
+								</div>
+							</div>
+							<div class="amount-sum">
+								已选择<em>2</em>件商品<b class="up"></b>
+							</div>
+							<div class="clr"></div>
+						</div>
+						<div class="clr"></div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<div class="cart-removed">
+	<div class="r-tit">已删除商品，您可以重新购买或加关注：</div>
+</div>			</div>
+		</div>
+		<div class="w">
+		<div id="c-tabs"  data-widget="tabs">
+		<div class="tab-nav">
+			<ul>
+				<li class="c-tabs-item curr" data-widget="tab-item"><h3>猜你喜欢</h3></li>
+									<li class="c-tabs-item" data-widget="tab-item"><h3>我的关注</h3></li>
+								<li class="c-tabs-item" data-widget="tab-item"><h3>最近浏览的</h3></li>
+			</ul>
+		</div>
+		<div class="tab-con" id="guess-products"></div>
+		    		<div class="tab-con hide" id="favorite-products"></div>
+				<div class="tab-con hide" id="history-products"></div>
+</div>		</div>
+	<div class="w">
+		<div class="backpanel-inner">
+	<div class="bp-item " id="bp-faq">
+		<a href="#" class="survey" target="_blank" clstag="pageclick|keycount|cart__201503041|6">常见问题</a>
+	</div>
+	<div class="bp-item " id="bp-survery">
+		<a href="#" class="survey" target="_blank" clstag="clickcart|keycount|xincart|cart_gotoFeedback">我要反馈</a>
+	</div>
+	<div class="bp-item " id="bp-backtop">
+		<a href="#none" class="backtop" target="_self" clstag="clickcart|keycount|xincart|cart_backTop">返回顶部</a>
+	</div>
+</div>	</div>
+	
+</div>
+<!-- /main -->
+
+<div class="w">
+	<div id="service-2013">
+		<dl class="fore1">
+			<dt><b></b><strong>购物指南</strong></dt>
+			<dd>
+				<div><a href="#" target="_blank" rel="nofollow">购物流程</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">会员介绍</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">团购/机票</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">常见问题</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">大家电</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">联系客服</a></div>
+			</dd>
+		</dl>
+		<dl class="fore2">
+			<dt><b></b><strong>配送方式</strong></dt>
+			<dd>
+				<div><a href="#" target="_blank" rel="nofollow">上门自提</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">211限时达</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">配送服务查询</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">配送费收取标准</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">如何送礼</a></div>
+				<div><a href="#" target="_blank">Global Shipping</a></div>
+			</dd>
+		</dl>
+		<dl class="fore3">
+			<dt><b></b><strong>支付方式</strong></dt>
+			<dd>
+				<div><a href="#" target="_blank" rel="nofollow">货到付款</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">在线支付</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">分期付款</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">邮局汇款</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">公司转账</a></div>
+			</dd>
+		</dl>
+		<dl class="fore4">
+			<dt><b></b><strong>售后服务</strong></dt>
+			<dd>
+				<div><a href="#" target="_blank" rel="nofollow">售后政策</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">价格保护</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">退款说明</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">返修/退换货</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">取消订单</a></div>
+			</dd>
+		</dl>
+		<dl class="fore5">
+			<dt><b></b><strong>特色服务</strong></dt>
+			<dd>
+				<div><a href="#" target="_blank">夺宝岛</a></div>
+				<div><a href="#" target="_blank">DIY装机</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">延保服务</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">京东卡</a></div>
+				<div><a href="#" target="_blank" rel="nofollow">节能补贴</a></div>
+			</dd>
+		</dl>
+		<span class="clr"></span> 
+	</div>
+</div>
+
+<div class="w">
+	<div id="footer-2013">
+		<div class="links">
+			<a href="#" target="_blank" rel="nofollow">关于我们</a>|<a href="#" target="_blank" rel="nofollow">联系我们</a>|<a href="#" target="_blank" rel="nofollow">人才招聘</a>|<a href="#" target="_blank" rel="nofollow">商家入驻</a>|<a href="#" target="_blank" rel="nofollow">广告服务</a>|<a href="#" target="_blank" rel="nofollow">手机京东</a>|<a href="#" target="_blank">友情链接</a>|<a href="#" target="_blank">销售联盟</a>|<a target="_blank" href="#">京东社区</a>|<a target="_blank" href="http://gongyi.jd.com">京东公益</a>
+		</div>
+		<div class="copyright">
+			北京市公安局朝阳分局备案编号110105014669&nbsp;&nbsp;|&nbsp;&nbsp;京ICP证070359号&nbsp;&nbsp;|&nbsp;&nbsp;互联网药品信息服务资格证编号(京)-非经营性-2011-0034<br>
+			<a target="_blank" href="images/f_music.jpg" rel="nofollow">音像制品经营许可证苏宿批005号</a>&nbsp;&nbsp;|&nbsp;&nbsp;出版物经营许可证编号新出发(苏)批字第N-012号&nbsp;&nbsp;|&nbsp;&nbsp;互联网出版许可证编号新出网证(京)字150号<br>
+			<a target="_blank" href="images/wlwhjyxkz.jpg">网络文化经营许可证京网文[2011]0168-061号</a>&nbsp;&nbsp;Copyright&nbsp;&copy;&nbsp;2004-2014&nbsp;&nbsp;京东JD.com&nbsp;版权所有<br />
+			京东旗下网站：<a href="#" target="_blank">360TOP</a>&nbsp;&nbsp;<a href="#" target="_blank">迷你挑</a>&nbsp;&nbsp;<a target="_blank" href="#">English Site</a>
+		</div>
+		<div class="authentication">
+			<a href="#" target="_blank" rel="nofollow"><img data-lazyload="images/108_40_zZOKnl.gif" width="108" height="40" alt="经营性网站备案中心"></a>
+			<script type="text/JavaScript">function CNNIC_change(eleId){var str= document.getElementById(eleId).href;var str1 =str.substring(0,(str.length-6));str1+=CNNIC_RndNum(6); document.getElementById(eleId).href=str1;}function CNNIC_RndNum(k){var rnd=""; for (var i=0;i < k;i++) rnd+=Math.floor(Math.random()*10); return rnd;}</script>
+			<a href="#" tabindex="-1" id="urlknet" target="_blank" rel="nofollow"><img alt="&#x53EF;&#x4FE1;&#x7F51;&#x7AD9;" name="CNNIC_seal" border="true" data-lazyload="images/rBEHaFCFC5QIAAAAAAASVQX9RAYAACb2wHUV1kAABJt760.gif" width="108" height="40" oncontextmenu="return false;" onClick="CNNIC_change('urlknet')" /></a><a href="#" target="_blank" rel="nofollow"><img data-lazyload="images/rBEIDE_nzcIIAAAAAAB30mYXo5QAACrhACj22IAAHfq378.png" width="108" height="40" alt="朝阳网络警察"></a><a href="#" target="_blank" rel="nofollow"><img data-lazyload="images/112_40_WvArIl.png" width="112" height="40"></a> 
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var getPriceNum = function(skus, iploc, $wrap, perfix, callback) {
+            skus = typeof skus === 'string' ? [skus]: skus;
+            $wrap = $wrap || $('body');
+            perfix = perfix || 'J-p-';
+
+            var ipLocParam = '';
+
+            if ( iploc !== null ) {
+                if ( readCookie('ipLoc-djd') ) {
+                    ipLocParam = '&area=' + readCookie('ipLoc-djd').replace(/-/g, '_');
+                } else {
+                    ipLocParam = '&area=1';
+                }
+            }
+            if ( typeof skus === 'undefined' ) {
+                return;
+            }
+
+            var url = 'http://p.3.cn/prices/mgets?type=1&skuIds=J_' + skus.join(',J_') + ipLocParam;
+            $.ajax({
+                url: url,
+                dataType: 'jsonp',
+                success: function (r) {
+                    if (!r && !r.length) {
+                        return false;
+                    }
+
+                    for (var i = 0; i < r.length; i++) {
+                        if ( !r[i].id ) {
+                            return false;
+                        }
+
+                        var sku = r[i].id.replace('J_', '');
+                        var wmePrice = parseFloat(r[i].p);
+                        var wmaPrice = parseFloat(r[i].m);
+                        if (wmePrice > 0) {
+                            $wrap.find('.'+ perfix + sku).html(r[i].p + '');
+                            $wrap.find('.J-m-' + sku).html(r[i].m + '');
+                            $wrap.find('.J-dis-' + sku).html((Math.ceil(r[i].p/r[i].m * 100) / 10).toFixed(1) + '折');
+                        } else {
+                            $wrap.find('.'+ perfix + sku).html('暂无报价');
+                        }
+                        if ( typeof callback === 'function' ) {
+                            callback(sku, r[i], url);
+                        }
+                    }
+                }
+            });
+        };
+        getPriceNum('1950961439,J_1950306008,J_1950262100,J_1950908522,J_1950070832,J_1950780011,J_1950245029,J_1950762094,J_1950228251,J_1950295177,J_1950235688,J_1950676786,J_1950219380,J_1950779858,J_1951020755,J_1950342885,J_1950270265,J_1950761871,J_1950683451,J_1950994502,J_1950289301,J_1950802973,J_1950303344,J_1950252395,J_1951027416,J_1950118202,J_1950342665,J_1950240517,J_1950253818,J_1950240515,J_1950240513,J_1950322871,J_1950322872,J_1950322873,J_1950776966,J_1950852415,J_1950868916,J_1950219388,J_1951113875,J_1951017115,J_1950533812,J_1950638065,J_1950651744,J_1951016375,J_1950295177,J_1950297967,J_1950235646,J_1950511992,J_1950326625,J_1950305968,J_1950690932,J_1950334335,J_1950499308,J_1950235546,J_1950776943,J_1950779858,J_1950931699,J_1950868622,J_1950167501,J_1951016317,J_1950693837,J_1951054932,J_1950447021,J_1950868616,J_1950509766,J_1950450651,J_1950312242,J_1950255539,J_1950314223,J_1950852580,J_1950305221,J_1950542855,J_1950324538,J_1950292380,J_1950477621,J_1950922775,J_1950305314,J_1950744548,J_1950776654,J_1950325207,J_1950668876,J_1950353130,J_1950477647,J_1951060956,J_1950438169,J_1950225844,J_1950779863,J_1950245675,J_1950226624', '', $('.price'));
+    //seajs.use('product/home_textile/0.0.1/js/home_textile.js');
+</script>
+<!--/ /widget/floors/floors.vm -->
+<!--/ /widget/floors/floors.vm -->
+<script type="text/javascript">
+var jaq = jaq || [];
+jaq.push(['account', 'JA2015_111140']);
+jaq.push(['domain', 'jd.hk']);
+jaq.push(['erp_account', '']);
+(function () {
+var ja = document.createElement('script');
+ja.type = 'text/javascript';
+ja.async = true;
+ja.src = ('https:' == document.location.protocol ? 'https://cscssl' : 'http://csc') + '.jd.com/joya.js';
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ja, s);
+})();
+</script>
+
+<script type="text/javascript" src="__PUBLIC__/css/loadFa_toJson.js?aid=0_0_6595"></script>
+<script type="text/javascript" src="__PUBLIC__/css/widget.js" source="widget"></script>
+</body>
+</html><!-- Google Tag Manager -->
+<script type="text/javascript">
+    function GetCategoryID() {
+        var pcat = "";
+        var secondChannel = location.href.match(/(\d*)-(\d*)(.*)\.html/);
+        if (secondChannel != null) {
+            pcat = secondChannel[1] + "|" + secondChannel[2];
+        } else {
+            var firstChannel = location.href;
+            switch (firstChannel) {
+                case "http://channel.jd.com/electronic.html":
+                    pcat = "737";
+                    break;
+                case "http://shouji.jd.com":
+                    pcat = "9987";
+                    break;
+                case "http://channel.jd.com/yunyingshang.html":
+                    pcat = "9987|6880";
+                    break;
+                case "http://channel.jd.com/shouji.html":
+                    pcat = "9987|653";
+                    break;
+                case "http://channel.jd.com/peijian.html":
+                    pcat = "9987|830";
+                    break;
+                case "http://channel.jd.com/digital.html":
+                    pcat = "652";
+                    break;
+                case "http://channel.jd.com/computer.html":
+                    pcat = "670";
+                    break;
+                case "http://channel.jd.com/home.html":
+                    pcat = "1620";
+                    break;
+                case "http://channel.jd.com/furniture.html":
+                    pcat = "9847";
+                    break;
+                case "http://channel.jd.com/decoration.html":
+                    pcat = "9855";
+                    break;
+                case "http://channel.jd.com/kitchenware.html":
+                    pcat = "6196";
+                    break;
+                case "http://channel.jd.com/clothing.html":
+                    pcat = "1315";
+                    break;
+                case "http://channel.jd.com/shoes.html":
+                    pcat = "11729";
+                    break;
+                case "http://channel.jd.com/beauty.html":
+                    pcat = "1316";
+                    break;
+                case "http://channel.jd.com/bag.html":
+                    pcat = "1672";
+                    break;
+                case "http://channel.jd.com/watch.html":
+                    pcat = "5025";
+                    break;
+                case "http://channel.jd.com/jewellery.html":
+                    pcat = "6144";
+                    break;
+                case "http://channel.jd.com/sports.html":
+                    pcat = "1318";
+                    break;
+                case "http://channel.jd.com/auto.html":
+                    pcat = "6728";
+                    break;
+                case "http://baby.jd.com":
+                    pcat = "1319";
+                    break;
+                case "http://diannao.jd.com":
+                    pcat = "670";
+                    break;
+                case "http://shuma.jd.com":
+                    pcat = "652";
+                    break;
+                case "http://channel.jd.com/toys.html":
+                    pcat = "6233";
+                    break;
+                case "http://channel.jd.com/food.html":
+                    pcat = "1320";
+                    break;
+                case "http://channel.jd.com/pet.html":
+                    pcat = "6994";
+                    break;
+                case "http://channel.jd.com/men.html":
+                    pcat = "1315|1342";
+                    break;
+                case "http://channel.jd.com/women.html":
+                    pcat = "1315|1343";
+                    break;
+                case "http://channel.jd.com/mensbag.html":
+                    pcat = "1672|2576";
+                    break;
+                case "http://channel.jd.com/Children.html":
+                    pcat = "1319|11842";
+                    break;
+                case "http://channel.jd.com/accessories.html":
+                    pcat = "1315|1346";
+                    break;
+                case "http://channel.jd.com/shishangshipin.html":
+                    pcat = "6144|6182";
+                    break;
+                case "http://channel.jd.com/zuanshi.html":
+                    pcat = "6144|6160";
+                    break;
+                case "http://channel.jd.com/feicui.html":
+                    pcat = "6144|6167";
+                    break;
+                case "http://channel.jd.com/silver.html":
+                    pcat = "6144|6155";
+                    break;
+                case "http://channel.jd.com/huangjin.html":
+                    pcat = "6144|6145";
+                    break;
+                case "http://channel.jd.com/shuijing.html":
+                    pcat = "6144|6172";
+                    break;
+                case "http://channel.jd.com/caibao.html":
+                    pcat = "6144|6174";
+                    break;
+                case "http://channel.jd.com/zhenzhu.html":
+                    pcat = "6144|12042";
+                    break;
+                case "http://channel.jd.com/mushouchuan.html":
+                    pcat = "6144|12041";
+                    break;
+                case "http://channel.jd.com/jintiao.html":
+                    pcat = "6144|6146";
+                    break;
+                case "http://channel.jd.com/bojin.html":
+                    pcat = "6144|12040";
+                    break;
+                case "http://channel.jd.com/luxury.html":
+                    pcat = "1672";
+                    break;
+                case "http://channel.jd.com/yundong.html":
+                    pcat = "1318";
+                    break;
+                case "http://channel.jd.com/mensshoes.html":
+                    pcat = "11729|11730";
+                    break;
+                case "http://channel.jd.com/womensshoes.html":
+                    pcat = "11729|11731";
+                    break;
+                case "http://channel.jd.com/underwear.html":
+                    pcat = "1315";
+                    break;
+                case "http://channel.jd.com/wine.html":
+                    pcat = "12259";
+                    break;
+                case "http://channel.jd.com/life.html":
+                    pcat = "1620";
+                    break;
+                case "http://book.jd.com":
+                    pcat = "1713";
+                    break;
+                case "http://channel.jd.com/freshfood.html":
+                    pcat = "12218";
+                    break;
+                case "http://channel.jd.com/womensbag.html":
+                    pcat = "1672|2575";
+                    break;
+                case "http://channel.jd.com/yundongcheng.html":
+                    pcat = "1318|12099";
+                    break;
+                case "http://channel.jd.com/public/peijian.shtml":
+                    pcat = "9987|830";
+                    break;
+            }
+        }
+        return pcat;
+    }
+    var pcatVar = GetCategoryID();
+
+    var google_tag_params = {
+        ecomm_pagetype: "category",
+        ecomm_pcat: pcatVar
+    };
+</script>
+<script type="text/javascript">dataLayer = [{
+    'google_tag_params': window.google_tag_params
+}];
+</script>

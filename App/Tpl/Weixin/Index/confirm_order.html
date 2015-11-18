@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>确认订单</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+body{ background:#E1E1E1;}
+</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<!--数量加减-->
+<script type="text/javascript"> 
+ $(document).ready (function () 
+    { 
+ //var pl = $("p:last"); 
+     var reg = /(.*[\:\：]\s*)([\+\d\.]+)(\s*元)/g; 
+     $ (".sy_minus").click (function () 
+     { 
+     var me = $ (this), txt = me.next (":text"), pc = me.closest("p"); 
+     var val = parseFloat (txt.val ()); 
+     val = val < 1 ? 1 : val; 
+     txt.val (val - 1); 
+     var price = parseFloat (pc.prev("p").text().replace(reg,'$2')) * txt.val (); 
+     pc.next("p").text (pc.next("p").text().replace(reg, "$1" + price + "$3")); 
+     var sum = 0; 
+     $(".p_num").next("p").each(function (i, dom) 
+     { 
+      sum += parseFloat ($(this).text().replace(reg, "$2")); 
+     }); 
+     pl.text(pl.text().replace(reg, "$1" + sum + "$3")); 
+     }); 
+       
+     $(".sy_plus").click (function () 
+     { 
+      var me = $ (this), txt = me.prev (":text"), pc = me.closest("p"); 
+     var val = parseFloat (txt.val ()); 
+     txt.val (val + 1); 
+     var price = parseFloat (pc.prev("p").text().replace(reg,'$2')) * txt.val (); 
+     pc.next("p").text (pc.next("p").text().replace(reg, "$1" + price + "$3")); 
+     var sum = 0; 
+     $(".p_num").next("p").each(function (i, dom) 
+     { 
+      sum += parseFloat ($(this).text().replace(reg, "$2")); 
+     }); 
+     pl.text(pl.text().replace(reg, "$1" + sum + "$3")); 
+     }); 
+    })[0].onselectstart = new Function ("return false"); 
+</script>
+
+<!--弹出层2-->
+<LINK href="css/dialog.css" type="text/css" rel="stylesheet">
+<SCRIPT src="js/jquery.min.js" type=text/javascript></SCRIPT>
+<SCRIPT src="js/dialog.js" type="text/javascript"></SCRIPT>
+<!--[if lte IE 8]>
+<SCRIPT src="js/html5.js" type=text/javascript></SCRIPT>
+<![endif]-->
+</head>
+<body>
+<div class="confirm_list">
+	<h1>西安交通大学南校区  2号楼</h1>
+	<ul>		
+	    <li><b>寝室号</b> <p><input name="" type="text" placeholder="请输入寝室号"/></p></li>
+	    <li><b>手机号</b> <p><input name="" type="text" placeholder="请输入手机号"/></p></li>
+	</ul>
+</div>
+
+<div class="white_bg">
+	<dl class="cart_list">
+		<dt>
+			<a href="javascript:" onClick="new Dialog({type:'img',value:'images/product_r6_c2.png'}).show();"><img src="images/product_r6_c2.png" border="0" /></a> </dt>
+		<dd>
+		  <b><a href="product_show.html">1樱桃季 台湾原装特产 南姜汁黑糖姜茶</a></b>
+		  <b>
+			  <p class="p_num"> 
+				 <span class="sy_minus" id="sy_minus_gid1">-</span>  
+				 <input class="sy_num" id="sy_num_gid1" readonly="readonly" type="text" name="number1" value="1" />  
+				 <span class="sy_plus" id="sy_plus_gid1">+</span> 
+		  </p>
+				 <i>合计：￥19.90</i>
+		  </b>
+		</dd>
+	</dl>
+</div>
+
+<div class="confirm_list">
+	<ul>		
+	    <li class="font_gray" style="text-align:right;">共5件商品&nbsp;&nbsp;总金额：￥5.00 </li>
+	</ul>
+	
+	<ul>		
+	    <li>
+	      <textarea placeholder="请输入其他您想对店长说的话~"></textarea>
+	    </li>
+	</ul>
+	
+	<h2>运费：￥0.00  <span class="font_red">合计：￥5.00</span></h2>
+</div>
+
+<div class="new_play">
+	<fieldset>
+	<legend>新玩法</legend>
+	<p>分享到朋友圈或者好友群等任何地方，每个好友都可以为你
+	支付，凑齐后自动发货。</p>
+	</fieldset>
+</div>
+
+满5元时：
+<div class="confirm_btns">
+	<ul>
+		<li><input name="" type="button" value="好友请" class="b1" onclick="location.href='friend_buy.html'"/></li>
+		<li><input name="" type="button" value="自己买" class="b2" onClick="new Dialog({type:'id',value:'myself_buy'}).show();"/></li>
+	</ul>
+</div>
+
+不满5元时：
+<div class="confirm_btns">
+	<ul>
+		<li><input name="" type="button" value="好友请" class="b1" disabled="disabled"/></li>
+		<li><input name="" type="button" value="自己买" class="b2" disabled="disabled"//></li>
+	</ul>
+</div>
+
+<div id="myself_buy" style="display:none">
+	<div class="myself_buy">
+		<ul>
+			<li class="font_gray">请选择支付方式</li>
+			<li class="font_red"><a href="#">微信支付</a></li>
+			<li><a href="#">支付宝支付</a></li>
+			<li><a href="#">银联支付</a></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+<?php	return array ( 'id' => '1', 'pubchatid' => 'gh_b38acb2b4f1c', 'pubchatname' => '叮咕', 'pubchatcheck' => '1', 'token' => 'dinggu', 'appid' => 'wx5c072e1680bf00a5', 'appsecret' => '01cd8571bc20c8060b8de4144b7484ac', 'mchid' => '1286562501', 'partnerkey' => 'vTmkukaCsr4m1lTpYmwhx4lyRgvi7b8k', );?>

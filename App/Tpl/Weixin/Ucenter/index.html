@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的-{twotree#$webinfo.web_name}</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js"></script>
+<style type="text/css">
+body{ background:#E1E1E1;}
+</style>
+</head>
+<body>
+<dl class="ucenter_top" style="margin-top:-15px;" onclick='location.href="{twotree#:U('edit_data')}"'>
+	<dt>
+		<img src="{twotree#$user_info.headimgurl}" />
+	</dt>
+	<dd>
+		{twotree#$user_info.nickname|default='暂无'}
+	</dd>
+</dl>
+
+<div class="ucenter_total">
+	<ul>
+		<li><a href="{twotree#:U('Ucenter/favorite')}">{twotree#$collect_count}<b>喜欢</b></a></li>
+	    <li><a href="{twotree#:U('Ucenter/jifen')}">{twotree#$user_info.jifen} </a> <b>咕币 <i>
+        <a id="-btn-sign">签到</a></i></b></li>
+	    <li class="s">{twotree#$user_info.money_account|default=0}<b>余额 <i><a href="{twotree#:U('Ucenter/recharge')}">充值</a></i></b></li>
+	</ul>
+</div>
+
+<div class="ucenter_list">
+	<ul>
+		<li class="s"><a href="#" class="a1">我的订单</a></li>
+		<dl class="order_class">
+			<dt><a href="{twotree#:U('order_list',array('pay_status'=>1))}">自己买</a></dt>
+			<dd><a href="{twotree#:U('order_list',array('pay_status'=>0, 'order_style'=>2))}">好友请</a></dd>
+		</dl>
+	</ul>
+	
+		<ul>
+		<li><a href="{twotree#:U('feedback')}" class="a2">投诉反馈</a></li>
+	</ul>
+	<if condition="$user_info['role_id'] eq 1">
+	<ul>
+		<li><a href="{twotree#:U('apply_shopkeeper1')}" class="a3">店长申请</a></li>
+	</ul>
+    </if>
+</div>
+
+<div class="space60"></div>
+<div id="bottomNav">
+<!--底部导航-->
+<include file="Public:footbar"/>
+<!--底部导航-->
+</div>
+</body>
+<script>
+$(function(){
+	$("#btn-sign").click(function(){
+		$.post("{twotree#:U('Ajax/sign')}",{'act':'sign'},function(data){
+			if(data==1){
+				alert('签到成功');
+			}else{
+				alert('今天已经签过到了，明天再来吧');
+			}
+			location.reload();
+		});
+	});
+});
+</script>
+</html>

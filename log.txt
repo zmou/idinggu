@@ -1,0 +1,12 @@
+array (
+  'name' => '茠炌',
+  'sex' => '1',
+  'birthday' => '1995-05-17',
+  'email' => '360206528@qq.com',
+  'mobile' => '18302996714',
+  'hobby' => '',
+  'address' => '陕西省商洛市',
+  'shipping_address' => '西安财经学院行知学院',
+  'jifen' => '20',
+  'profile_complete' => '1',
+)

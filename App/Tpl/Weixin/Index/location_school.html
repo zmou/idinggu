@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{twotree#$webinfo.web_name}</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="location_bg">
+<div style="margin-top:-20px;" class="header">
+	<div class="nav_l">
+		<a href="{twotree#:U('location_city')}"></a>
+	</div>
+	<div class="nav_r">
+		<a href="{twotree#:U('location_city')}">切换城市</a>
+	</div>
+</div>
+
+<div class="space40"></div>
+
+<div style="margin-top:-20px"  class="search">
+	<div  class="box">
+		<form action="index.php" method="get">
+		<b><input name="school" type="text" placeholder="请输入学校名称查询" value="{twotree#$Think.get.school}"/></b>
+		<p><input type="hidden" name="m" value="Index"/>
+		<input type="hidden" name="a" value="location_school"/>
+		<input type="hidden" name="city_id" value="{twotree#$city_id}"/>
+		<input type="submit" class="btn" value=""/></p>
+
+		</form>
+
+
+	</div>
+</div>
+
+<volist name="county_list" id="item">
+<div class="school_list">
+	<h1>{twotree#$key}</h1>
+	<ul>
+    	<volist name="item" id="val">
+		<li onclick='location.href="{twotree#:U('location_building',array('sch_id'=>$val['id']))}"' >{twotree#$val['name']}</li>
+        </volist>
+	</ul>
+</div>
+</volist>
+<if condition="empty($county_list)">
+<div class="school_list">
+	<p><center>该地区暂未开通</center></p>
+</div>
+</if>
+</body>
+
+</html>

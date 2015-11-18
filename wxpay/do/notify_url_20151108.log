@@ -1,0 +1,47 @@
+æ‰§è¡Œæ—¥æœŸï¼š2015-11-08-10ï¼?Mï¼?S
+¡¾Recieve NOtice¡¿:
+
+
+
+æ‰§è¡Œæ—¥æœŸï¼š2015-11-08-16ï¼?Mï¼?S
+update twotree_order_info set pay_status=1,pay_money=2.4,pay_time=1446970731,out_trade_no='DG11081618439881', transaction_id='1006850914201511081508696680' where order_sn='DG11081618439881'¡¾Recieve NOtice¡¿:
+<xml><appid><![CDATA[wx8c5b2610f8e96334]]></appid>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[240]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<mch_id><![CDATA[1265531901]]></mch_id>
+<nonce_str><![CDATA[8rybfmcefhfl97brmuvtfhlwvz6buyb4]]></nonce_str>
+<openid><![CDATA[oKhP4wuAccI1RLLhWGSEEUr4YE88]]></openid>
+<out_trade_no><![CDATA[DG11081618439881]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[ECF2918201F33EFAB6DEC285340E2F2B]]></sign>
+<time_end><![CDATA[20151108161849]]></time_end>
+<total_fee>240</total_fee>
+<trade_type><![CDATA[JSAPI]]></trade_type>
+<transaction_id><![CDATA[1006850914201511081508696680]]></transaction_id>
+</xml>
+
+
+æ‰§è¡Œæ—¥æœŸï¼š2015-11-08-16ï¼?Mï¼?S
+¡¾Pay Success¡¿:
+<xml><appid><![CDATA[wx8c5b2610f8e96334]]></appid>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[240]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<mch_id><![CDATA[1265531901]]></mch_id>
+<nonce_str><![CDATA[8rybfmcefhfl97brmuvtfhlwvz6buyb4]]></nonce_str>
+<openid><![CDATA[oKhP4wuAccI1RLLhWGSEEUr4YE88]]></openid>
+<out_trade_no><![CDATA[DG11081618439881]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[ECF2918201F33EFAB6DEC285340E2F2B]]></sign>
+<time_end><![CDATA[20151108161849]]></time_end>
+<total_fee>240</total_fee>
+<trade_type><![CDATA[JSAPI]]></trade_type>
+<transaction_id><![CDATA[1006850914201511081508696680]]></transaction_id>
+</xml>
+update twotree_order_info set pay_status=1,pay_money=2.4,pay_time=1446970731,out_trade_no='DG11081618439881', transaction_id='1006850914201511081508696680' where order_sn='DG11081618439881'
+

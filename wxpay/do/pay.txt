@@ -1,0 +1,1 @@
+update ty_wx_order set is_pay=1,pay_time=1446646245 where code=DG11042210327111
