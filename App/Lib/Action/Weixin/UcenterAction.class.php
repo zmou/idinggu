@@ -743,13 +743,6 @@ class UcenterAction extends BaseAction{
 			$this->user_info['id'] = 11;
 		}
 		$shop = M('shop')->where(array('uid'=>$this->user_info['id']))->find();
-		//28
-
-		$today = strtotime('today');
-		$map=array('shop_id'=>$shop['id'],'pay_time'=>array('EGT',$today),'role_id'=>1);
-
-		//今日订单数量
-		$today_order_count=$db->where($map)->count();
 
 		//今日订单总金额
 		$map['order_status'] = 3;		//确认收货订单
@@ -767,6 +760,26 @@ class UcenterAction extends BaseAction{
 		$newRoleTime = strtotime("2015-11-20 18:00:00");
 		
 		if (time() >= $newRoleTime) {
+			$today = strtotime('today');
+			$par1 = array(
+				'shop_id'            => $shop['id'],
+				'pay_time'           => array('EGT', $newRoleTime),
+				'confirm_order_time' => array('ELT', $today),
+				'role_id'            => 1
+			);
+			//今日订单数量1
+			$today_order_count1 = $db->where($par1)->count();
+			
+			$par2 = array(
+				'shop_id'            => $shop['id'],
+				'pay_time'           => array('LT', $newRoleTime),
+				'confirm_order_time' => array('ELT', $today),
+				'role_id'  		     => 1
+			);
+			//今日订单数量2
+			$today_order_count2 = $db->where($par2)->count();
+			$today_order_count = $today_order_count1 + $today_order_count2;
+		
 			// 使用新的提现规则
 			/***********************calculate user income	IMPORTANT!!!! ************************/
 			//1.set time limited
@@ -813,6 +826,11 @@ class UcenterAction extends BaseAction{
 			}
 			/***********************************END************************************************/
 		} else {
+			$today = strtotime('today');
+			$map = array('shop_id'=>$shop['id'],'pay_time'=>array('EGT',$today),'role_id'=>1);
+
+			//今日订单数量
+			$today_order_count = $db->where($map)->count();
 			// 使用旧的提现规则
 			/********************calculate user income	IMPORTANT!!!! *****************************/
 			//1.set time limited
