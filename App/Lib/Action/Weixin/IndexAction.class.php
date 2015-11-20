@@ -257,7 +257,7 @@
 
 					$collect_count = M('goods_collect')->where(array('goods_id'=>$goods['id']))->count();
 					$goods_info['collect'] = $goods_info['collect_num'] + $collect_count;
-					$goods_info['sale_num'] = $goods_info['sale_num'] + $goods['base_num'];
+					$goods_info['sale_num'] = $goods_info['base_num'] + $goods['sale_num'];
 					$goods_info['store_num'] = $goods['store_num'];
 					//var_dump($goods_info);exit;
 
