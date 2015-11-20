@@ -777,10 +777,9 @@ class UcenterAction extends BaseAction{
 			$today_order_count1 = $db->where($par1)->count();
 			
 			$par2 = array(
-				'shop_id'            => $shop['id'],
-				'pay_time'           => array('LT', $newRoleTime),
-				'confirm_order_time' => array('EGT', $today),
-				'role_id'  		     => 1
+				'shop_id'  => $shop['id'],
+				'pay_time' => array('LT', $newRoleTime),
+				'role_id'  => 1
 			);
 			//今日订单数量2
 			$today_order_count2 = $db->where($par2)->count();
