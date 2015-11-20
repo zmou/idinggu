@@ -765,12 +765,12 @@ class UcenterAction extends BaseAction{
 		//1.set time limited
 		$today_time = strtotime('today');
 
-		if(I('session.check_money_today') <= $today_time || 1)
+		if(I('session.check_money_today') != $today_time || 1)
 		{
 			//echo $today_time.'|'.I('sesseion.check_money_today');
 			$order = M('order_info');
 			//2.calculate money by user order
-			$map = array('role_id'=>1, 'is_new'=>1, 'shop_id'=>$shop['id'], 'order_status'=>3);
+			$map = array('role_id'=>1, 'is_new'=>1,'pay_time'=>array('ELT',$today_time), 'shop_id'=>$shop['id'], 'order_status'=>3);
 			$new_money = $order->where($map)->sum('total_fee');
 			//3.update user money
 			$new_money = $new_money * 0.95;
