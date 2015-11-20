@@ -64,7 +64,7 @@
 		  <p class="p_num"> 
 			 <span class="sy_minus num_sub" id="sy_minus_gid1" goods_id="{twotree#$item.goods_id}">-</span>  
 			 <input class="sy_num" id="sy_num_gid1" readonly="readonly" type="text" value="{twotree#$item.goods_nums}" />  
-			 <span class="sy_plus num_add" id="sy_plus_gid1" goods_id="{twotree#$item.goods_id}">+</span> 
+			 <span onclick="addNum();" class="sy_plus num_add" id="sy_plus_gid1" goods_id="{twotree#$item.goods_id}">+</span> 
 			 </p>
 			 <i>
 				 合计：￥{twotree#$item.goods_price} <font color=''>x</font> 
@@ -144,8 +144,29 @@ function checkout()
 	}
 	location.href="{twotree#:U('cart2')}";
 }
+
+// 增加数量
+function addNum() {
+	var goods_id=$(this).attr('goods_id');
+		if(parseInt(goods_id)>0){
+			$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'add'},function(data){
+				
+				if(data==0)
+				{
+					var anum = parseInt($('#sy_num_gid1').val()) - 1;
+					//alert(anum);
+					$('#sy_num_gid1').val(anum);
+					alert('该商品库存不足');
+					return false;	
+				}
+				if(data==1){location.reload();}																				
+			});
+		}
+}
+
+
 $(function(){
-	$(".cart_list").on('click','.num_add',function(){
+	/* $(".cart_list").on('click','.num_add',function(){
 		var goods_id=$(this).attr('goods_id');
 		if(parseInt(goods_id)>0){
 			$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'add'},function(data){
@@ -162,7 +183,7 @@ $(function(){
 			});
 		}
 		
-	});		
+	}); */
 	
 	$(".cart_list").on('click','.num_sub',function(){
 		var goods_id=$(this).attr('goods_id');
