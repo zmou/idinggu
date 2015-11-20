@@ -1242,8 +1242,21 @@ class AjaxAction extends Action{
 					$error_msg = $err;
 				}
 			}
+		} //add shop goods end
+		else if($order_info['role_id'] == 1) {
+			$order_goods = M('order_goods')->where(array('order_id'=>$order_id))->select();
+
+			foreach($order_goods as $k => $v) {
+				$goods_id = $v['goods_id'];
+				$goods_info = M('goods')->find($v['goods_id']);
+				$shop_goods = M('shop_goods')->where(array('goods_id'=>$goods_id, 'shop_id'=>$order_info['shop_id']))->find();
+				
+				if($shop_goods) {
+					$res = M('shop_goods')->where(array('goods_id'=>$goods_id, 'shop_id'=>$order_info['shop_id']))->setInc('sale_num', $v['goods_nums']);
+				}
+			}
 		}
-		//add shop goods end
+		
 		echo 1;
 
 	}
