@@ -88,6 +88,7 @@
             <li><a href="<?php echo U('GoodsCate/index');?>">分类管理</a></li>
             <li><a href="<?php echo U('GoodsBrand/index');?>">品牌管理</a></li>
             <li><a href="<?php echo U('TakeMoney/index');?>">提现申请</a></li>
+            <li><a href="<?php echo U('Goods/collection');?>">收藏管理</a></li>
           </ul>
         </li> 
         <li> 
@@ -105,6 +106,7 @@
           </a>
           <ul class="dlink">
             <li><a href="<?php echo U('Hotcity/index');?>">城市列表</a></li>
+            <li><a href="<?php echo U('Hotcity/county');?>">区县排序</a></li>
           </ul>
         </li>
         <li> 
@@ -171,6 +173,7 @@
           <ul class="dlink">
             <!--<li><a href="<?php echo U('WxGroup/index');?>">微信用户分组</a></li>-->
             <li><a href="<?php echo U('Wxusers/index');?>">会员列表</a></li>
+            <li><a href="<?php echo U('Wxusers/feedback');?>">投诉反馈</a></li>
             <!--<li><a href="<?php echo U('Wxusers/level');?>">会员等级管理</a></li>-->
           </ul>
         </li>

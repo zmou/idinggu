@@ -78,10 +78,8 @@ class SchoolAction extends PublicAction{
 		删除 学校
 	*/
 	public function del(){
-		$id = I('get.id');
-		$school = M('school');
-		$school->delete($id);exit;
-		if($school->delete($id)){
+		$user_id=I('get.id');
+		if(M('school')->delete($user_id)){
 			$this->success('操作成功！');
 		}
 	}

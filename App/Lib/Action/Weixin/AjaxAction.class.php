@@ -937,7 +937,7 @@ class AjaxAction extends Action{
 			M('wechat_user')->where(array('id'=>$this->user_id))->save(array('last_position'=>serialize($position)));
 			//地理位置写入session
 			session('position',$position);
-			print_r($position);
+			echo 1;
 		}
 	}
 
