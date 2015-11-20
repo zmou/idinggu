@@ -801,9 +801,9 @@ class UcenterAction extends BaseAction{
 				$new_money = ($new_money1 + $new_money2) * 0.95;
 				$res = M('wechat_user')->where(array('id'=>$this->user_id))->setInc('money_account',$new_money);
 				//4.update order status : set to is_withdrawed to 1
-				if($res)
-				{
+				if($res) {
 					$order->where($map)->save(array('is_new'=>0));
+					$order->where($map1)->save(array('is_new'=>0));
 				}
 
 				$user_info = M('wechat_user')->find($this->user_id);
