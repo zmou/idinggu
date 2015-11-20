@@ -745,8 +745,14 @@ class UcenterAction extends BaseAction{
 		$shop = M('shop')->where(array('uid'=>$this->user_info['id']))->find();
 
 		//今日订单总金额
-		$map['order_status'] = 3;		//确认收货订单
-
+		$today = strtotime('today');
+		$map = array(
+			'shop_id'      => $shop['id'],
+			'pay_time'     => array('EGT',$today),
+			'role_id'      => 1,
+			'order_status' => 3
+		);
+		
 		$today_income = $db->where($map)->sum('total_fee');
 		$today_income = floatval($today_income) * 0.95;
 
