@@ -556,10 +556,10 @@ class ShopAction extends PublicAction{
 		$subObject->getColumnDimension('B')->setWidth(10);
 		$subObject->getColumnDimension('C')->setWidth(50);
 		$subObject->getColumnDimension('D')->setWidth(10); 
-		$subObject->getColumnDimension('E')->setWidth(30);
-		$subObject->getColumnDimension('F')->setWidth(20);
-		$subObject->getColumnDimension('G')->setWidth(20);
-		$subObject->getColumnDimension('H')->setWidth(20);
+		$subObject->getColumnDimension('E')->setWidth(15);
+		$subObject->getColumnDimension('F')->setWidth(15);
+		$subObject->getColumnDimension('G')->setWidth(15);
+		$subObject->getColumnDimension('H')->setWidth(15);
 		
 		$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 		$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
@@ -567,27 +567,23 @@ class ShopAction extends PublicAction{
 		$objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		
 		// Add some data
-		$objPHPExcel->getActiveSheet()->mergeCells('A2:B2');
-		$objPHPExcel->getActiveSheet()->mergeCells('E2:G2');
-		$objPHPExcel->getActiveSheet()->mergeCells('E3:G3');
-		$objPHPExcel->getActiveSheet()->mergeCells('A3:B3');
+		$objPHPExcel->getActiveSheet()->mergeCells('A2:C2');
+		$objPHPExcel->getActiveSheet()->mergeCells('D2:G2');
+		$objPHPExcel->getActiveSheet()->mergeCells('D3:G3');
+		$objPHPExcel->getActiveSheet()->mergeCells('A3:C3');
 		$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('A2', '姓名：')
-			->setCellValue('C2', $order_info['consignee'])
-			->setCellValue('D2', '电话：')
-			->setCellValue('E2', $order_info['mobile'])
-			->setCellValue('A3', '地址：')
-			->setCellValue('C3', $order_info['province'].'-'.$order_info['city'].'-'.$order_info['district'].'-'.$order_info['address'])
-			->setCellValue('D3', '下单时间：')
-			->setCellValue('E3', date("Y-m-d H:i:s",$order_info['order_time']));
+			->setCellValue('A2', '姓名：'.$order_info['consignee'])
+			->setCellValue('D2', '电话：'.$order_info['mobile'])
+			->setCellValue('A3', '地址：'.$order_info['province'].'-'.$order_info['city'].'-'.$order_info['district'].'-'.$order_info['address'])
+			->setCellValue('D3', '下单时间：'.date("Y-m-d H:i:s",$order_info['order_time']));
 			
-		$objPHPExcel->getActiveSheet()->getStyle('E3')->getFont()->getColor()->setARGB('#FF0000');
+		$objPHPExcel->getActiveSheet()->getStyle('D3')->getFont()->getColor()->setARGB('#FF0000');
 
 		$objPHPExcel->getActiveSheet()->setCellValue('A4', '编号');
 		$objPHPExcel->getActiveSheet()->setCellValue('B4', 'ID');
 		$objPHPExcel->getActiveSheet()->setCellValue('C4', '商品名');
-		$objPHPExcel->getActiveSheet()->setCellValue('E4', '规格');
-		$objPHPExcel->getActiveSheet()->setCellValue('D4', '数量');
+		$objPHPExcel->getActiveSheet()->setCellValue('D4', '规格');
+		$objPHPExcel->getActiveSheet()->setCellValue('E4', '数量');
 		$objPHPExcel->getActiveSheet()->setCellValue('F4', '大客户价');
 		$objPHPExcel->getActiveSheet()->setCellValue('G4', '店长采购价');
 		$objPHPExcel->getActiveSheet()->setCellValue('H4', '店长留言');
@@ -599,9 +595,9 @@ class ShopAction extends PublicAction{
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row, $ii);
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$row, $goods['goods_id']);
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$row, $goods['goods_name']);
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$row, '1×'.$goods['goods_info'][0]['package_num']);
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$row, $goods['goods_nums']);
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('F'.$row, $goods['goods_info'][0]['biz_price']);
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$row, '1×'.$goods['goods_info'][0]['package_num']);
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$row, $goods['goods_nums']);
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('F'.$row, $goods['goods_nums']*$goods['goods_info'][0]['biz_price']);
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$row, $goods['goods_nums']*$goods['goods_info'][0]['trade_price']*$goods['goods_info'][0]['package_num']);
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$row, $order_info['order_message']);
 
@@ -614,6 +610,10 @@ class ShopAction extends PublicAction{
 		$objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
 		$objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getFont()->getColor()->setARGB('#FF0000');
 		$objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$row, '=SUM(E5:E'.($row-1).')');
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('F'.$row, '=SUM(F5:F'.($row-1).')');
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$row, '=SUM(G5:G'.($row-1).')');
+		$objPHPExcel->getActiveSheet()->mergeCells('H5:H'.$row);
 		
 		$objPHPExcel->getActiveSheet()->mergeCells('A'.($row+1).':C'.($row+1));
 		$objPHPExcel->getActiveSheet()->getStyle('A'.($row+1))->getFont()->getColor()->setARGB('#FF0000');
@@ -634,10 +634,7 @@ class ShopAction extends PublicAction{
 		$objPHPExcel->getActiveSheet()->setCellValue('A'.($row+2),"注：1、烦请叮咕供货合作伙伴留意店长的下单时间，力争在规定48小时内按店长所补货商品种类、按时且保质保量、准确无误地送到提货人指定地点。\n2、烦请叮咕收货人务必仔细核对商品名称、数量、质量等相关信息，若发现任何有缺货、残货等其他商品数量和质量类问题，收货人可与送货人现场协商解决，若协商不成，收货人有权当场拒签并要求送货人退还收货人相应问题货物（包括缺货商品）的双倍费用，若有任何疑问，收货人可直接拨打叮咕店长服务专线帮助其解决。");
 		
 		
-		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$row, '=SUM(D5:D'.($row-1).')');
-		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('F'.$row, '=SUM(F5:F'.($row-1).')');
-		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$row, '=SUM(G5:G'.($row-1).')');
-		$objPHPExcel->getActiveSheet()->mergeCells('H5:H'.$row);
+		
 		// Rename worksheet
 		$objPHPExcel->getActiveSheet()->setTitle('Simple');
 
