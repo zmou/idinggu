@@ -727,7 +727,7 @@ class UcenterAction extends BaseAction{
 	}
 
 		/*
-		店主个人中心
+		店主个人中心      
 		 */
 	public function shop_center(){
 
