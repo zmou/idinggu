@@ -18,6 +18,13 @@ class EmailAction extends PublicAction{
 			$this->display();    
 		}
 		
+		public function test(){
+			var_dump(I('session.check_money_today'));
+			$today_time = strtotime('today');
+			var_dump(date("Y-m-d H:i:s",strtotime('today')));
+			var_dump($today_time);
+		}
+		
 		
 		
 }

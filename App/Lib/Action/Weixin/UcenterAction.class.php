@@ -765,7 +765,7 @@ class UcenterAction extends BaseAction{
 		//1.set time limited
 		$today_time = strtotime('today');
 
-		if(I('session.check_money_today') != $today_time || 1)
+		if(I('session.check_money_today') <= $today_time || 1)
 		{
 			//echo $today_time.'|'.I('sesseion.check_money_today');
 			$order = M('order_info');
