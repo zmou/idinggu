@@ -145,7 +145,7 @@ function checkout()
 	location.href="{twotree#:U('cart2')}";
 }
 $(function(){
-	$(".num_add").live('click',function(){
+	$(".num_add").on('click',function(){
 		var goods_id=$(this).attr('goods_id');
 		if(parseInt(goods_id)>0){
 			$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'add'},function(data){
@@ -164,7 +164,7 @@ $(function(){
 		
 	});		
 	
-	$(".num_sub").live('click',function(){
+	$(".num_sub").on('click',function(){
 		var goods_id=$(this).attr('goods_id');
 		if(parseInt(goods_id)>0){
 			//var this_nums=$(this).parent('p').siblings('i>goods_nums').text();
@@ -177,7 +177,7 @@ $(function(){
 		}
 	});		
 	//删除购物车
-	$(".goods_del").click(function(){
+	$(".goods_del").on('click',function(){
 		var goods_id=$(this).attr('goods_id');
 
 		$.post("{twotree#:U('Ajax/delcart')}",{'goods_id':goods_id},function(data){
