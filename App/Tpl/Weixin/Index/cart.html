@@ -139,14 +139,8 @@ function checkout()
 	var user_min_amount = parseFloat($('#user_min_amount').val());
 	if(total_fee < user_min_amount)
 	{
-		if(user_id == '49')
-		{
-		}
-		else
-		{
-			alert('亲，不满'+user_min_amount+'元，无法结算哦！');
-			return false;
-		}
+		alert('亲，不满'+user_min_amount+'元，无法结算哦！');
+		return false;
 	}
 	location.href="{twotree#:U('cart2')}";
 }
