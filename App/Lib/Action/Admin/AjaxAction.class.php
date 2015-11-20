@@ -127,7 +127,7 @@ class AjaxAction extends Action{
 	*/
 	public function build(){
 		$db=M('building');
-		$map=array('sch_id'=>I('post.sch_id'),'status'=>0);			//未开启店铺的楼栋
+		$map=array('sch_id'=>I('post.sch_id'),'status'=>1);			//未开启店铺的楼栋
 		$list=$db->where($map)->field('id,name')->select();
 		echo json_encode($list);die();
 	}

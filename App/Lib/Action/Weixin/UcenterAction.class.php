@@ -696,6 +696,7 @@ class UcenterAction extends BaseAction{
 		 */
 	public function apply_shopkeeper2(){
 		$city_id = $_SESSION['position']['city_id'];
+		$school_id = $_SESSION['position']['school_id'];
 		$school=M('school')->where(array('city_id'=>$city_id))->select();
 		$this->assign('school',$school);
 
@@ -703,14 +704,15 @@ class UcenterAction extends BaseAction{
 		$curr_school = $_SESSION['position']['school'];
 		$curr_build = $_SESSION['position']['build'];
 		$this->assign('curr_build', $curr_build);
+		//var_dump($curr_school);
 		if($curr_school)
 		{
 			$this->assign('curr_school', $curr_school);
 
-			$build_arr = M('building')->where(array('sch_name'=>$curr_school, 'status'=>0))->select();
+			$build_arr = M('building')->where(array('sch_id'=>$school_id, 'status'=>0))->select();
 			$this->assign('build_arr', $build_arr);
 		}
-
+		
 		if($this->user_info['role_id']==2){
 			$this->error('您已经是店长了，请勿重复申请！');
 		}else{
