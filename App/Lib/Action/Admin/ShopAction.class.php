@@ -631,17 +631,14 @@ class ShopAction extends PublicAction{
 		$objPHPExcel->getActiveSheet()->getStyle('A'.($row+2))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->mergeCells('A'.($row+2).':H'.($row+2));
 		$objPHPExcel->getActiveSheet()->getStyle('A'.($row+2))->getFont()->getColor()->setARGB('#FF0000');
-		$objPHPExcel->getActiveSheet()->setCellValue('A'.($row+2),"注：1、烦请叮咕供货合作伙伴留意店长的下单时间，力争在规定48小时内按店长所补货商品种类、按时且保质保量、准确无误地送到提货人指定地点。\n2、烦请叮咕收货人务必仔细核对商品名称、数量、质量等相关信息，若发现任何有缺货、残货等其他商品数量和质量类问题，收货人可与送货人现场协商解决，若协商不成，收货人有权当场拒签并要求送货人退还收货人相应问题货物（包括缺货商品）的双倍费用，若有任何疑问，收货人可直接拨打叮咕店长服务专线帮助其解决。");
-		
-		
+		$objPHPExcel->getActiveSheet()->setCellValue('A'.($row+2),"注：1、烦请叮咕供货合作伙伴留意店长的下单时间，力争在规定48小时内按店长所补货商品种类、按时且保质保量、准确无误地送到提货人指定地点。\r\n2、烦请叮咕收货人务必仔细核对商品名称、数量、质量等相关信息，若发现任何有缺货、残货等其他商品数量和质量类问题，收货人可与送货人现场协商解决，若协商不成，收货人有权当场拒签并要求送货人退还收货人相应问题货物（包括缺货商品）的双倍费用，若有任何疑问，收货人可直接拨打叮咕店长服务专线帮助其解决。");
+		$objPHPExcel->getActiveSheet()->getStyle('A'.($row+2))->getAlignment()->setWrapText(true);
 		
 		// Rename worksheet
 		$objPHPExcel->getActiveSheet()->setTitle('Simple');
 
-
 		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 		$objPHPExcel->setActiveSheetIndex(0);
-
 
 		// Redirect output to a client’s web browser (Excel5)
 		header('Content-Type: application/vnd.ms-excel');
@@ -663,8 +660,6 @@ class ShopAction extends PublicAction{
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save('php://output');
 		exit;
-
-
 	}
 
 }
