@@ -770,7 +770,7 @@ class UcenterAction extends BaseAction{
 			$par1 = array(
 				'shop_id'            => $shop['id'],
 				'pay_time'           => array('EGT', $newRoleTime),
-				'confirm_order_time' => array('ELT', $today),
+				'confirm_order_time' => array('EGT', $today),
 				'role_id'            => 1
 			);
 			//今日订单数量1
@@ -779,7 +779,7 @@ class UcenterAction extends BaseAction{
 			$par2 = array(
 				'shop_id'            => $shop['id'],
 				'pay_time'           => array('LT', $newRoleTime),
-				'confirm_order_time' => array('ELT', $today),
+				'confirm_order_time' => array('EGT', $today),
 				'role_id'  		     => 1
 			);
 			//今日订单数量2
