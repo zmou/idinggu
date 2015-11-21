@@ -919,6 +919,11 @@ class AjaxAction extends Action{
 			//宿舍楼id
 			$build_id=$arr['build_id'];			
 			$position=position_fix($build_id);
+			
+			// 记录用户的楼栋ID
+			$userInfo = $_SESSION['user_info'];
+			$user = M('wechat_user');
+			$user->where(array('id'=>$userInfo['id']))->save(array('user_building'=>$build_id));
 
 			//clear cart
 			unset($_SESSION['shop_cart_info']);

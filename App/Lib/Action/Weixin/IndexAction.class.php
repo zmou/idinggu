@@ -650,6 +650,11 @@
 		*/
 		public function location_school(){
 			$city_id=I('get.city_id');
+			
+			// 记录用户的城市ID
+			$userInfo = $_SESSION['user_info'];
+			$user = M('wechat_user');
+			$user->where(array('id'=>$userInfo['id']))->save(array('user_city'=>$city_id));
 
 			$map = array('parent_id'=>$city_id);
 
@@ -702,6 +707,12 @@
 		*/
 		public function location_building(){
 			$sch_id=I('get.sch_id');
+			
+			// 记录用户的学校ID
+			$userInfo = $_SESSION['user_info'];
+			$user = M('wechat_user');
+			$user->where(array('id'=>$userInfo['id']))->save(array('user_school'=>$sch_id));
+			
 			$db=M('building');
 			$map=array('sch_id'=>$sch_id);
 			$build_list=$db->where($map)->select();

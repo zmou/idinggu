@@ -767,24 +767,13 @@ class UcenterAction extends BaseAction{
 		
 		if (time() >= $newRoleTime) {
 			$today = strtotime('today');
-			$par1 = array(
+			$par = array(
 				'shop_id'            => $shop['id'],
-				'pay_time'           => array('EGT', $newRoleTime),
 				'confirm_order_time' => array('EGT', $today),
 				'role_id'            => 1
 			);
-			//今日订单数量1
-			$today_order_count1 = $db->where($par1)->count();
-			
-			$par2 = array(
-				'shop_id'  => $shop['id'],
-				'pay_time' => array('LT', $newRoleTime),
-				'pay_time' => array('EGT', $today),
-				'role_id'  => 1
-			);
-			//今日订单数量2
-			$today_order_count2 = $db->where($par2)->count();
-			$today_order_count = $today_order_count1 + $today_order_count2;
+			//今日订单数量
+			$today_order_count = $db->where($par)->count();
 		
 			// 使用新的提现规则
 			/***********************calculate user income	IMPORTANT!!!! ************************/
