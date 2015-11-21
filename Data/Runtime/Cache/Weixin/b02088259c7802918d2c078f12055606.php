@@ -43,6 +43,11 @@ body{ background:#E1E1E1;}
 </div>
 
 <script type="text/javascript">
+var userBuild = "<?php echo ($position["build"]); ?>";
+if (userBuild == '') {
+	location.reload();
+}
+
 $(function () {
 		$('#home_slider').flexslider({
 animation : 'slide',

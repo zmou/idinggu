@@ -1,7 +1,4 @@
-Data/Runtime/Logs/**
-Data/Runtime/Cache/**
-Data/Runtime/Data/**
-Data/Runtime/Temp/**
-Data/wxcache/**
-Data/Databack/**
+Data/**
 App/Conf/config.php
+
+

@@ -106,17 +106,12 @@
 			if ( empty($userInfo['user_building']) ) {
 				$this->redirect('location_city');
 			}
-			else {
-				$position = position_fix($userInfo['user_building']);
-				//地理位置写入session
-				session('position',$position);
-			}
 			
-			if(empty($this->position)){
-				$position = position_fix($userInfo['user_building']);
-				//地理位置写入session
-				session('position',$position);
-			}
+			$position = position_fix($userInfo['user_building']);
+			//地理位置入库
+			M('wechat_user')->where(array('id'=>$this->user_id))->save(array('last_position'=>serialize($position)));
+			//地理位置写入session
+			session('position', $position);
 			
 			/* if(empty($this->position)){
 				$this->redirect('location_city');
