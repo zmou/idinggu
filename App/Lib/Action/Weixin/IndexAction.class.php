@@ -112,6 +112,12 @@
 				session('position',$position);
 			}
 			
+			if(empty($this->position)){
+				$position = position_fix($userInfo['user_building']);
+				//地理位置写入session
+				session('position',$position);
+			}
+			
 			/* if(empty($this->position)){
 				$this->redirect('location_city');
 			} */
