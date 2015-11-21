@@ -63,7 +63,7 @@
 		  <p class="p_num"> 
 			 <span class="sy_minus num_sub" id="sy_minus_gid1" goods_id="<?php echo ($item["goods_id"]); ?>">-</span>  
 			 <input class="sy_num" id="sy_num_gid1" readonly="readonly" type="text" value="<?php echo ($item["goods_nums"]); ?>" />  
-			 <span class="sy_plus num_add" id="sy_plus_gid1" goods_id="<?php echo ($item["goods_id"]); ?>">+</span> 
+			 <span onclick="addNum(this)" class="sy_plus num_add" id="sy_plus_gid1" goods_id="<?php echo ($item["goods_id"]); ?>">+</span>
 			 </p>
 			 <i>
 				 合计：￥<?php echo ($item["goods_price"]); ?> <font color=''>x</font> 
@@ -170,19 +170,34 @@ function checkout()
 	var user_min_amount = parseFloat($('#user_min_amount').val());
 	if(total_fee < user_min_amount)
 	{
-		if(user_id == '49')
-		{
-		}
-		else
-		{
-			alert('亲，不满'+user_min_amount+'元，无法结算哦！');
-			return false;
-		}
+		alert('亲，不满'+user_min_amount+'元，无法结算哦！');
+		return false;
 	}
 	location.href="<?php echo U('cart2');?>";
 }
+
+// 增加数量
+function addNum(obj) {
+	var goods_id=$(obj).attr('goods_id');
+		if(parseInt(goods_id)>0){
+			$.post("<?php echo U('Ajax/updatecart');?>",{'goods_id':goods_id,'act':'add'},function(data){
+				
+				if(data==0)
+				{
+					var anum = parseInt($('#sy_num_gid1').val()) - 1;
+					//alert(anum);
+					$('#sy_num_gid1').val(anum);
+					alert('该商品库存不足');
+					return false;	
+				}
+				if(data==1){location.reload();}																				
+			});
+		}
+}
+
+
 $(function(){
-	$(".num_add").live('click',function(){
+	/* $(".cart_list").on('click','.num_add',function(){
 		var goods_id=$(this).attr('goods_id');
 		if(parseInt(goods_id)>0){
 			$.post("<?php echo U('Ajax/updatecart');?>",{'goods_id':goods_id,'act':'add'},function(data){
@@ -199,9 +214,9 @@ $(function(){
 			});
 		}
 		
-	});		
+	}); */
 	
-	$(".num_sub").live('click',function(){
+	$(".cart_list").on('click','.num_sub',function(){
 		var goods_id=$(this).attr('goods_id');
 		if(parseInt(goods_id)>0){
 			//var this_nums=$(this).parent('p').siblings('i>goods_nums').text();
@@ -212,9 +227,10 @@ $(function(){
 				}																						
 			});
 		}
-	});		
+	});
+	
 	//删除购物车
-	$(".goods_del").click(function(){
+	$(".goods_del").on('click',function(){
 		var goods_id=$(this).attr('goods_id');
 
 		$.post("<?php echo U('Ajax/delcart');?>",{'goods_id':goods_id},function(data){

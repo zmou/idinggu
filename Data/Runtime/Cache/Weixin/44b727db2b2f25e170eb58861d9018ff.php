@@ -25,7 +25,7 @@ body{ background:#E1E1E1;}
 <!--头部-->
 ﻿<div style="margin-top:-18px;" class="header">
 	<h1><a href="<?php echo U('location_city');?>">切换楼栋</a></h1>
-	<h2><?php echo ($position["school"]); ?>x<?php echo ($position["build"]); ?></h2>
+	<h2><?php echo ($position["school"]); ?>-<?php echo ($position["build"]); ?></h2>
 </div>
 <!--/头部-->
 

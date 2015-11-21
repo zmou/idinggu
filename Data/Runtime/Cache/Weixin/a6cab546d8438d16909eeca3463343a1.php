@@ -65,7 +65,7 @@ $('#schooldfdsjaldfd').change(function(){
             <p>
             <select name="build_id" id="build">
             <option value="">-选择楼栋-</option>
-            <?php if(is_array($build_arr)): $i = 0; $__LIST__ = $build_arr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><option value="<?php echo ($item["id"]); ?>" <?php if(($curr_build) == $item['name']): ?>selected<?php endif; ?>><?php echo ($item["name"]); ?>【<?php echo ($item["city"]); ?>-<?php echo ($item["county"]); ?>】</option><?php endforeach; endif; else: echo "" ;endif; ?>
+            <?php if(is_array($build_arr)): $i = 0; $__LIST__ = $build_arr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><option value="<?php echo ($item["id"]); ?>" <?php if(($curr_build) == $item['name']): ?>selected<?php endif; ?>><?php echo ($item["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
             </select>
             </p>
 		</li>
