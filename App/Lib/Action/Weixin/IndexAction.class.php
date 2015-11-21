@@ -113,9 +113,9 @@
 			//地理位置写入session
 			session('position', $position);
 			
-			if(empty($this->position)){
+			/* if(empty($this->position)){
 				$this->redirect('location_city');
-			}
+			} */
 			
 			//轮播图片
 			$slide=M('slide')->where(array('cid'=>1))->select();
