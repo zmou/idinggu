@@ -4,5 +4,5 @@ define('APP_NAME','App');
 define('APP_PATH','./App/');
 define('RUNTIME_PATH','./Data/Runtime/');
 define('HTML_PATH', './Html');
-define('APP_DEBUG',true);
+define('APP_DEBUG',false);
 require('./ThinkPHP/ThinkPHP.php');
