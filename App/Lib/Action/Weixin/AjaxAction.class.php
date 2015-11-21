@@ -921,7 +921,7 @@ class AjaxAction extends Action{
 			$position=position_fix($build_id);
 			
 			// 记录用户的楼栋ID
-			$userInfo = $_SESSION['user_info'];
+			$userInfo = $this->user_info;
 			$user = M('wechat_user');
 			$user->where(array('id'=>$userInfo['id']))->save(array('user_building'=>$build_id));
 
