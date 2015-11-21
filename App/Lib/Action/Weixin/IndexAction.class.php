@@ -102,10 +102,20 @@
 		}
 		//首页
 		public function index(){
-
-			if(empty($this->position)){
+			$userInfo = $this->user_info;
+			if ( empty($userInfo['user_building']) ) {
 				$this->redirect('location_city');
 			}
+			else {
+				$position = position_fix($userInfo['user_building']);
+				//地理位置写入session
+				session('position',$position);
+			}
+			
+			/* if(empty($this->position)){
+				$this->redirect('location_city');
+			} */
+			
 			//轮播图片
 			$slide=M('slide')->where(array('cid'=>1))->select();
 			$this->assign('slide',$slide);
