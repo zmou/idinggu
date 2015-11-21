@@ -779,6 +779,7 @@ class UcenterAction extends BaseAction{
 			$par2 = array(
 				'shop_id'  => $shop['id'],
 				'pay_time' => array('LT', $newRoleTime),
+				'pay_time' => array('EGT', $today),
 				'role_id'  => 1
 			);
 			//今日订单数量2
