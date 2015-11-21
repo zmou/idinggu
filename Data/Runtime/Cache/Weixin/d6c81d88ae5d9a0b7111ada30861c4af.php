@@ -25,7 +25,7 @@ body{ background:#E1E1E1;}
 <div class="navbg" style="margin-top: -18px">
 <!--头部-->
 ﻿<div style="margin-top:-18px;" class="header">
-	<h1><a href="<?php echo U('location_building',array('sch_id'=>$position.build_id));?>">切换楼栋</a></h1>
+	<h1><a href="<?php echo U('location_building',array('sch_id'=>$position['school_id']));?>">切换楼栋</a></h1>
 	<h2><?php echo ($position["school"]); ?>-<?php echo ($position["build"]); ?></h2>
 </div>
 <!--/头部-->
