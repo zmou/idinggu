@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>购物车</title>
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="__PUBLIC__/js/jquery.min.js"></script>
+    </head>
+    <body>
+        <dl class="cart_list">
+            <dt class="pic">
+				<a href="{twotree#:U('product_show',array('id'=>$item['goods_id']))}">
+					<img src="{twotree#$item.spic}" border="0" />
+				</a>
+			</dt>
+            <dd>
+				<b>
+					<a href="{twotree#:U('product_show',array('id'=>$item['goods_id']))}">{twotree#$item.name}商品名称商品名称商品名称商品名称商</a>
+				</b>
+            </dd>
+			<dd class="p_num">
+				<span class="sy_minus num_sub" id="sy_minus_gid1" goods_id="{twotree#$item.goods_id}">-</span>
+				<input class="sy_num" id="sy_num_gid1" readonly="readonly" type="text" value="{twotree#$item.goods_nums}" />
+				<span onclick="addNum(this)" class="sy_plus num_add" id="sy_plus_gid1" goods_id="{twotree#$item.goods_id}">+</span>
+			</dd>
+        </dl>
+        <div style="height: 90px "></div>
+        <div id="bottomNav">
+            <dl class="balance_bar">
+                <dt>
+                <p class="font_red">总额：￥<span id="total_fee">{twotree#$total_fee}</span></p>
+                <p class="font_gray f12">满{twotree#$webinfo.user_min_amount}元起送</p>
+                <input type="hidden" id="user_min_amount" value="{twotree#$webinfo.user_min_amount}"/>
+                </dt>
+                <dd>
+                <input type="hidden" value="{twotree#$shop.shop_status}" id="shop_status"/>
+                <a href="javascript:checkout()">去结算</a>
+                </dd>
+            </dl>
+            <!--底部导航-->
+            <include file="Public:footbar"/>
+            <!--底部导航-->
+        </div>
+		<script>
+			$(function() {
+				
+			});
+		</script>
+    </body>
+</html>

@@ -387,6 +387,12 @@
 
 
 		}
+		
+		
+		public function new_cart()
+		{
+			$this->display();
+		}
 
 
 		/*

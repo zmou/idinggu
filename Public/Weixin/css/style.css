@@ -869,3 +869,17 @@ span.sy_num {
 .money_ok img{ width:80px;}
 .money_ok h1{ font:normal 24px/80px "微软雅黑"; text-align:center;}
 .money_ok p{ font:normal 14px/25px "微软雅黑"; color:#AFAFAF;}
+
+
+/************* 新购物车 ***************/
+.cart_list{position:relative;}
+.cart_list .del-goods{position:absolute;top:0;right:0;background:red;width:20%;height:100%;display:none;}
+.cart_list .p_num {
+float:left;
+ width: 90px; 
+ height: 24px; 
+ border-top: solid 1px #d0d0d0; 
+ position: relative;
+ top:80%;
+ border-bottom: solid 1px #d0d0d0; 
+}

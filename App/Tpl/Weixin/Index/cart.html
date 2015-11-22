@@ -148,20 +148,20 @@ function checkout()
 // 增加数量
 function addNum(obj) {
 	var goods_id=$(obj).attr('goods_id');
-		if(parseInt(goods_id)>0){
-			$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'add'},function(data){
-				
-				if(data==0)
-				{
-					var anum = parseInt($('#sy_num_gid1').val()) - 1;
-					//alert(anum);
-					$('#sy_num_gid1').val(anum);
-					alert('该商品库存不足');
-					return false;	
-				}
-				if(data==1){location.reload();}																				
-			});
-		}
+	if(parseInt(goods_id)>0){
+		$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'add'},function(data){
+			
+			if(data==0)
+			{
+				var anum = parseInt($('#sy_num_gid1').val()) - 1;
+				//alert(anum);
+				$('#sy_num_gid1').val(anum);
+				alert('该商品库存不足');
+				return false;	
+			}
+			if(data==1){location.reload();}																				
+		});
+	}
 }
 
 
