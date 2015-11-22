@@ -1,5 +1,5 @@
 /Data/*
-Data/wxcache/**
-App/Conf/config.php
+/Data/wxcache/*
+/App/Conf/config.php
 
 
