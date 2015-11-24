@@ -6,71 +6,63 @@
 <title>确认订单-{twotree#$webinfo.web_name}</title>
 <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-body{ background:#E1E1E1;}
+	body{background:#E1E1E1;}
 </style>
 <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
 <!--数量加减-->
-<script type="text/javascript"> 
- $(document).ready (function () 
-    { 
- //var pl = $("p:last"); 
-     var reg = /(.*[\:\：]\s*)([\+\d\.]+)(\s*元)/g; 
-     $ (".sy_minus").click (function () 
-     { 
-     var me = $ (this), txt = me.next (":text"), pc = me.closest("p"); 
-     var val = parseFloat (txt.val ()); 
-     val = val < 1 ? 1 : val; 
-     txt.val (val - 1); 
-     var price = parseFloat (pc.prev("p").text().replace(reg,'$2')) * txt.val (); 
-     pc.next("p").text (pc.next("p").text().replace(reg, "$1" + price + "$3")); 
-     var sum = 0; 
-     $(".p_num").next("p").each(function (i, dom) 
-     { 
-      sum += parseFloat ($(this).text().replace(reg, "$2")); 
-     }); 
-     pl.text(pl.text().replace(reg, "$1" + sum + "$3")); 
-     }); 
-       
-     $(".sy_plus").click (function () 
-     { 
-      var me = $ (this), txt = me.prev (":text"), pc = me.closest("p"); 
-     var val = parseFloat (txt.val ()); 
-     txt.val (val + 1); 
-     var price = parseFloat (pc.prev("p").text().replace(reg,'$2')) * txt.val (); 
-     pc.next("p").text (pc.next("p").text().replace(reg, "$1" + price + "$3")); 
-     var sum = 0; 
-     $(".p_num").next("p").each(function (i, dom) 
-     { 
-      sum += parseFloat ($(this).text().replace(reg, "$2")); 
-     }); 
-     pl.text(pl.text().replace(reg, "$1" + sum + "$3")); 
-     }); 
-    })[0].onselectstart = new Function ("return false"); 
+<script type="text/javascript">
+	$(document).ready(function() {
+		//var pl = $("p:last"); 
+		var reg = /(.*[\:\：]\s*)([\+\d\.]+)(\s*元)/g;
+		$(".sy_minus").click(function() {
+			var me = $(this),
+				txt = me.next(":text"),
+				pc = me.closest("p");
+			var val = parseFloat(txt.val());
+			val = val < 1 ? 1 : val;
+			txt.val(val - 1);
+			var price = parseFloat(pc.prev("p").text().replace(reg, '$2')) * txt.val();
+			pc.next("p").text(pc.next("p").text().replace(reg, "$1" + price + "$3"));
+			var sum = 0;
+			$(".p_num").next("p").each(function(i, dom) {
+				sum += parseFloat($(this).text().replace(reg, "$2"));
+			});
+			pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+		});
+
+		$(".sy_plus").click(function() {
+			var me = $(this),
+				txt = me.prev(":text"),
+				pc = me.closest("p");
+			var val = parseFloat(txt.val());
+			txt.val(val + 1);
+			var price = parseFloat(pc.prev("p").text().replace(reg, '$2')) * txt.val();
+			pc.next("p").text(pc.next("p").text().replace(reg, "$1" + price + "$3"));
+			var sum = 0;
+			$(".p_num").next("p").each(function(i, dom) {
+				sum += parseFloat($(this).text().replace(reg, "$2"));
+			});
+			pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+		});
+	})[0].onselectstart = new Function("return false");
 </script>
 
 <!--弹出层2-->
 <LINK href="__PUBLIC__/css/dialog.css" type="text/css" rel="stylesheet">
 <SCRIPT src="__PUBLIC__/js/jquery.min.js" type=text/javascript></SCRIPT>
 <SCRIPT src="__PUBLIC__/js/dialog.js" type="text/javascript"></SCRIPT>
-<!--[if lte IE 8]>
-<SCRIPT src="__PUBLIC__/js/html5.js" type=text/javascript></SCRIPT>
-<![endif]-->
 </head>
 <body>
-
-<div class="space10"></div>
-
+<div class="space10" style="margin:0;padding:0;height:0;"></div>
 <div class="confirm_list">
-	<h1>{twotree#$position['city']}-{twotree#$position['school']}</h1>
-    <h1>{twotree#$position['build']}</h1>
-	<ul>		
+	<h1 style="background:#FFF;margin:0;padding:0;">{twotree#$position['city']}-{twotree#$position['school']}-{twotree#$position['build']}</h1>
+	<ul>
 	    <li><b>寝室号</b> <p><input name="address" type="text" placeholder="请输入寝室号" value='123'/></p></li>
-	    <li><b>手机号</b> <p><input name="mobile" type="text" placeholder="请输入手机号" value="{twotree#$user_info.mobile}"/></p></li>
+	    <li style="border:0;"><b>手机号</b> <p><input name="mobile" type="text" placeholder="请输入手机号" value="{twotree#$user_info.mobile}"/></p></li>
 	</ul>
 </div>
 
 <div class="white_bg">
-	
     <volist name="list" id="item">
     <dl class="cart_list">
 		<dt style="width:30%;">
@@ -80,29 +72,45 @@ body{ background:#E1E1E1;}
 		<b>
 			  <p class="p_num"> 
 				 <span class="sy_minus num_sub" id="sy_minus_gid1" goods_id="{twotree#$item.goods_id}">-</span>  
-				 <input class="sy_num" id="sy_num_gid1" readonly="readonly" type="text" name="number1" value="{twotree#$item.goods_nums}" />  
+				 <input class="sy_num" id="sy_num_gid1" readonly="readonly" type="text" name="number1" value="{twotree#$item.goods_nums}" />
 				 <span class="sy_plus num_add" id="sy_plus_gid1" goods_id="{twotree#$item.goods_id}">+</span> 
 		  </p>
-				 <i>小计：￥{twotree#$item['goods_price']}x{twotree#$item['goods_nums']}</i>
+			<i class="Subtotal">小计：￥{twotree#$item['goods_price']}x<span class="goods-num">{twotree#$item['goods_nums']}</span></i>
 		  </b>
 		</dd>
 	</dl>
     </volist>
-    
 </div>
 
 <div class="confirm_list">
-	<ul>		
-	    <li class="font_gray" style="text-align:right;">共{twotree#:I('session.cart_goods_nums')}件商品&nbsp;&nbsp;总金额：￥{twotree#$total_fee} </li>
+	<ul>
+	    <li class="font_gray" style="text-align:right;border:0;">
+			共<span style="margin:0;padding:0;" id="total-goods-num">{twotree#:I('session.cart_goods_nums')}</span>件商品&nbsp;&nbsp;运费：￥0.00&nbsp;&nbsp;
+			<span style="color:red;">合计：￥<i style="font-style:normal;" id="total-fee">{twotree#$total_fee}</i></span>
+		</li>
 	</ul>
-	
+	<div class="pay-method">
+		<p style="line-height:45px; padding-left:10px;">支付方式</p>
+		<div id="radiolist" style="padding:10px; font-size:14px; ">
+			<div class="recharge_list">
+				<ul>
+					<li class="ico1">
+						<span>
+							<input name="radio" type="radio" value="1" checked="checked" />
+						</span>微信支付
+					</li>
+					<!--<li class="ico2"><span><input name="radio" type="radio" value="ali" /></span>支付宝充值</li>
+					<li class="ico3"><span><input name="radio" type="radio" value="up" /></span>银联充值</li>-->
+				</ul>
+			</div>
+		</div>
+	</div>
 	<ul>		
 	    <li>
-	      <textarea id="order_message" placeholder="请输入其他您想对店长说的话~"></textarea>
+			<textarea id="order_message" placeholder="请输入其他您想对店长说的话~"></textarea>
 	    </li>
 	</ul>
-	
-	<h2 style="color:red;">运费:￥0.00  &nbsp;&nbsp;合计:￥{twotree#$total_fee}</h2>
+	<h2 style="color:red;display:none;">运费:￥0.00&nbsp;&nbsp;合计:￥<span class="total-fee">{twotree#$total_fee}</span></h2>
 </div>
 
 <div class="new_play">
@@ -201,7 +209,6 @@ $(".btn-self").click(function(){
 		}
 		
 	},'json')
-	
 });
 
 $(function(){
@@ -209,21 +216,41 @@ $(function(){
 		var goods_id=$(this).attr('goods_id');
 		/*var this_nums=$(this).siblings('.sy_num').va();
 		$(this).siblings('.sy_num').val(parseInt(this_nums)+1);*/
+		var $this = $(this);
+		var c_num = $this.siblings('.sy_num').val();
 		if(parseInt(goods_id)>0){
 			$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'add'},function(data){
-				location.reload();
+				if (data.info == 201) {
+					$this.siblings('.sy_num').val(data.goods_nums);
+					alert('该商品库存不足');
+					return false;
+				}
+				else if (data.info == 200) {
+					$this.parent().parent().find('.Subtotal .goods-num').text(c_num);
+					$('#total-fee').text(data.total_price);
+					$('#total-goods-num').text(data.cart_goods_nums);
+				}
+				//location.reload();
 			});
 		}
-		
 	});		
 	
 	$(".num_sub").live('click',function(){
 		var goods_id=$(this).attr('goods_id');
+		var $this = $(this);
+		var c_num = parseInt($this.siblings('.sy_num').val());
+		
+		if (c_num == 0) {
+			$this.siblings('.sy_num').val(1);
+			return false;
+		}
 		if(parseInt(goods_id)>0){
 			//var this_nums=$(this).parent('p').siblings('i>goods_nums').text();
 			//$(this).parent('p').siblings('i>goods_nums').val(parseInt(this_nums)-1);
 			$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'sub'},function(data){
-					location.reload();
+				$this.parent().parent().find('.Subtotal .goods-num').text(parseInt(c_num));
+				$('#total-fee').text(data.total_price);
+				$('#total-goods-num').text(data.cart_goods_nums);
 			});
 		}
 	});

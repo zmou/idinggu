@@ -14,10 +14,10 @@ body{ background:#E1E1E1;}
 </head>
 <body>
 
-
 <div style="margin-top:-15px;" class="index_tab">
 	<ul>
 		<li><a href="{twotree#:U('shop_order',array('order_status'=>1))}" <eq name="order_status" value="1">class="act"</eq>>待配送</a></li>
+		<li><a href="{twotree#:U('shop_order',array('order_status'=>2))}" <eq name="order_status" value="2">class="act"</eq>>已配送</a></li>
 		<li><a href="{twotree#:U('shop_order',array('order_status'=>3))}" <eq name="order_status" value="3">class="act"</eq>>已完成</a></li>
 	</ul>
 </div>
@@ -42,6 +42,9 @@ body{ background:#E1E1E1;}
 	
 	<ul>
 		<span style="float:left;margin-left:10px;">下单时间：{twotree#$v.order_time|date="m.d H:i",###}</span>
+		<?php if ($v['pay_status'] == 1 && $v['order_status'] == 1) : ?>
+		<a style="color:red;" href="javascript:confirm_delivery({twotree#$v.id})">确认配送</a>
+		<?php endif; ?>
 		<a href="{twotree#:U('order_detail', array('id'=>$v['id']))}">订单详情</a>
 	</ul>
 </div>
@@ -58,5 +61,12 @@ body{ background:#E1E1E1;}
 </if>
 
 <div class="line2"></div>
+<script>
+	function confirm_delivery(order_id) {
+	$.post("{twotree#:U('Ajax/confirm_delivery')}",{'order_id':order_id},function(data){
+		window.location.reload();
+	});
+}
+</script>
 </body>
 </html>

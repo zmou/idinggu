@@ -9,49 +9,47 @@
 <SCRIPT src="__PUBLIC__/js/alert.js" type="text/javascript"></SCRIPT>
 
 <!--数量加减-->
-<script type="text/javascript"> 
- $(document).ready (function () 
-    { 
- //var pl = $("p:last"); 
-     var reg = /(.*[\:\：]\s*)([\+\d\.]+)(\s*元)/g; 
-     $ (".sy_minus").click (function () 
-     { 
-     var me = $ (this), txt = me.next (":text"), pc = me.closest("p"); 
-     var val = parseFloat (txt.val ()); 
-     val = val < 1 ? 1 : val; 
-     txt.val (val - 1); 
-     var price = parseFloat (pc.prev("p").text().replace(reg,'$2')) * txt.val (); 
-     pc.next("p").text (pc.next("p").text().replace(reg, "$1" + price + "$3")); 
-     var sum = 0; 
-     $(".p_num").next("p").each(function (i, dom) 
-     { 
-      sum += parseFloat ($(this).text().replace(reg, "$2")); 
-     }); 
-     pl.text(pl.text().replace(reg, "$1" + sum + "$3")); 
-     }); 
-       
-     $(".sy_plus").click (function () 
-     { 
-      var me = $ (this), txt = me.prev (":text"), pc = me.closest("p"); 
-     var val = parseFloat (txt.val ()); 
-     txt.val (val + 1); 
-     var price = parseFloat (pc.prev("p").text().replace(reg,'$2')) * txt.val (); 
-     pc.next("p").text (pc.next("p").text().replace(reg, "$1" + price + "$3")); 
-     var sum = 0; 
-     $(".p_num").next("p").each(function (i, dom) 
-     { 
-      sum += parseFloat ($(this).text().replace(reg, "$2")); 
-     }); 
-     pl.text(pl.text().replace(reg, "$1" + sum + "$3")); 
-     }); 
-    })[0].onselectstart = new Function ("return false"); 
+<script type="text/javascript">
+	$(document).ready(function() {
+		//var pl = $("p:last"); 
+		var reg = /(.*[\:\：]\s*)([\+\d\.]+)(\s*元)/g;
+		$(".sy_minus").click(function() {
+			var me = $(this),
+				txt = me.next(":text"),
+				pc = me.closest("p");
+			var val = parseFloat(txt.val());
+			val = val < 1 ? 1 : val;
+			txt.val(val - 1);
+			var price = parseFloat(pc.prev("p").text().replace(reg, '$2')) * txt.val();
+			pc.next("p").text(pc.next("p").text().replace(reg, "$1" + price + "$3"));
+			var sum = 0;
+			$(".p_num").next("p").each(function(i, dom) {
+				sum += parseFloat($(this).text().replace(reg, "$2"));
+			});
+			pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+		});
+
+		$(".sy_plus").click(function() {
+			var me = $(this),
+				txt = me.prev(":text"),
+				pc = me.closest("p");
+			var val = parseFloat(txt.val());
+			txt.val(val + 1);
+			var price = parseFloat(pc.prev("p").text().replace(reg, '$2')) * txt.val();
+			pc.next("p").text(pc.next("p").text().replace(reg, "$1" + price + "$3"));
+			var sum = 0;
+			$(".p_num").next("p").each(function(i, dom) {
+				sum += parseFloat($(this).text().replace(reg, "$2"));
+			});
+			pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+		});
+	})[0].onselectstart = new Function("return false");
 </script>
 </head>
 <body>
 
-
 <volist name="list" id="item">
-<dl class="cart_list">
+<dl class="cart_list" goods_id="{twotree#$item.goods_id}">
 	<dt class="pic">
 		<a href="{twotree#:U('product_show',array('id'=>$item['goods_id']))}">
         <img src="{twotree#$item.spic}" border="0" /></a> </dt>
@@ -61,11 +59,11 @@
 		  <em><a class="del_one" href="javascript:" goods_id="{twotree#$item.goods_id}"><img src="__PUBLIC__/images/del.png" border="0" /></a></em>
 	  </b>
 	  <b>
-		  <p class="p_num"> 
+		  <p class="p_num">
 			 <span class="sy_minus num_sub" id="sy_minus_gid1" goods_id="{twotree#$item.goods_id}">-</span>  
 			 <input class="sy_num" id="sy_num_gid1" readonly="readonly" type="text" value="{twotree#$item.goods_nums}" />  
 			 <span onclick="addNum(this)" class="sy_plus num_add" id="sy_plus_gid1" goods_id="{twotree#$item.goods_id}">+</span>
-			 </p>
+			</p>
 			 <i>
 				 合计：￥{twotree#$item.goods_price} <font color=''>x</font> 
              <span class="goods_nums">{twotree#$item.goods_nums}</span>&nbsp;&nbsp;
@@ -98,10 +96,19 @@
 $('.del_one').click(function(){
 	var goods_id = $(this).attr('goods_id');
 
-	$.post("{twotree#:U('Ajax/delcart')}",{'goods_id':goods_id},function(data){	
-		if(data==1){
-			location.reload();
-		}																					
+	$.post("{twotree#:U('Ajax/delcart')}",{'goods_id':goods_id},function(data){
+		$('.cart_list').each(function() {
+			var c_g_id = $(this).attr('goods_id');
+			if (c_g_id == goods_id) {
+				$(this).remove();
+			}
+			if (data.cart_goods_nums == 0) {
+				location.reload();
+			}
+			if (data.info == 200) {
+				$('#total_fee').text(data.total_price);
+			}
+		});
 	});
 });
 //del goods
@@ -148,18 +155,18 @@ function checkout()
 // 增加数量
 function addNum(obj) {
 	var goods_id=$(obj).attr('goods_id');
+	var c_num = $(obj).siblings('.sy_num').val();
 	if(parseInt(goods_id)>0){
 		$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'add'},function(data){
-			
-			if(data==0)
-			{
-				var anum = parseInt($('#sy_num_gid1').val()) - 1;
-				//alert(anum);
-				$('#sy_num_gid1').val(anum);
+			if (data.info == 201) {
+				$(obj).siblings('.sy_num').val(data.goods_nums);
 				alert('该商品库存不足');
-				return false;	
+				return false;
 			}
-			if(data==1){location.reload();}																				
+			else if (data.info == 200) {
+				$(obj).parent().parent().find('.goods_nums').text(parseInt(c_num) + 1);
+				$('#total_fee').text(data.total_price);
+			}
 		});
 	}
 }
@@ -187,13 +194,17 @@ $(function(){
 	
 	$(".cart_list").on('click','.num_sub',function(){
 		var goods_id=$(this).attr('goods_id');
+		var $this = $(this);
+		var c_num = $(this).siblings('.sy_num').val();
+		
 		if(parseInt(goods_id)>0){
 			//var this_nums=$(this).parent('p').siblings('i>goods_nums').text();
 			//$(this).parent('p').siblings('i>goods_nums').val(parseInt(this_nums)-1);
 			$.post("{twotree#:U('Ajax/updatecart')}",{'goods_id':goods_id,'act':'sub'},function(data){
-				if(data==1){
-					location.reload();
-				}																						
+				if (data.info == 200) {
+					$this.parent().parent().find('.goods_nums').text(parseInt(c_num));
+					$('#total_fee').text(data.total_price);
+				}
 			});
 		}
 	});

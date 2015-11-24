@@ -242,7 +242,7 @@ class UcenterAction extends BaseAction{
 
 		if($pay_status == 1)
 		{
-			$status_name = '待收货'; 
+			$status_name = '待收货';
 		}
 		elseif($order_status == 3)
 		{

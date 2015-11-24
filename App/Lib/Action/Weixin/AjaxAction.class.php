@@ -100,16 +100,29 @@ class AjaxAction extends Action{
 		$package_num = I('post.package_num') ? I('post.package_num') : 1;
 
 		$package_num = 1;
-
-		
+		$need_nums = 1;
 		if($_SESSION['user_info']['role_id']==1)
 		{
 			$shop_goods = M('shop_goods')->where(array('goods_id'=>$goods_id, 'shop_id'=>$_SESSION['shop_id']))->find();
-
-			$need_nums = intval($_SESSION['shop_cart_info'][$goods_id]['goods_nums']) + 1;
+			
+			if ($act == 'add') {
+				$need_nums = intval($_SESSION['shop_cart_info'][$goods_id]['goods_nums']) + 1;
+			}
+			else if ($act == 'sub') {
+				$need_nums = intval($_SESSION['shop_cart_info'][$goods_id]['goods_nums']) - 1;
+			}
+			else {
+				$need_nums = intval($_SESSION['shop_cart_info'][$goods_id]['goods_nums']);
+			}
+			
 			if($shop_goods['store_num'] < $need_nums)
 			{
-				echo 0;
+				$data = array(
+					'info'            => 201,
+					'goods_nums'	  => $shop_goods['store_num'],
+					'cart_goods_nums' => $_SESSION['cart_goods_nums']
+				);
+				$this->ajaxReturn($data);
 				exit;
 			}
 			else
@@ -120,12 +133,21 @@ class AjaxAction extends Action{
 		}
 
 		updatecart($goods_id,$act, $package_num);
-
+		
+		$total_price = 0;
 		foreach($_SESSION['shop_cart_info'] as $val){
 			$cart_goods_nums+=$val['goods_nums'];
+			$total_price += $val['goods_price']*$val['goods_nums'];
 		}
 		$_SESSION['cart_goods_nums']=$cart_goods_nums;
-		echo 1;
+		
+		$data = array(
+			'info'            => 200,
+			'goods_nums'	  => $need_nums,
+			'cart_goods_nums' => $cart_goods_nums,
+			'total_price'     => $total_price
+		);
+		$this->ajaxReturn($data);
 	}
 	/*
 		删除购物车
@@ -138,12 +160,22 @@ class AjaxAction extends Action{
 			delcart($goods_id);
 		}
 
+		$total_price = 0;
+		$cart_goods_nums = 0;
 		foreach($_SESSION['shop_cart_info'] as $val){
 			$cart_goods_nums+=$val['goods_nums'];
+			$total_price += $val['goods_price']*$val['goods_nums'];
 		}
 		$_SESSION['cart_goods_nums']=$cart_goods_nums;
-		echo 1;
+		
+		$data = array(
+			'info'            => 200,
+			'cart_goods_nums' => $cart_goods_nums,
+			'total_price'     => $total_price,
+		);
+		$this->ajaxReturn($data);
 	}
+	
 	/*
 	 * 删除喜欢
 	 */
@@ -1263,7 +1295,15 @@ class AjaxAction extends Action{
 		}
 		
 		echo 1;
+	}
+	
+	public function confirm_delivery()
+	{
+		$order_id = intval(I('post.order_id'));
+		$order_info = M('order_info')->find($order_id);
 
+		M('order_info')->where(array('id'=>$order_id))->save(array('order_status'=>2,'confirm_order_time'=>time()));
+		echo 1;
 	}
 
 	//send sms
