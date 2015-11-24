@@ -49,7 +49,7 @@ body{ background:#E1E1E1;}
 	    <a href="{twotree#:U('order_detail', array('id'=>$v['id']))}">订单详情</a> 
 
 		<eq name='v.pay_status' value='0'>
-		<a href="javascript:goto_pay({twotree#$v.id}, '{twotree#$v.order_title}_')" class="goto_pay" order_id="{twotree#$v.id}">去支付</a>
+		<a style="background:#b10000;color:#FFF;" href="javascript:goto_pay({twotree#$v.id}, '{twotree#$v.order_title}_')" class="goto_pay" order_id="{twotree#$v.id}">去支付</a>
 		</eq>
 	</ul>
 </div>
