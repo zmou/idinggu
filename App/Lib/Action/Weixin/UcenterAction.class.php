@@ -747,10 +747,10 @@ class UcenterAction extends BaseAction{
 		//今日订单总金额
 		$today = strtotime('today');
 		$map = array(
-			'shop_id'      => $shop['id'],
-			'pay_time'     => array('EGT',$today),
-			'role_id'      => 1,
-			'order_status' => 3
+			'shop_id'            => $shop['id'],
+			'confirm_order_time' => array('EGT',$today),
+			'role_id'      		 => 1,
+			'order_status' 		 => 3
 		);
 		$today_income = $db->where($map)->sum('total_fee');
 		$today_income = floatval($today_income) * 0.95;
@@ -1306,7 +1306,27 @@ replenishment
 
 		$this->display();
 	}
-
+	
+	/*
+	 *	店长更新商品价格，上下架信息
+	 */
+	public function update_shop_goods()
+	{
+		$userInfo  = $this->user_info;
+		$shop      = M('shop')->where(array('uid'=>$userInfo['id']))->find();
+		$shop_id   = $shop['id'];
+		$shopGoods = M('shop_goods')->where(array('shop_id'=>$shop_id))->select();
+		
+		$goods = M('goods');
+		foreach ($shopGoods as $key => $val) {
+			$goodsId = $val['goods_id'];
+			$shopGoods[$key]['goods_info'] = M('goods')->where(array('id'=>$goodsId))->find();
+		}
+		
+		$this->assign('goods',$shopGoods);
+		$this->assign('shop_id',$shop_id);
+		$this->display();
+	}
 
 
 

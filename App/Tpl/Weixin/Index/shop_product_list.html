@@ -64,6 +64,14 @@ body{ background:#E1E1E1;}
 		<dd>
 		<b><a href="{twotree#:U('product_show',array('id'=>$item['id']))}">{twotree#$item.name}</a></b>
 		<b style="color:#9F9F9F">库存：<font <eq name="item['store_num']" value="0">style="color:red;"</eq>>{twotree#$item.store_num|default=0}</font></b>
+		<b><i style="color:#2E2E2E">状态：</i>
+			<eq name="item.goods_status" value="1">
+				<i style="color:#7CCD7C">上架</i>
+			</eq>
+			<eq name="item.goods_status" value="0">
+				<i style="color:#9F9F9F">下架</i>
+			</eq>
+		</b>
 		<b>
 			<eq name="shop['shop_status']" value="1">
 				<eq name="user_info['role_id']" value="1">
@@ -72,7 +80,7 @@ body{ background:#E1E1E1;}
 			<else/>
 			<span style="color:#FF0000">休息中</span>
 			</eq>
-			<i class="font_red">￥{twotree#$item.price}</i> <s>￥{twotree#$item.market_price}</s> <i style="margin-left:10px;"><a id="collection_{twotree#$item.id}" class="btn-collect" goods_id="{twotree#$item.id}" active="0">{twotree#$item.collect|default=0}</a></i> 
+			<i class="font_red">￥{twotree#$item.shop_price}</i> <s>￥{twotree#$item.market_price}</s> <i style="margin-left:10px;"><a id="collection_{twotree#$item.id}" class="btn-collect" goods_id="{twotree#$item.id}" active="0">{twotree#$item.collect|default=0}</a></i> 
 		</b>  
 		</dd>
 	</dl>

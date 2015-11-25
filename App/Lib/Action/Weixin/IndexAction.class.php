@@ -32,14 +32,6 @@
 				}
 			}
 		}
-		
-		public function test()
-		{
-			$order = M('order_info');
-			$orders = $order->where(array('shop_id'=>'109'))->select();
-			echo "<pre>";
-			print_r($orders);
-		}
 
 		public function update_school()
 		{
@@ -278,6 +270,8 @@
 					$goods_info['collect'] = $goods_info['collect_num'] + $collect_count;
 					$goods_info['sale_num'] = $goods_info['base_num'] + $goods['sale_num'];
 					$goods_info['store_num'] = $goods['store_num'];
+					$goods_info['shop_price'] = $goods['goods_price'];
+					$goods_info['goods_status'] = $goods['goods_status'];
 					//var_dump($goods_info);exit;
 
 					$goods_list[] = $goods_info;
@@ -285,7 +279,8 @@
 				}
 				$cate[$k]['goods_list'] = $goods_list;
 			}
-			//var_dump($cate[1]);
+			/* echo "<pre>";
+			print_r($cate[1]); */
 
 			$this->assign('cate',$cate);
 
@@ -359,10 +354,12 @@
 				//$this->redirect('Member/login',array('jump'=>$jump));
 			}
 			$list=$_SESSION['shop_cart_info'];
+			/* echo "<pre>";
+			print_r($list);exit; */
 			if(count($list)>0){
 				foreach($list as $key=>$val){
-
 					$info=M('goods')->find($val['goods_id']);
+					$shopGoods = M('shop_goods')->where(array('goods_id'=>$val['goods_id'],'shop_id'=>$shop_id))->find();
 
 					//for shop keeper
 					if($this->user_info['role_id'] == 2)
@@ -370,9 +367,9 @@
 						$val['goods_price'] = $info['trade_price'];
 						//var_dump($info);exit;
 					}
-					$total_price+=$val['goods_price']*$val['goods_nums'];
+					$total_price+=$shopGoods['goods_price']*$val['goods_nums'];
 
-					$list[$key]['goods_price'] = $val['goods_price'];
+					$list[$key]['goods_price'] = $shopGoods['goods_price'];
 					$list[$key]['name']=$info['name'];
 					$list[$key]['spic']=$info['spic'];
 					$list[$key]['trade_price'] = $info['trade_price'];
@@ -411,6 +408,7 @@
 				$jump=base64_encode(U('Index/cart2'));
 				//$this->error('您还没有登录，请先登录',U('Member/login',array('jump'=>$jump)));
 			}
+			$shop_id = I('session.shop_id');
 			$list=$_SESSION['shop_cart_info'];
 			if(count($list)>0){
 				foreach($list as $key=>$val){
@@ -418,6 +416,7 @@
 					//for shop keeper
 
 					$info=M('goods')->find($val['goods_id']);
+					$shopGoods = M('shop_goods')->where(array('goods_id'=>$val['goods_id'],'shop_id'=>$shop_id))->find();
 
 					//for shop keeper
 					if($this->user_info['role_id'] == 2)
@@ -425,9 +424,9 @@
 						$val['goods_price'] = $info['trade_price'];
 						//var_dump($info);exit;
 					}
-					$total_price+=$val['goods_price']*$val['goods_nums'];
+					$total_price+=$shopGoods['goods_price']*$val['goods_nums'];
 
-					$list[$key]['goods_price'] = $val['goods_price'];
+					$list[$key]['goods_price'] = $shopGoods['goods_price'];
 					$list[$key]['name']=$info['name'];
 					$list[$key]['spic']=$info['spic'];
 					$list[$key]['store_num']=$info['store_num'];

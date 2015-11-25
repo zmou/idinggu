@@ -61,6 +61,7 @@ body{ background:#E1E1E1;}
 </div>
 
 	<volist name="cat[goods_list]" id="item">
+	<eq name="item.goods_status" value="1">
 	<dl class="goods_list">
 		<dt>
 			<a href="{twotree#:U('product_show',array('id'=>$item['id']))}">
@@ -75,16 +76,17 @@ body{ background:#E1E1E1;}
 					<eq name="item['store_num']" value="0">
 						<span style="color:#888;">卖完了</span>						
 					<else/>
-						<span style="padding-right:30px;"><img class="btn-cart" id="add_cart_{twotree#$item.id}" src="__PUBLIC__/images/product_r8_c11.png" goods_id="{twotree#$item.id}" goods_price="{twotree#$item.price}" store_num="{twotree#$item.store_num}" /></span>
+						<span style="padding-right:30px;"><img class="btn-cart" id="add_cart_{twotree#$item.id}" src="__PUBLIC__/images/product_r8_c11.png" goods_id="{twotree#$item.id}" goods_price="{twotree#$item.shop_price}" store_num="{twotree#$item.store_num}" /></span>
 					</eq>
 				</eq>
 			<else/>
 			<span style="color:#888;">休息中</span>
 			</eq>
-			<i class="font_red">￥{twotree#$item.price}</i> <s>￥{twotree#$item.market_price}</s> <i style="margin-left:10px;"><a id="collection_{twotree#$item.id}" class="btn-collect" goods_id="{twotree#$item.id}" active="0">{twotree#$item.collect|default=0}</a></i> 
+			<i class="font_red">￥{twotree#$item.shop_price}</i> <s>￥{twotree#$item.market_price}</s> <i style="margin-left:10px;"><a id="collection_{twotree#$item.id}" class="btn-collect" goods_id="{twotree#$item.id}" active="0">{twotree#$item.collect|default=0}</a></i> 
 		</b>  
 		</dd>
 	</dl>
+	</eq>
 	</volist>
 	
 

@@ -134,10 +134,12 @@ class AjaxAction extends Action{
 
 		updatecart($goods_id,$act, $package_num);
 		
+		$shop_id = I('session.shop_id');
 		$total_price = 0;
 		foreach($_SESSION['shop_cart_info'] as $val){
+			$shopGoods = M('shop_goods')->where(array('goods_id'=>$val['goods_id'],'shop_id'=>$shop_id))->find();
 			$cart_goods_nums+=$val['goods_nums'];
-			$total_price += $val['goods_price']*$val['goods_nums'];
+			$total_price += $shopGoods['goods_price']*$val['goods_nums'];
 		}
 		$_SESSION['cart_goods_nums']=$cart_goods_nums;
 		
@@ -1318,6 +1320,31 @@ class AjaxAction extends Action{
 
 		echo 1;
 
+	}
+	
+	// 店长更新商品信息
+	public function update_goods()
+	{
+		$type 	 = I('post.type');
+		$data 	 = I('post.data');
+		$shopId  = I('post.shop_id');
+		$goodsId = I('post.goods_id');
+		
+		$map = array(
+			'goods_id' =>$goodsId,
+			'shop_id'  =>$shopId
+		);
+		
+		if ($type == 'price') {
+			$res = M('shop_goods')->where($map)->save(array('goods_price'=>$data));
+		}
+		else if ($type == 'status') {
+			$res = M('shop_goods')->where($map)->save(array('goods_status'=>$data));
+		}
+		
+		if ($res) {
+			echo 1;
+		}
 	}
 
 	//check sms

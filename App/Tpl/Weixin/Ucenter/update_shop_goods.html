@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <META name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>店长更新商品</title>
+        <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="__PUBLIC__/css/checkbox.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+        <SCRIPT src="__PUBLIC__/js/alert.js" type="text/javascript"></SCRIPT>
+    </head>
+    <body>
+        <!--TAB切换-->
+        <script type="text/javascript" src="__PUBLIC__/js/tab.js"></script>
+        <div class="nTab2">
+            <!-- 标题开始 -->
+            <div class="TabTitle">
+                
+            </div>
+            <!-- 内容开始 -->
+            <div class="TabContent">
+                <div id="myTab1_Content0">
+                    <volist name="goods" id="item">
+                    <dl class="cart_list">
+                        <dt style="width:30%;">
+							<a href="{twotree#:U('Index/product_show',array('id'=>$item['id']))}">
+								<img src="{twotree#$item.goods_info.spic}"/>
+							</a>
+                        </dt>
+                        <dd>
+							<b>
+								<a href="{twotree#:U('Index/product_show',array('id'=>$item['id']))}">{twotree#$item.goods_info.name}</a>
+							</b>
+							<b>￥{twotree#$item.goods_price}</b>
+                        </dd>
+						<dd>
+							<b>
+								<span style="color:red;font-size:16px;">更新价格：</span>
+								<input style="width:18%;height:20px;line-height:20px;" class="update-goods-price" type="text" value="{twotree#$item.goods_price}" data-goods_id="{twotree#$item.goods_id}" data-shop_id="{twotree#$shop_id}">
+							</b>
+							<b>
+								<span style="color:red;font-size:16px;display:block;float:left;">是否上架：</span>
+								<input name="goods_status_{twotree#$item.goods_id}" value="1" onchange="changeStatus({twotree#$item.goods_id});" class='tgl tgl-light' id="cb{twotree#$item.goods_id}" type='checkbox' <eq name="item.goods_status" value="1">checked="checked"</eq> />
+								<label style="display:block;float:left;" class='tgl-btn' for="cb{twotree#$item.goods_id}"></label>
+							</b>
+						</dd>
+                    </dl>
+                    </volist>
+                </div>
+            </div>
+        </div>
+        <div class="space100"></div>
+        
+        <script type="text/javascript">
+			var shopId = "{twotree#$shop_id}";
+			
+			$(function () {
+				$('.update-goods-price').bind({
+					focus : function () {
+						
+					},
+					blur : function () {
+						var goodsPrice = $(this).val();
+						var goodsId    = $(this).attr('data-goods_id');
+						updateGoods('price', goodsId, goodsPrice);
+					}
+				});
+				
+				$('#cb1').change(function(){
+					var shop_status=$("input[name='shop_status']:checked").val();
+					if(typeof(shop_status)=='undefined'){
+						shop_status=0;
+					}
+					$.post("{twotree#:U('Ajax/shop_status')}",{'shop_status':shop_status},function(data){
+						//alert('操作成功');
+						location.href="{twotree#:U('shop_center')}";
+					});
+					//alert(shop_status);
+					//alert();
+				});
+			});
+			
+			function changeStatus(goodsId) {
+				var name = "goods_status_"+goodsId;
+				var shop_status=$("input[name='"+name+"']:checked").val();
+				if(typeof(shop_status)=='undefined'){
+					shop_status=0;
+				}
+				
+				updateGoods('status', goodsId, shop_status);
+			}
+			
+			function updateGoods(type, goodsId, data) {
+				$.ajax({
+					url: "{twotree#:U('Ajax/update_goods')}",
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						type: type,
+						data: data,
+						goods_id: goodsId,
+						shop_id : shopId
+					},
+					timeout: 3600,
+					success: function( data ) {
+						alert('更新成功');
+					}
+				});
+			}
+        </script>
+    </body>
+</html>
