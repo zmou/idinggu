@@ -32,6 +32,14 @@
 				}
 			}
 		}
+		
+		public function test()
+		{
+			$order = M('order_info');
+			$orders = $order->where(array('shop_id'=>'109'))->select();
+			echo "<pre>";
+			print_r($orders);
+		}
 
 		public function update_school()
 		{

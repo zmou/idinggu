@@ -1302,7 +1302,7 @@ class AjaxAction extends Action{
 		$order_id = intval(I('post.order_id'));
 		$order_info = M('order_info')->find($order_id);
 
-		M('order_info')->where(array('id'=>$order_id))->save(array('order_status'=>2,'confirm_order_time'=>time()));
+		M('order_info')->where(array('id'=>$order_id))->save(array('order_status'=>2,'shipping_time'=>time()));
 		echo 1;
 	}
 

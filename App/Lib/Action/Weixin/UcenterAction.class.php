@@ -729,8 +729,8 @@ class UcenterAction extends BaseAction{
 		/*
 		店主个人中心      
 		 */
-	public function shop_center(){
-
+	public function shop_center()
+	{
 		if($this->user_info['role_id']==1){		//店主
 			$this->redirect('index');
 		}
@@ -752,7 +752,6 @@ class UcenterAction extends BaseAction{
 			'role_id'      => 1,
 			'order_status' => 3
 		);
-		
 		$today_income = $db->where($map)->sum('total_fee');
 		$today_income = floatval($today_income) * 0.95;
 
@@ -764,96 +763,61 @@ class UcenterAction extends BaseAction{
 			从2015-11-20 18:00:00 开始使用新的体现规则，之前的继续使用以前的规则
 		******************************************************************************************/
 		$newRoleTime = strtotime("2015-11-20 18:00:00");
-		
-		if (time() >= $newRoleTime) {
-			$today = strtotime('today');
-			$par = array(
-				'shop_id'            => $shop['id'],
-				'confirm_order_time' => array('EGT', $today),
-				'role_id'            => 1
+		$today = strtotime('today');
+		$par = array(
+			'shop_id'            => $shop['id'],
+			'confirm_order_time' => array('EGT', $today),
+			'role_id'            => 1,
+			'order_status'       => 3
+		);
+		//今日订单数量
+		$today_order_count = $db->where($par)->count();
+	
+		// 使用新的提现规则
+		/***********************calculate user income	IMPORTANT!!!! ************************/
+		//1.set time limited
+		$today_time = strtotime('today');
+
+		if(I('session.check_money_today') != $today_time || 1) {
+			$order = M('order_info');
+			// 2.calculate money by user order
+			// 按照新规则的可提现金额
+			$map = array(
+				'role_id'	   		 => 1,
+				'is_new'	   		 => 1,
+				'pay_time'	   		 => array('EGT', $newRoleTime),
+				'shop_id'      		 => $shop['id'],
+				'order_status' 		 => 3,
+				'confirm_order_time' => array('ELT', $today_time)
 			);
-			//今日订单数量
-			$today_order_count = $db->where($par)->count();
-		
-			// 使用新的提现规则
-			/***********************calculate user income	IMPORTANT!!!! ************************/
-			//1.set time limited
-			$today_time = strtotime('today');
-
-			if(I('session.check_money_today') != $today_time || 1) {
-				$order = M('order_info');
-				// 2.calculate money by user order
-				// 按照新规则的可提现金额
-				$map = array(
-					'role_id'	   		 => 1,
-					'is_new'	   		 => 1,
-					'pay_time'	   		 => array('EGT', $newRoleTime),
-					'shop_id'      		 => $shop['id'],
-					'order_status' 		 => 3,
-					'confirm_order_time' => array('ELT', $today_time)
-				);
-				$new_money1 = $order->where($map)->sum('total_fee');
-				
-				// 按照旧规则的可提现金额
-				$map1 = array(
-					'role_id'	   		 => 1,
-					'is_new'	   		 => 1,
-					'pay_time'	   		 => array('LT', $newRoleTime),
-					'shop_id'      		 => $shop['id'],
-					'order_status' 		 => 3,
-					'confirm_order_time' => array('ELT', $today_time)
-				);
-				$new_money2 = $order->where($map1)->sum('total_fee');
-				
-				//3.update user money
-				$new_money = ($new_money1 + $new_money2) * 0.95;
-				$res = M('wechat_user')->where(array('id'=>$this->user_id))->setInc('money_account',$new_money);
-				//4.update order status : set to is_withdrawed to 1
-				if($res) {
-					$order->where($map)->save(array('is_new'=>0));
-					$order->where($map1)->save(array('is_new'=>0));
-				}
-
-				$user_info = M('wechat_user')->find($this->user_id);
-				$this->assign('user_info', $user_info);
-
-				session('check_money_today', $today_time);
+			$new_money1 = $order->where($map)->sum('total_fee');
+			
+			// 按照旧规则的可提现金额
+			$map1 = array(
+				'role_id'	   		 => 1,
+				'is_new'	   		 => 1,
+				'pay_time'	   		 => array('LT', $newRoleTime),
+				'shop_id'      		 => $shop['id'],
+				'order_status' 		 => 3,
+				'confirm_order_time' => array('ELT', $today_time)
+			);
+			$new_money2 = $order->where($map1)->sum('total_fee');
+			
+			//3.update user money
+			$new_money = ($new_money1 + $new_money2) * 0.95;
+			$res = M('wechat_user')->where(array('id'=>$this->user_id))->setInc('money_account',$new_money);
+			//4.update order status : set to is_withdrawed to 1
+			if($res) {
+				$order->where($map)->save(array('is_new'=>0));
+				$order->where($map1)->save(array('is_new'=>0));
 			}
-			/***********************************END************************************************/
-		} else {
-			$today = strtotime('today');
-			$map = array('shop_id'=>$shop['id'],'pay_time'=>array('EGT',$today),'role_id'=>1);
 
-			//今日订单数量
-			$today_order_count = $db->where($map)->count();
-			// 使用旧的提现规则
-			/********************calculate user income	IMPORTANT!!!! *****************************/
-			//1.set time limited
-			$today_time = strtotime('today');
+			$user_info = M('wechat_user')->find($this->user_id);
+			$this->assign('user_info', $user_info);
 
-			if(I('session.check_money_today') != $today_time || 1)
-			{
-				//echo $today_time.'|'.I('sesseion.check_money_today');
-				$order = M('order_info');
-				//2.calculate money by user order
-				$map = array('role_id'=>1, 'is_new'=>1,'pay_time'=>array('ELT',$today_time), 'shop_id'=>$shop['id'], 'order_status'=>3);
-				$new_money = $order->where($map)->sum('total_fee');
-				//3.update user money
-				$new_money = $new_money * 0.95;
-				$res = M('wechat_user')->where(array('id'=>$this->user_id))->setInc('money_account', $new_money);
-				//4.update order status : set to is_withdrawed to 1
-				if($res)
-				{
-					$order->where($map)->save(array('is_new'=>0));
-				}
-
-				$user_info = M('wechat_user')->find($this->user_id);
-				$this->assign('user_info', $user_info);
-
-				session('check_money_today', $today_time);
-			}
-			/***********************************END***************************************************/
-		} // end if
+			session('check_money_today', $today_time);
+		}
+		/***********************************店长订单结算END****************************************/
 		
 		$can_withdraw = 1;
 		$today = strtotime('today');
@@ -866,7 +830,7 @@ class UcenterAction extends BaseAction{
 		$this->assign('today_order_count',$today_order_count);
 		$this->assign('today_income',$today_income);
 
-		$this->display();	
+		$this->display();
 	}
 
 	/*

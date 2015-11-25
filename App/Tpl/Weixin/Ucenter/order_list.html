@@ -20,9 +20,10 @@ body{ background:#E1E1E1;}
 
 <div style="margin-top:-15px;" class="index_tab2">
 	<ul>
-		<li style="width:33.333%;"><a href="{twotree#:U('order_list',array('pay_status'=>0))}" class="<eq name='Think.get.pay_status' value='0'>act</eq>">待付款</a></li>
-	    <li style="width:33.333%;"><a href="{twotree#:U('order_list',array('order_status'=>2,'pay_status'=>1))}" class="<eq name='Think.get.order_status' value='2'>act</eq>">待收货</a></li>
-	    <li style="width:33.333%;"><a href="{twotree#:U('order_list',array('order_status'=>3))}" class="<eq name='Think.get.order_status' value='3'>act</eq>">已完成</a></li>
+		<li style="width:25%;"><a href="{twotree#:U('order_list',array('pay_status'=>0))}" class="<eq name='Think.get.pay_status' value='0'>act</eq>">待付款</a></li>
+		<li style="width:25%;"><a href="{twotree#:U('order_list',array('order_status'=>1,'pay_status'=>1))}" class="<eq name='Think.get.order_status' value='1'>act</eq>">待发货</a></li>
+	    <li style="width:25%;"><a href="{twotree#:U('order_list',array('order_status'=>2,'pay_status'=>1))}" class="<eq name='Think.get.order_status' value='2'>act</eq>">待收货</a></li>
+	    <li style="width:25%;"><a href="{twotree#:U('order_list',array('order_status'=>3))}" class="<eq name='Think.get.order_status' value='3'>act</eq>">已完成</a></li>
 	</ul>
 </div>
 
