@@ -240,7 +240,7 @@ class UcenterAction extends BaseAction{
 
 		$order_style = intval(I('get.order_style')) ? intval(I('get.order_style')) : 1;
 
-		if($pay_status == 1)
+		if($pay_status == 1 && $order_status == 2)
 		{
 			$status_name = '待收货';
 		}
