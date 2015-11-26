@@ -98,10 +98,11 @@ class ShopAction extends PublicAction{
 				$list[$key]['shop_id']=$shop['id'];
 			}
 		} // end $so_key
-		
+		/* echo "<pre>";
+		print_r($list);exit; */
 		
 		$this->assign('list',$list);
-		$this->display();    
+		$this->display();
 	}
 
 	public function search_order(){
