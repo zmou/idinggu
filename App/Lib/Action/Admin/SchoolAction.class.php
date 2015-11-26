@@ -21,6 +21,7 @@ class SchoolAction extends PublicAction{
 			$map['name'] = array('like','%'.$keyword.'%');
 		}
 		$count = $db->where($map)->count();
+		echo $db->getLastSql();
 		$Page = new Page($count,10);
 
 		$list=$db->where($map)->order('id DESC')->limit($Page->firstRow.','.$Page->listRows)->select();

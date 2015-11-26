@@ -19,36 +19,87 @@ class ShopAction extends PublicAction{
 	public function index(){
 		import("@.ORG.Page");
 		$db=M('wechat_user');
-		$so_key=I('post.key');
-		$where['nickname']  = array('like', '%'.$so_key.'%');
-		$where['shop_name']  = array('like','%'.$so_key.'%');
-		$where['username']  = array('like','%'.$so_key.'%');
-		$where['_logic'] = 'or';
-		//$map['_complex'] = $where;
+		$so_key=I('get.keyword');
+		
+		$map['role_id']  = 2; //角色为店长
+		/* if($so_key)
+		{
+			$where['nickname']  = array('like', '%'.$so_key.'%');
+			$where['shop_name']  = array('like','%'.$so_key.'%');
+			$where['name']  = array('like','%'.$so_key.'%');
+			$where['_logic'] = 'or';
+			$map['_complex'] = $where;
+		} */
+		
+		if ($so_key) {
+			$shopkeepers = $db->where($map)->select();
+			echo $db->getLastSql();
+			$newShopkeepers = array();
+			foreach ($shopkeepers as $key => $val) {
+				$shop = M('shop')->where(array('uid'=>$val['id']))->find();
+				$school = M('school')->where(array('id'=>$shop['sch_id']))->find();
+				
+				$pos_school = strpos($school['name'], $so_key);
+				if ($pos_school !== false) {
+					$newShopkeepers[] = $shopkeepers[$key];
+				}
+				
+				$pos_nickname = strpos($val['nickname'], $so_key);
+				if ($pos_nickname !== false) {
+					$newShopkeepers[] = $shopkeepers[$key];
+				}
+				
+				$pos_shop_name = strpos($val['shop_name'], $so_key);
+				if ($pos_shop_name !== false) {
+					$newShopkeepers[] = $shopkeepers[$key];
+				}
+				
+				$pos_name = strpos($val['name'], $so_key);
+				if ($pos_name !== false) {
+					$newShopkeepers[] = $shopkeepers[$key];
+				}
+			} // end foreach $shopkeepers
+			$count = count($newShopkeepers);
+			$Page = new Page($count,10);
+			$show = $Page->show();
+			$this->assign('show',$show);
+			
+			foreach($newShopkeepers as $key=>$val){
+				$shop=M('shop')->where(array('uid'=>$val['id']))->find();
+				$shop['prov']=get_region_name($shop['prov_id']);
+				$shop['city']=get_region_name($shop['city_id']);
+				$shop['town']=get_region_name($shop['county_id']);
+				$shop['school']=M('school')->where(array('id'=>$shop['sch_id']))->getField('name');
+				$shop['build']=M('building')->where(array('id'=>$shop['build_id']))->getField('name');
+				$newShopkeepers[$key]['shop']=$shop;
+				$newShopkeepers[$key]['shop_id']=$shop['id'];
+			}
+			
+			$list = $newShopkeepers;
+		} else {
+			$count = $db->where($map)->count();
+			$Page = new Page($count,10);
+			$show = $Page->show();
+			$this->assign('show',$show);
 
 
-		$map['role_id']  = 2;			//角色为店长
+			$list=$db->where($map)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+			//var_dump($list);
 
-		$count = $db->where($map)->count();
-		$Page = new Page($count,10);
-		$show = $Page->show();
-		$this->assign('show',$show);
+			foreach($list as $key=>$val){
 
-
-		$list=$db->where($map)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
-		//var_dump($list);
-
-		foreach($list as $key=>$val){
-
-			$shop=M('shop')->where(array('uid'=>$val['id']))->find();
-			$shop['prov']=get_region_name($shop['prov_id']);
-			$shop['city']=get_region_name($shop['city_id']);
-			$shop['town']=get_region_name($shop['county_id']);
-			$shop['school']=M('school')->where(array('id'=>$shop['sch_id']))->getField('name');
-			$shop['build']=M('building')->where(array('id'=>$shop['build_id']))->getField('name');
-			$list[$key]['shop']=$shop;
-			$list[$key]['shop_id']=$shop['id'];
-		}
+				$shop=M('shop')->where(array('uid'=>$val['id']))->find();
+				$shop['prov']=get_region_name($shop['prov_id']);
+				$shop['city']=get_region_name($shop['city_id']);
+				$shop['town']=get_region_name($shop['county_id']);
+				$shop['school']=M('school')->where(array('id'=>$shop['sch_id']))->getField('name');
+				$shop['build']=M('building')->where(array('id'=>$shop['build_id']))->getField('name');
+				$list[$key]['shop']=$shop;
+				$list[$key]['shop_id']=$shop['id'];
+			}
+		} // end $so_key
+		
+		
 		$this->assign('list',$list);
 		$this->display();    
 	}
