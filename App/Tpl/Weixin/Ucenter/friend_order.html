@@ -27,11 +27,7 @@ body{ background:#E1E1E1;}
 
                 
 <volist name="list" id="v">
-<?php
-	if ($v['order_status'] == 3) : 
-		continue;
-	endif;
-?>
+
 <div class="friend_order_list">
 	<h1><span>{twotree#$status_name}</span> 还差{twotree#$v.need_money}元（已完成{twotree#$v.percent}%）</h1>
 	<dl id="order_goods_{twotree#$v.id}">
