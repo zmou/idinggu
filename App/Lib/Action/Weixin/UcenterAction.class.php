@@ -235,12 +235,13 @@ class UcenterAction extends BaseAction{
 
 		$order_status = 1;
 		$order_status = intval(I('get.order_status'));
+		$wait = intval(I('get.wait'));
 
 		$pay_status = intval(I('get.pay_status'));
 
 		$order_style = intval(I('get.order_style')) ? intval(I('get.order_style')) : 1;
 
-		if($pay_status == 1 && $order_status == 2)
+		if($pay_status == 1 && $order_status <= 2)
 		{
 			$status_name = '待收货';
 		}
@@ -258,14 +259,18 @@ class UcenterAction extends BaseAction{
 
 		$db=M('order_info');
 		$map=array('user_id'=>$this->user_id, 'role_id'=>$this->user_info['role_id'], 'order_style'=>$order_style);
-
+		
 		if($order_status)
 		{
 			$map['order_status'] = $order_status;
 		}
-		else
+		/* else
 		{
 			$map['order_status'] = 1;
+		} */
+		
+		if ($wait) {
+			$map['order_status'] = array("ELT", 2);
 		}
 
 		$map['pay_status'] = $pay_status;
@@ -280,6 +285,7 @@ class UcenterAction extends BaseAction{
 		$this->assign('page',$page);
 
 		$list=$db->where($map)->order('id desc,pay_status asc')->limit($Page->firstRow.','.$Page->listRows)->select();
+		
 		foreach($list as $key=>$val){
 			$goods_list = M('order_goods')->where(array('order_id'=>$val['id']))->select();
 			foreach($goods_list as $k=>$goods)
