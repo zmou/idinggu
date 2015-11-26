@@ -20,14 +20,18 @@ body{ background:#E1E1E1;}
 <div style="margin-top:-15px;" class="index_tab2">
 	<ul>
 		<li><a href="{twotree#:U('order_list',array('order_style'=>2, 'pay_status'=>0))}" class="<eq name='Think.get.pay_status' value='0'>act</eq>">进行中</a></li>
-	    <li><a href="{twotree#:U('order_list',array('order_style'=>2, 'pay_status'=>1,'order_status'=>2))}" class="<eq name='Think.get.pay_status' value='1'>act</eq>">待收货</a></li>
+	    <li><a href="{twotree#:U('order_list',array('order_style'=>2, 'pay_status'=>1))}" class="<eq name='Think.get.pay_status' value='1'>act</eq>">待收货</a></li>
 	    <li><a href="{twotree#:U('order_list',array('order_style'=>2, 'order_status'=>3))}" class="<eq name='Think.get.order_status' value='3'>act</eq>">已完成</a></li>
 	</ul>
 </div>
 
                 
 <volist name="list" id="v">
-
+<?php
+	if ($v['order_status'] == 3) : 
+		continue;
+	endif;
+?>
 <div class="friend_order_list">
 	<h1><span>{twotree#$status_name}</span> 还差{twotree#$v.need_money}元（已完成{twotree#$v.percent}%）</h1>
 	<dl id="order_goods_{twotree#$v.id}">
