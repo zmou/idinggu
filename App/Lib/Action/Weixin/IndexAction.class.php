@@ -521,8 +521,8 @@
 		{
 			$order_sn=I('get.order_sn');
 			$db=M('order_info');
-			$order_info_arr = $db->where(array('order_sn'=>$order_sn))->limit(1)->select();
-			$order_info = $order_info_arr[0];
+			$order_info_arr = $db->where(array('order_sn'=>$order_sn))->find();
+			$order_info = $order_info_arr;
 			$order_id = $order_info['id'];
 
 			if(empty($order_info)){
@@ -572,6 +572,7 @@
 			if($friend_order['payed_money'] >= $order_info['total_fee'])
 			{
 				$is_done = 1;
+				$db->where(array('order_sn'=>$order_sn))->save(array('pay_status'=>1));
 			}
 			$this->assign('is_done', $is_done);
 			$this->assign('friend_order', $friend_order);

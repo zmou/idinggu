@@ -380,7 +380,6 @@ class ShopAction extends PublicAction{
 		$this->display();
 	}
 
-
 	//all shop order
 	public function shop_order(){
 		import("@.ORG.Page");
@@ -418,9 +417,9 @@ class ShopAction extends PublicAction{
 		if ($begin_time > 0 && $end_time > 0) {
 			$map['order_time'] = array(array('egt',$begin_time),array('elt',$end_time));
 		} else if($begin_time>0){
-			$map['order_time']=array('egt',$begin_time);
+			$map['order_time'] = array('egt',$begin_time);
 		} else if($end_time>0){
-			$map['order_time']=array('elt',$end_time);
+			$map['order_time'] = array('elt',$end_time);
 		}
 
 		//list all common user orders but not shop keeper orders
