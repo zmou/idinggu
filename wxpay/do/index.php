@@ -189,7 +189,7 @@
 
 					if(friend_pay_id)
 					{
-						var success_url="http://m.idinggu.com/index.php?m=index&a=friend_ing&order_sn="+order_sn;
+						var success_url="http://m.idinggu.com/index.php?m=Index&a=friend_ing&order_sn="+order_sn;
 					}
 					if(role_id == '2')
 					{
