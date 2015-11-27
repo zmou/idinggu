@@ -393,6 +393,11 @@ class ShopAction extends PublicAction{
 		}
 		$so_key=I('get.key');
 		$so_val=I('get.val');
+		
+		$pay_status=I('get.pay_status');
+		if ($pay_status) {
+			$map['pay_status'] = $pay_status;
+		}
 
 		$begin_time=strtotime(I('get.begin_time'));
 		$end_time=strtotime(I('get.end_time'));

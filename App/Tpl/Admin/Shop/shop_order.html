@@ -54,8 +54,8 @@
                 搜索：
                 <select name="key">
                     <option value="order_sn">订单编号</option>
-                    <option value="consignee">收货人</option>    
-                    <option value="mobile">联系电话</option>    
+                    <option value="consignee">收货人</option>
+                    <option value="mobile">联系电话</option>
                 </select>
                 <input value="{twotree#$Think.get.val}" name="val" type="text" class="text-input small-input" placeholder="关键字"/>
                 
@@ -67,10 +67,12 @@
                 &nbsp;&nbsp;&nbsp;
                 <a  href="{twotree#:U('index')}">查看全部</a>
                 &nbsp;&nbsp;&nbsp;
-                <a class="btn <eq name='Think.get.order_status' value='1'>btn-danger</eq>" href="{twotree#:U('index',array('order_status'=>1))}">未发货</a>
-                <a class="btn <eq name='Think.get.order_status' value='2'>btn-success</eq>" href="{twotree#:U('index',array('order_status'=>2))}">已发货</a>
-                <a class="btn <eq name='Think.get.order_status' value='3'>btn-success</eq>" href="{twotree#:U('index',array('order_status'=>3))}">已签收</a>
-                
+				<div>
+					<a class="btn <eq name='Think.get.pay_status' value='1'>btn-danger</eq>" href="{twotree#:U('shop_order',array('pay_status'=>1))}">已支付</a>
+					<a class="btn <eq name='Think.get.order_status' value='1'>btn-danger</eq>" href="{twotree#:U('shop_order',array('order_status'=>1))}">未发货</a>
+					<a class="btn <eq name='Think.get.order_status' value='2'>btn-success</eq>" href="{twotree#:U('shop_order',array('order_status'=>2))}">已发货</a>
+					<a class="btn <eq name='Think.get.order_status' value='3'>btn-success</eq>" href="{twotree#:U('shop_order',array('order_status'=>3))}">已签收</a>
+                </div>
             </p>
             <table>
               <thead>
