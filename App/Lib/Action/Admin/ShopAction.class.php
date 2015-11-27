@@ -396,6 +396,10 @@ class ShopAction extends PublicAction{
 
 		$begin_time=strtotime(I('get.begin_time'));
 		$end_time=strtotime(I('get.end_time'));
+		/* var_dump(I('get.begin_time'));
+		var_dump($begin_time);
+		var_dump($end_time);exit; */
+		
 
 		if(in_array($so_key,array('order_sn','mobile','consignee'))){
 			if(!empty($so_val)&&!empty($so_val)){
@@ -405,12 +409,12 @@ class ShopAction extends PublicAction{
 		if($user_id=I('get.user_id')){
 			$map['user_id']=$user_id;
 		}
-
-		if($begin_time>0){
+		
+		if ($begin_time > 0 && $end_time > 0) {
+			$map['order_time'] = array(array('egt',$begin_time),array('elt',$end_time));
+		} else if($begin_time>0){
 			$map['order_time']=array('egt',$begin_time);
-		}
-
-		if($end_time>0){
+		} else if($end_time>0){
 			$map['order_time']=array('elt',$end_time);
 		}
 
@@ -440,13 +444,11 @@ class ShopAction extends PublicAction{
 			$map['build_id'] = I('post.build_id');
 		}
 
-		//var_dump($map);
-
 		$this->assign('map', $map);
 
 		$count = $db->where($map)->count();
 		$Page = new Page($count,10);
-
+		// echo $db->getLastSql();exit;
 
 		$list=$db->where($map)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 		$show = $Page->show();
