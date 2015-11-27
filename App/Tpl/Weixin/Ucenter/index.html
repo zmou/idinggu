@@ -57,6 +57,10 @@ body{ background:#E1E1E1;}
 </body>
 <script>
 $(function(){
+	$.post("{twotree#:U('Cli/autoConfirmOrder')}",function(data){
+		//alert(data);
+	});
+	
 	$("#btn-sign").click(function(){
 		$.post("{twotree#:U('Ajax/sign')}",{'act':'sign'},function(data){
 			if(data==1){

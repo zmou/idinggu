@@ -81,5 +81,12 @@ else
 <div id="bottomNav">
 	<include file="Public:footbar"/>
 </div>
+<script>
+$(function(){
+	$.post("{twotree#:U('Cli/autoConfirmOrder')}",function(data){
+		// alert(data);
+	});
+});
+</script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 /*	定时任务脚本
  *	AutoLibAction
  */
-class AutoLibAction extends Action {
+class CliAction extends Action {
 	
 	/*
 	 *	2天自动确认收货
@@ -14,15 +14,12 @@ class AutoLibAction extends Action {
 		foreach($orders as $key => $val) {
 			$this->_confirmOrder($val['id']);
 		}
-	}
-	
-	public function test()
-	{
-		echo 3333333;exit;
+		
+		echo count($orders);
 	}
 	
 	/*
-		confirm order 
+		confirm order
 	 */
 	private function _confirmOrder($order_id)
 	{
@@ -78,7 +75,6 @@ class AutoLibAction extends Action {
 		} // end if
 	}
 	
-	
 	// 获取当前时间48小时还未确认收货的订单
 	private function _getWaitConfirmOrder()
 	{
@@ -88,10 +84,12 @@ class AutoLibAction extends Action {
 		$map = array(
 			'role_id'      => 1,
 			'order_status' => 2,
+			'pay_status'   => 1,
 			'pay_time' 	   => array('ELT',$deadline)
 		);
 		$orders = $order->where($map)->select();
 		
 		return $orders;
 	}
+	
 }
