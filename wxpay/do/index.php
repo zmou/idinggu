@@ -90,6 +90,7 @@
 	if($friend_pay_id)
 	{
 		$out_trade_no = $order_info['order_sn'].'_'.$friend_pay_id;
+		file_put_contents('test.txt',$out_trade_no);
 	}
 
 	$unifiedOrder->setParameter("out_trade_no","$out_trade_no");//商户订单号 
