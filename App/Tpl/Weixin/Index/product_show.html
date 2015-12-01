@@ -68,7 +68,7 @@
 	
         <p>{twotree#$info.name}</p>
         <p><s class="font_gray">原价：￥{twotree#$info.market_price}</s></p>
-        <p>现价：￥{twotree#$info.price}</p>
+        <p>现价：￥{twotree#$shop_goods.goods_price}</p>
             
         </div>
 
@@ -107,7 +107,7 @@
 $(function(){
 	$(".btn-cart").click(function(){
 		var goods_id="{twotree#$info.id}";
-		var goods_price="{twotree#$info.price}";
+		var goods_price="{twotree#$shop_goods.goods_price}";
 		var goods_nums=$("#sy_num_gid1").val();
 		var post_data={};
 		post_data.goods_id=goods_id;

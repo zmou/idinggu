@@ -306,6 +306,9 @@
 
 			$this->assign('shop', $shop);
 
+			$shop_goods = M('shop_goods')->where(array('goods_id'=>$id,'shop_id'=>$shop['id']))->find();
+			$this->assign('shop_goods', $shop_goods);
+			
 			//增加人气
 			$db->where(array('id'=>$id))->setInc('hits',1);
 			$info=$db->find($id);
