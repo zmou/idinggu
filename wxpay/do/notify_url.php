@@ -66,7 +66,7 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 		$friend_pay = $db->get_one($query);
 		
 		//file_put_contents('test.txt',$friend_pay['payed_money']);
-		file_put_contents('test.txt',$friend_pay['payed_money'].'_'.$order_info['total_fee']);
+		//file_put_contents('test.txt',$friend_pay['payed_money'].'_'.$order_info['total_fee']);
 
 		if($friend_pay['payed_money'] >= $order_info['total_fee'])
 		{
@@ -98,11 +98,14 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 			$shop_keeper=$db->get_one($query);
 
 			//file_put_contents('pay'.date('YmdHis').'-13.txt',$shop_keeper['mobile'].'\n');
+			
+			$query=$db->query("select * from `twotree_wechat_user` where id={$order_info['user_id']}");
+			$user_info=$db->get_one($query);
 
 			if($shop_keeper['mobile'])
 			{
-				//$sms_content = "【叮咕】亲，订单来啦！待配送商品：".$order_info['order_title'].";送货地址：".$order_info['build']."-".$order_info['address']." 联系人姓名：".$user_info['name']." 电话：".$user_info['mobile'].";赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
-				$sms_content = "【叮咕】亲，又来订单啦！赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
+				$sms_content = "【叮咕】亲，又来订单啦！寝室号：".$order_info['address']."，联系人姓名：".$user_info['name']."，电话：".$order_info['mobile'].";赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
+				//$sms_content = "【叮咕】亲，又来订单啦！赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
 				send_sms($shop_keeper['mobile'],$sms_content);
 			}
 
