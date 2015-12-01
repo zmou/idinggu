@@ -65,8 +65,8 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 		$query = $db->query("select SUM(pay_money) as payed_money from `twotree_order_friend_pay` where order_id=".$order_info['id']);
 		$friend_pay = $db->get_one($query);
 		
-		file_put_contents('test.txt',$friend_pay['payed_money']);
-		file_put_contents('test.txt',$order_info['total_fee']);
+		//file_put_contents('test.txt',$friend_pay['payed_money']);
+		file_put_contents('test.txt',$friend_pay['payed_money'].'_'.$order_info['total_fee']);
 
 		if($friend_pay['payed_money'] >= $order_info['total_fee'])
 		{
