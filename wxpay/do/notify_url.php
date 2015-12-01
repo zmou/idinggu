@@ -159,8 +159,8 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 		
 		if($shop_keeper['mobile'])
 		{
-			//$sms_content = "【叮咕】亲，订单来啦！待配送商品：".$order_info['order_title'].";  送货地址：".$order_info['build']."-".$order_info['address']." 联系人姓名：".$user_info['name']." 电话：".$user_info['mobile'];
-			$sms_content = "【叮咕】亲，又来订单啦！赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
+			$sms_content = "【叮咕】亲，又来订单啦！待配送商品：".$order_info['order_title'].";送货地址：".$order_info['build']."-".$order_info['address']." 联系人姓名：".$user_info['name']." 电话：".$order_info['mobile'];
+			//$sms_content = "【叮咕】亲，又来订单啦！赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
 			$res = send_sms($shop_keeper['mobile'],$sms_content);
 		}
 
