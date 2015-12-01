@@ -92,14 +92,23 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 			}
 			/************************************¸üÐÂ¿â´æend*********************************/
 
-			$query=$db->query("select * from `twotree_shop` where id={$order_info['shop_id']}");
+			/* $query=$db->query("select * from `twotree_shop` where id={$order_info['shop_id']}");
 			$shop=$db->get_one($query);
-			file_put_contents('pay'.date('YmdHis').'-12.txt',$shop_keeper['mobile'].'\n');
+			//file_put_contents('pay'.date('YmdHis').'-12.txt',$shop_keeper['mobile'].'\n');
 
 			$query=$db->query("select * from `twotree_wechat_user` where id={$shop['uid']}");		
-			$shop_keeper=$db->get_one($query);
+			$shop_keeper=$db->get_one($query); */
+			
+			
+			$query=$db->query("select * from `twotree_shop` where id={$order_info['shop_id']}");
+			$shop=$db->get_one($query);
 
-			file_put_contents('pay'.date('YmdHis').'-13.txt',$shop_keeper['mobile'].'\n');
+			$query=$db->query("select * from `twotree_wechat_user` where id={$shop['uid']}");
+			$shop_keeper=$db->get_one($query);
+			
+			
+
+			//file_put_contents('pay'.date('YmdHis').'-13.txt',$shop_keeper['mobile'].'\n');
 
 			if($shop_keeper['mobile'])
 			{
