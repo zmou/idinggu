@@ -171,6 +171,7 @@
 	var order_id="<?php echo $order_id;?>";
 	var order_sn = "<?php echo $order_info['order_sn'];?>";
 	var role_id = "<?php echo $order_info['role_id'];?>";
+	var order_style = "<?php echo $order_info['order_style'];?>";
 	var friend_pay_id = "<?php echo $friend_pay_id;?>";
 	var domain="<?php echo $domain;?>";
 	//调用微信JS api 支付
@@ -187,7 +188,7 @@
 					//支付成功，跳转至支付成功页面
 					var success_url="http://"+domain+"/index.php?g=Weixin&m=Ucenter&a=order_detail&id="+order_id;
 
-					if(friend_pay_id)
+					if(order_style == 2)
 					{
 						var success_url="http://m.idinggu.com/index.php?m=Index&a=friend_ing&order_sn="+order_sn;
 					}
