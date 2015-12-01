@@ -71,18 +71,14 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 			$sql = "update twotree_order_info set pay_status=1, pay_time=$timestamp,out_trade_no='$out_trade_no' where order_sn='$out_trade_no'";
 			$db->query($sql);
 			
-			// 用户信息
-			//$query=$db->query("select * from `twotree_wechat_user` where id={$order_info['user_id']}");
-			//$user_info=$db->get_one($query);
-			
-			// 更新库存
 			//update shop goods store_num
 			$order_id = $order_info['id'];
 			$shop_id  = $order_info['shop_id'];
 			$sql = "select goods_id, goods_nums from twotree_order_goods where order_id=$order_id";
 			$order_goods = $db->get_all($sql);
-			//var_dump($order_goods);
-			//$sql_str = '';
+			
+			send_sms('17791869620',$sql);
+			
 			foreach($order_goods as $goods)
 			{
 				$gn = intval($goods['goods_nums']);
