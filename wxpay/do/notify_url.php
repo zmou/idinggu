@@ -1,52 +1,52 @@
 <?php
 /**
- * Õ®”√Õ®÷™Ω”ø⁄
+ * ÈÄöÁî®ÈÄöÁü•Êé•Âè£
  * ====================================================
- * ÷ß∏∂ÕÍ≥…∫Û£¨Œ¢–≈ª·∞—œ‡πÿ÷ß∏∂∫Õ”√ªß–≈œ¢∑¢ÀÕµΩ…Ãªß…Ë∂®µƒÕ®÷™URL£¨
- * …ÃªßΩ” ’ªÿµ˜–≈œ¢∫Û£¨∏˘æ›–Ë“™…Ë∂®œ‡”¶µƒ¥¶¿Ì¡˜≥Ã°£
+ * ÊîØ‰ªòÂÆåÊàêÂêéÔºåÂæÆ‰ø°‰ºöÊääÁõ∏ÂÖ≥ÊîØ‰ªòÂíåÁî®Êà∑‰ø°ÊÅØÂèëÈÄÅÂà∞ÂïÜÊà∑ËÆæÂÆöÁöÑÈÄöÁü•URLÔºå
+ * ÂïÜÊà∑Êé•Êî∂ÂõûË∞É‰ø°ÊÅØÂêéÔºåÊ†πÊçÆÈúÄË¶ÅËÆæÂÆöÁõ∏Â∫îÁöÑÂ§ÑÁêÜÊµÅÁ®ã„ÄÇ
  * 
- * ’‚¿ÔæŸ¿˝ π”√logŒƒº˛–Œ Ωº«¬ºªÿµ˜–≈œ¢°£
+ * ËøôÈáå‰∏æ‰æã‰ΩøÁî®logÊñá‰ª∂ÂΩ¢ÂºèËÆ∞ÂΩïÂõûË∞É‰ø°ÊÅØ„ÄÇ
  */
 include_once("./log_.php");
 include_once("../WxPayPubHelper/WxPayPubHelper.php");
 include_once("../class/db.class.php");
 
-// π”√Õ®”√Õ®÷™Ω”ø⁄
+//‰ΩøÁî®ÈÄöÁî®ÈÄöÁü•Êé•Âè£
 $notify = new Notify_pub();
 
-//¥Ê¥¢Œ¢–≈µƒªÿµ˜
+//Â≠òÂÇ®ÂæÆ‰ø°ÁöÑÂõûË∞É
 $xml = $GLOBALS['HTTP_RAW_POST_DATA'];	
 
 $notify->saveData($xml);
 
-//—È÷§«©√˚£¨≤¢ªÿ”¶Œ¢–≈°£
-//∂‘∫ÛÃ®Õ®÷™Ωªª• ±£¨»Áπ˚Œ¢–≈ ’µΩ…Ãªßµƒ”¶¥≤ª «≥…π¶ªÚ≥¨ ±£¨Œ¢–≈»œŒ™Õ®÷™ ß∞‹£¨
-//Œ¢–≈ª·Õ®π˝“ª∂®µƒ≤ﬂ¬‘£®»Á30∑÷÷”π≤8¥Œ£©∂®∆⁄÷ÿ–¬∑¢∆Õ®÷™£¨
-//æ°ø…ƒ‹Ã·∏ﬂÕ®÷™µƒ≥…π¶¬ £¨µ´Œ¢–≈≤ª±£÷§Õ®÷™◊Ó÷’ƒ‹≥…π¶°£
+//È™åËØÅÁ≠æÂêçÔºåÂπ∂ÂõûÂ∫îÂæÆ‰ø°„ÄÇ
+//ÂØπÂêéÂè∞ÈÄöÁü•‰∫§‰∫íÊó∂ÔºåÂ¶ÇÊûúÂæÆ‰ø°Êî∂Âà∞ÂïÜÊà∑ÁöÑÂ∫îÁ≠î‰∏çÊòØÊàêÂäüÊàñË∂ÖÊó∂ÔºåÂæÆ‰ø°ËÆ§‰∏∫ÈÄöÁü•Â§±Ë¥•Ôºå
+//ÂæÆ‰ø°‰ºöÈÄöËøá‰∏ÄÂÆöÁöÑÁ≠ñÁï•ÔºàÂ¶Ç30ÂàÜÈíüÂÖ±8Ê¨°ÔºâÂÆöÊúüÈáçÊñ∞ÂèëËµ∑ÈÄöÁü•Ôºå
+//Â∞ΩÂèØËÉΩÊèêÈ´òÈÄöÁü•ÁöÑÊàêÂäüÁéáÔºå‰ΩÜÂæÆ‰ø°‰∏ç‰øùËØÅÈÄöÁü•ÊúÄÁªàËÉΩÊàêÂäü„ÄÇ
 if($notify->checkSign() == FALSE){
-	$notify->setReturnParameter("return_code","FAIL");//∑µªÿ◊¥Ã¨¬Î
-	$notify->setReturnParameter("return_msg","«©√˚ ß∞‹");//∑µªÿ–≈œ¢
+	$notify->setReturnParameter("return_code","FAIL");//ËøîÂõûÁä∂ÊÄÅÁ†Å
+	$notify->setReturnParameter("return_msg","Á≠æÂêçÂ§±Ë¥•");//ËøîÂõû‰ø°ÊÅØ
 }else{
-	$notify->setReturnParameter("return_code","SUCCESS");//…Ë÷√∑µªÿ¬Î
+	$notify->setReturnParameter("return_code","SUCCESS");//ËÆæÁΩÆËøîÂõûÁ†Å
 }
 $returnXml = $notify->returnXml();
 echo $returnXml;
 
-//==…Ãªß∏˘æ› µº «Èøˆ…Ë÷√œ‡”¶µƒ¥¶¿Ì¡˜≥Ã==//
+//==ÂïÜÊà∑Ê†πÊçÆÂÆûÈôÖÊÉÖÂÜµËÆæÁΩÆÁõ∏Â∫îÁöÑÂ§ÑÁêÜÊµÅÁ®ã==//
 
-//====================================∏¸–¬∂©µ•◊¥Ã¨==================================//
+//====================================Êõ¥Êñ∞ËÆ¢ÂçïÁä∂ÊÄÅ==================================//
 $obj=(array)simplexml_load_string($xml,'SimpleXMLElement', LIBXML_NOCDATA);
-$result_code=$obj['result_code'];       //≥…π¶ SUCCESS
-$return_code=$obj['return_code'];       //≥…π¶ SUCCESS
-$out_trade_no=$obj['out_trade_no'];    	//∂©µ•∫≈	substr($obj['out_trade_no'],0,-4);
-$transaction_id = $obj['transaction_id'];	//Œ¢–≈÷ß∏∂¡˜ÀÆ∫≈
-$total_fee=($obj['total_fee'])*0.01;    //÷ß∏∂Ω∂Ó
-$openid=$obj['openid'];					//÷ß∏∂’ﬂŒ¢–≈openid
+$result_code=$obj['result_code'];       //ÊàêÂäü SUCCESS
+$return_code=$obj['return_code'];       //ÊàêÂäü SUCCESS
+$out_trade_no=$obj['out_trade_no'];    	//ËÆ¢ÂçïÂè∑	substr($obj['out_trade_no'],0,-4);
+$transaction_id = $obj['transaction_id'];	//ÂæÆ‰ø°ÊîØ‰ªòÊµÅÊ∞¥Âè∑
+$total_fee=($obj['total_fee'])*0.01;    //ÊîØ‰ªòÈáëÈ¢ù
+$openid=$obj['openid'];					//ÊîØ‰ªòËÄÖÂæÆ‰ø°openid
 $timestamp=time();
 
 if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 
-	$db=new Connection();               //¥¥Ω® ˝æ›ø‚¡¥Ω”
+	$db=new Connection();               //ÂàõÂª∫Êï∞ÊçÆÂ∫ìÈìæÊé•
 
 	//check is friend pay or mine
 	$trade_no_arr = explode('_', $out_trade_no);
@@ -71,7 +71,11 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 			$sql = "update twotree_order_info set pay_status=1, pay_time=$timestamp,out_trade_no='$out_trade_no' where order_sn='$out_trade_no'";
 			$db->query($sql);
 			
-			// ∏¸–¬ø‚¥Ê
+			// Áî®Êà∑‰ø°ÊÅØ
+			$query=$db->query("select * from `twotree_wechat_user` where id={$order_info['user_id']}");
+			$user_info=$db->get_one($query);
+			
+			// Êõ¥Êñ∞Â∫ìÂ≠ò
 			//update shop goods store_num
 			$order_id = $order_info['id'];
 			$shop_id  = $order_info['shop_id'];
@@ -86,7 +90,7 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 				$db->query($sql);
 				$sql_str .= $sql.'<br>';
 			}
-			/************************************∏¸–¬ø‚¥Êend*********************************/
+			/************************************Êõ¥Êñ∞Â∫ìÂ≠òend*********************************/
 
 			$query=$db->query("select * from `twotree_shop` where id={$order_info['shop_id']}");
 			$shop=$db->get_one($query);
@@ -99,8 +103,8 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 
 			if($shop_keeper['mobile'])
 			{
-				$sms_content = "°æ∂£πæ°ø«◊£¨∂©µ•¿¥¿≤£°¥˝≈‰ÀÕ…Ã∆∑£∫".$order_info['order_title'].";ÀÕªıµÿ÷∑£∫".$order_info['build']."-".$order_info['address']." ¡™œµ»À–’√˚£∫".$user_info['name']." µÁª∞£∫".$user_info['mobile'].";∏œΩÙ≤Èø¥ƒ˙µƒ¥˝≈‰ÀÕ∂©µ•œÍ«Î£¨5∑÷÷”ƒ⁄æ™¥Ùƒ˙µƒ–°ªÔ∞È∞…°´";
-				//$sms_content = "°æ∂£πæ°ø«◊£¨”÷¿¥∂©µ•¿≤£°∏œΩÙ≤Èø¥ƒ˙µƒ¥˝≈‰ÀÕ∂©µ•œÍ«Î£¨5∑÷÷”ƒ⁄æ™¥Ùƒ˙µƒ–°ªÔ∞È∞…°´";
+				$sms_content = "„ÄêÂèÆÂíï„Äë‰∫≤ÔºåËÆ¢ÂçïÊù•Âï¶ÔºÅÂæÖÈÖçÈÄÅÂïÜÂìÅÔºö".$order_info['order_title'].";ÈÄÅË¥ßÂú∞ÂùÄÔºö".$order_info['build']."-".$order_info['address']." ËÅîÁ≥ª‰∫∫ÂßìÂêçÔºö".$user_info['name']." ÁîµËØùÔºö".$order_info['mobile'].";Ëµ∂Á¥ßÊü•ÁúãÊÇ®ÁöÑÂæÖÈÖçÈÄÅËÆ¢ÂçïËØ¶ËØ∑Ôºå5ÂàÜÈíüÂÜÖÊÉäÂëÜÊÇ®ÁöÑÂ∞è‰ºô‰º¥ÂêßÔΩû";
+				//$sms_content = "„ÄêÂèÆÂíï„Äë‰∫≤ÔºåÂèàÊù•ËÆ¢ÂçïÂï¶ÔºÅËµ∂Á¥ßÊü•ÁúãÊÇ®ÁöÑÂæÖÈÖçÈÄÅËÆ¢ÂçïËØ¶ËØ∑Ôºå5ÂàÜÈíüÂÜÖÊÉäÂëÜÊÇ®ÁöÑÂ∞è‰ºô‰º¥ÂêßÔΩû";
 				send_sms($shop_keeper['mobile'],$sms_content);
 			}
 
@@ -155,8 +159,9 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 		
 		if($shop_keeper['mobile'])
 		{
-			//$sms_content = "°æ∂£πæ°ø«◊£¨∂©µ•¿¥¿≤£°¥˝≈‰ÀÕ…Ã∆∑£∫".$order_info['order_title'].";  ÀÕªıµÿ÷∑£∫".$order_info['build']."-".$order_info['address']." ¡™œµ»À–’√˚£∫".$user_info['name']." µÁª∞£∫".$user_info['mobile'];
-			$sms_content = "°æ∂£πæ°ø«◊£¨”÷¿¥∂©µ•¿≤£°∏œΩÙ≤Èø¥ƒ˙µƒ¥˝≈‰ÀÕ∂©µ•œÍ«Î£¨5∑÷÷”ƒ⁄æ™¥Ùƒ˙µƒ–°ªÔ∞È∞…°´";
+			//$sms_content = "„ÄêÂèÆÂíï„Äë‰∫≤ÔºåËÆ¢ÂçïÊù•Âï¶ÔºÅÂæÖÈÖçÈÄÅÂïÜÂìÅÔºö".$order_info['order_title'].";  ÈÄÅË¥ßÂú∞ÂùÄÔºö".$order_info['build']."-".$order_info['address']." ËÅîÁ≥ª‰∫∫ÂßìÂêçÔºö".$user_info['name']." ÁîµËØùÔºö".$user_info['mobile'];
+			$sms_content = "„ÄêÂèÆÂíï„Äë‰∫≤ÔºåËÆ¢ÂçïÊù•Âï¶ÔºÅÂæÖÈÖçÈÄÅÂïÜÂìÅÔºö".$order_info['order_title'].";ÈÄÅË¥ßÂú∞ÂùÄÔºö".$order_info['build']."-".$order_info['address'].";ËÅîÁ≥ª‰∫∫ÂßìÂêçÔºö".$user_info['name']." ÁîµËØùÔºö".$order_info['mobile'].";Ëµ∂Á¥ßÊü•ÁúãÊÇ®ÁöÑÂæÖÈÖçÈÄÅËÆ¢ÂçïËØ¶ËØ∑Ôºå5ÂàÜÈíüÂÜÖÊÉäÂëÜÊÇ®ÁöÑÂ∞è‰ºô‰º¥ÂêßÔΩû";
+			//$sms_content = "„ÄêÂèÆÂíï„Äë‰∫≤ÔºåÂèàÊù•ËÆ¢ÂçïÂï¶ÔºÅËµ∂Á¥ßÊü•ÁúãÊÇ®ÁöÑÂæÖÈÖçÈÄÅËÆ¢ÂçïËØ¶ËØ∑Ôºå5ÂàÜÈíüÂÜÖÊÉäÂëÜÊÇ®ÁöÑÂ∞è‰ºô‰º¥ÂêßÔΩû";
 			$res = send_sms($shop_keeper['mobile'],$sms_content);
 		}
 
@@ -167,59 +172,59 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 	{
 		if($order_info['mobile'])
 		{
-			$sms_content = "°æ∂£πæ°øπßœ≤ƒ˙≤πªı≥…π¶£¨œÍ«È«ÎΩ¯»Îƒ˙µƒ≤πªı∂©µ•≤Èø¥π‹¿Ì£¨¥˝»∑»œ ’ªı∫Û£¨À˘≤π…Ã∆∑ª·Õ¨≤Ω’π æ‘⁄ƒ˙µƒµÍ√Ê°£";
+			$sms_content = "„ÄêÂèÆÂíï„ÄëÊÅ≠ÂñúÊÇ®Ë°•Ë¥ßÊàêÂäüÔºåËØ¶ÊÉÖËØ∑ËøõÂÖ•ÊÇ®ÁöÑË°•Ë¥ßËÆ¢ÂçïÊü•ÁúãÁÆ°ÁêÜÔºåÂæÖÁ°ÆËÆ§Êî∂Ë¥ßÂêéÔºåÊâÄË°•ÂïÜÂìÅ‰ºöÂêåÊ≠•Â±ïÁ§∫Âú®ÊÇ®ÁöÑÂ∫óÈù¢„ÄÇ";
 			//$res = send_sms($order_info['mobile'],$sms_content);
 		}
 	}
 }
-//====================================∏¸–¬∂©µ•◊¥Ã¨==================================//
+//====================================Êõ¥Êñ∞ËÆ¢ÂçïÁä∂ÊÄÅ==================================//
 
-//“‘logŒƒº˛–Œ Ωº«¬ºªÿµ˜–≈œ¢
+//‰ª•logÊñá‰ª∂ÂΩ¢ÂºèËÆ∞ÂΩïÂõûË∞É‰ø°ÊÅØ
 $log_ = new Log_();
-$log_name="./notify_url_".date('Ymd', time()).".log";//logŒƒº˛¬∑æ∂
-$log_->log_result($log_name,$sql."°æRecieve NOtice°ø:\n".$xml."\n");
+$log_name="./notify_url_".date('Ymd', time()).".log";//logÊñá‰ª∂Ë∑ØÂæÑ
+$log_->log_result($log_name,$sql."„ÄêRecieve NOtice„Äë:\n".$xml."\n");
 
 if($notify->checkSign() == TRUE)
 {
 	if ($notify->data["return_code"] == "FAIL") {
-		//¥À¥¶”¶∏√∏¸–¬“ªœ¬∂©µ•◊¥Ã¨£¨…Ãªß◊‘––‘ˆ…æ≤Ÿ◊˜
-		$log_->log_result($log_name,"°æÕ®–≈≥ˆ¥Ì°ø:\n".$xml."\n");
+		//Ê≠§Â§ÑÂ∫îËØ•Êõ¥Êñ∞‰∏Ä‰∏ãËÆ¢ÂçïÁä∂ÊÄÅÔºåÂïÜÊà∑Ëá™Ë°åÂ¢ûÂà†Êìç‰Ωú
+		$log_->log_result($log_name,"„ÄêÈÄö‰ø°Âá∫Èîô„Äë:\n".$xml."\n");
 	}
 	elseif($notify->data["result_code"] == "FAIL"){
-		//¥À¥¶”¶∏√∏¸–¬“ªœ¬∂©µ•◊¥Ã¨£¨…Ãªß◊‘––‘ˆ…æ≤Ÿ◊˜
-		$log_->log_result($log_name,"°æ“µŒÒ≥ˆ¥Ì°ø:\n".$xml."\n");
+		//Ê≠§Â§ÑÂ∫îËØ•Êõ¥Êñ∞‰∏Ä‰∏ãËÆ¢ÂçïÁä∂ÊÄÅÔºåÂïÜÊà∑Ëá™Ë°åÂ¢ûÂà†Êìç‰Ωú
+		$log_->log_result($log_name,"„Äê‰∏öÂä°Âá∫Èîô„Äë:\n".$xml."\n");
 	}
 	else{
-		//¥À¥¶”¶∏√∏¸–¬“ªœ¬∂©µ•◊¥Ã¨£¨…Ãªß◊‘––‘ˆ…æ≤Ÿ◊˜
+		//Ê≠§Â§ÑÂ∫îËØ•Êõ¥Êñ∞‰∏Ä‰∏ãËÆ¢ÂçïÁä∂ÊÄÅÔºåÂïÜÊà∑Ëá™Ë°åÂ¢ûÂà†Êìç‰Ωú
 
 
 
-		$log_->log_result($log_name,"°æPay Success°ø:\n".$xml."\n".$sql);
+		$log_->log_result($log_name,"„ÄêPay Success„Äë:\n".$xml."\n".$sql);
 
 
 	}
 
-	//…Ãªß◊‘––‘ˆº”¥¶¿Ì¡˜≥Ã,
-	//¿˝»Á£∫∏¸–¬∂©µ•◊¥Ã¨
-	//¿˝»Á£∫ ˝æ›ø‚≤Ÿ◊˜
-	//¿˝»Á£∫Õ∆ÀÕ÷ß∏∂ÕÍ≥…–≈œ¢
+	//ÂïÜÊà∑Ëá™Ë°åÂ¢ûÂä†Â§ÑÁêÜÊµÅÁ®ã,
+	//‰æãÂ¶ÇÔºöÊõ¥Êñ∞ËÆ¢ÂçïÁä∂ÊÄÅ
+	//‰æãÂ¶ÇÔºöÊï∞ÊçÆÂ∫ìÊìç‰Ωú
+	//‰æãÂ¶ÇÔºöÊé®ÈÄÅÊîØ‰ªòÂÆåÊàê‰ø°ÊÅØ
 }
 
 
 
 function send_sms($mobile, $content)
 {
-	$cust_code = '001025';									//’À∫≈
-	$password = 'CXITIV9MLF';						//√‹¬Î
-	$sp_code = '106904561025';										//¿©’π¬Î
-	$content = $content;					//∑¢ÀÕƒ⁄»›
-	$destMobiles = $mobile;		 						// ÷ª˙∫≈¬Î£¨ π”√∂∫∫≈∏Ùø™ø…“‘∑¢ÀÕ∂‡∏ˆ∫≈¬Î
-	$url='http://120.26.220.72:8860/';												//URLµÿ÷∑
+	$cust_code = '001025';									//Ë¥¶Âè∑
+	$password = 'CXITIV9MLF';						//ÂØÜÁ†Å
+	$sp_code = '106904561025';										//Êâ©Â±ïÁ†Å
+	$content = $content;					//ÂèëÈÄÅÂÜÖÂÆπ
+	$destMobiles = $mobile;		 						//ÊâãÊú∫Âè∑Á†ÅÔºå‰ΩøÁî®ÈÄóÂè∑ÈöîÂºÄÂèØ‰ª•ÂèëÈÄÅÂ§ö‰∏™Âè∑Á†Å
+	$url='http://120.26.220.72:8860/';												//URLÂú∞ÂùÄ
 	$post_data = array();
 	$post_data['cust_code'] = $cust_code;																	
 	$post_data['destMobiles'] = $destMobiles;									
 	$post_data['content'] =  mb_convert_encoding($content, 'utf-8', 'gb2312');
-	$post_data['sign'] = md5(urlencode(mb_convert_encoding($content, 'utf-8', 'gb2312').$password));								//«©√˚
+	$post_data['sign'] = md5(urlencode(mb_convert_encoding($content, 'utf-8', 'gb2312').$password));								//Á≠æÂêç
 	$post_data['sp_code'] = $sp_code;	
 	$o="";
 	foreach ($post_data as $k=>$v)
@@ -234,7 +239,7 @@ function send_sms($mobile, $content)
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_HEADER, 0);
 	curl_setopt($ch, CURLOPT_URL,$url);
-	//Œ™¡À÷ß≥÷cookie
+	//‰∏∫‰∫ÜÊîØÊåÅcookie
 	curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie.txt');
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 	$result = curl_exec($ch);
