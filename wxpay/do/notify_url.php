@@ -53,7 +53,7 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 	if(count($trade_no_arr)>1)
 	{
 		//friend pay
-		$out_trade_no = $trade_no_arr[0];
+		$out_trade_no  = $trade_no_arr[0];
 		$friend_pay_id = $trade_no_arr[1];
 		$sql = "update twotree_order_friend_pay set pay_status=1, pay_time=$timestamp, out_trade_no='$out_trade_no' where id=$friend_pay_id";
 		$db->query($sql);
@@ -71,11 +71,10 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 			$sql = "update twotree_order_info set pay_status=1, pay_time=$timestamp,out_trade_no='$out_trade_no' where order_sn='$out_trade_no'";
 			$db->query($sql);
 			
-			send_sms('17791869620',$sql);
-			
+			// 更新库存
 			//update shop goods store_num
 			$order_id = $order_info['id'];
-			$shop_id = $order_info['shop_id'];
+			$shop_id  = $order_info['shop_id'];
 			$sql = "select goods_id, goods_nums from twotree_order_goods where order_id=$order_id";
 			$order_goods = $db->get_all($sql);
 			//var_dump($order_goods);
@@ -87,25 +86,27 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 				$db->query($sql);
 				$sql_str .= $sql.'<br>';
 			}
-			/************************************update kucun end*********************************/
-			
+			/************************************更新库存end*********************************/
+
 			$query=$db->query("select * from `twotree_shop` where id={$order_info['shop_id']}");
 			$shop=$db->get_one($query);
+			//file_put_contents('pay'.date('YmdHis').'-12.txt',$shop_keeper['mobile'].'\n');
 
-			$query=$db->query("select * from `twotree_wechat_user` where id={$shop['uid']}");
+			$query=$db->query("select * from `twotree_wechat_user` where id={$shop['uid']}");		
 			$shop_keeper=$db->get_one($query);
+
+			//file_put_contents('pay'.date('YmdHis').'-13.txt',$shop_keeper['mobile'].'\n');
 
 			if($shop_keeper['mobile'])
 			{
-				//$sms_content = "【叮咕】亲，订单来啦！待配送商品：".$order_info['order_title'].";  送货地址：".$order_info['build']."-".$order_info['address']." 联系人姓名：".$user_info['name']." 电话：".$user_info['mobile'];
-				//$sms_content = "【叮咕】亲，又来订单啦！寝室号：".$order_info['address']."，联系电话：".$order_info['mobile'];
+				//$sms_content = "【叮咕】亲，订单来啦！待配送商品：".$order_info['order_title'].";送货地址：".$order_info['build']."-".$order_info['address']." 联系人姓名：".$user_info['name']." 电话：".$user_info['mobile'].";赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
 				$sms_content = "【叮咕】亲，又来订单啦！赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
 				send_sms($shop_keeper['mobile'],$sms_content);
 			}
 
 			//add 10 jifen
 			//$sql = "update twotree_wechat_user set jifen=jifen+10";
-			//$db->query($sql);
+			//$db->query($sql); 
 		}
 
 		exit;
@@ -154,8 +155,8 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 		
 		if($shop_keeper['mobile'])
 		{
-			$sms_content = "【叮咕】亲，又来订单啦！寝室号：".$order_info['address']."，联系人姓名：".$user_info['name']."，电话：".$order_info['mobile'];
-			//$sms_content = "【叮咕】亲，又来订单啦！赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
+			//$sms_content = "【叮咕】亲，订单来啦！待配送商品：".$order_info['order_title'].";  送货地址：".$order_info['build']."-".$order_info['address']." 联系人姓名：".$user_info['name']." 电话：".$user_info['mobile'];
+			$sms_content = "【叮咕】亲，又来订单啦！赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
 			$res = send_sms($shop_keeper['mobile'],$sms_content);
 		}
 
