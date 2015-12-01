@@ -72,8 +72,8 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 			$db->query($sql);
 			
 			// 用户信息
-			$query=$db->query("select * from `twotree_wechat_user` where id={$order_info['user_id']}");
-			$user_info=$db->get_one($query);
+			//$query=$db->query("select * from `twotree_wechat_user` where id={$order_info['user_id']}");
+			//$user_info=$db->get_one($query);
 			
 			// 更新库存
 			//update shop goods store_num
@@ -104,7 +104,7 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 			if($shop_keeper['mobile'])
 			{
 				//$sms_content = "【叮咕】亲，订单来啦！待配送商品：".$order_info['order_title'].";  送货地址：".$order_info['build']."-".$order_info['address']." 联系人姓名：".$user_info['name']." 电话：".$user_info['mobile'];
-				$sms_content = "【叮咕】亲，又来订单啦！寝室号：".$order_info['address']."，联系人姓名：".$user_info['name']."，电话：".$order_info['mobile'];
+				$sms_content = "【叮咕】亲，又来订单啦！寝室号：".$order_info['address']."，联系电话：".$order_info['mobile'];
 				//$sms_content = "【叮咕】亲，又来订单啦！赶紧查看您的待配送订单详请，5分钟内惊呆您的小伙伴吧～";
 				send_sms($shop_keeper['mobile'],$sms_content);
 			}
