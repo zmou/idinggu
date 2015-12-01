@@ -49,7 +49,7 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 	$db=new Connection();               //创建数据库链接
 
 	//check is friend pay or mine
-	$trade_no_arr = explode('_', $out_trade_no);
+	$trade_no_arr = explode("_", $out_trade_no);
 	if(count($trade_no_arr)>1)
 	{
 		//friend pay
@@ -59,12 +59,14 @@ if($result_code=='SUCCESS'&&$return_code=='SUCCESS'){
 		$db->query($sql);
 
 		//check order of completed or not
-
 		$query=$db->query("select * from `twotree_order_info` where order_sn='$out_trade_no'");
 		$order_info=$db->get_one($query);
 
-		$query = $db->query("select sum(pay_money) as payed_money from twotree_order_friend_pay where order_id=".$order_info['id']);
+		$query = $db->query("select SUM(pay_money) as payed_money from `twotree_order_friend_pay` where order_id=".$order_info['id']);
 		$friend_pay = $db->get_one($query);
+		
+		file_put_contents('test.txt',$friend_pay['payed_money']);
+		file_put_contents('test.txt',$order_info['total_fee']);
 
 		if($friend_pay['payed_money'] >= $order_info['total_fee'])
 		{
