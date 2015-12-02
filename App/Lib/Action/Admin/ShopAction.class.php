@@ -531,7 +531,7 @@ class ShopAction extends PublicAction
             'order_sn',
             'mobile',
             'consignee',
-			'school'
+			'address'
         ))) {
             if (!empty($so_val) && !empty($so_val)) {
                 $map[$so_key] = array(
