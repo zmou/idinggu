@@ -83,9 +83,9 @@
                    <th>订单编号</th>
                    <th>收货人</th>
                    <th>联系电话</th>
+                   <th>地址</th>
                    <th>订单金额</th>
                    <th>商品总价</th>
-                   <!--<th>客户确认</th>-->
                    <th>订单状态</th>
                    <th>支付状态</th>
                    <th>下单时间</th>
@@ -100,6 +100,7 @@
                   <td><a title="点击查看" href="{twotree#:U('edit',array('id'=>$v['id']))}">{twotree#$v.order_sn}</a></td>
                   <td>{twotree#$v.consignee}</td>
                   <td>{twotree#$v.mobile}</td>
+                  <td>{twotree#$v.address}</td>
                   <td><b>&yen; </b>{twotree#$v.total_fee}</td>
                   <td><b>&yen; </b>{twotree#$v.total_price}</td>
                   <!--<td><a class="btn"><eq name="v.is_confirm" value="1">已确认<else/><font color="red">未确认</font></eq></a></td>-->
