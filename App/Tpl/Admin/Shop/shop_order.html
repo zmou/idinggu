@@ -40,9 +40,10 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				订单状态：
 				<select name="order_status" id="order_status">
-					<option value="1" selected>未发货</option>
-					<option value="3">已签收</option>
-
+					<option value="0" <eq name='Think.post.order_status' value='0'>selected</eq>>全部</option>
+					<option value="1" <eq name='Think.post.order_status' value='1'>selected</eq>>未发货</option>
+					<option value="2" <eq name='Think.post.order_status' value='2'>selected</eq>>已发货</option>
+					<option value="3" <eq name='Think.post.order_status' value='3'>selected</eq>>已签收</option>
                 </select>
 				
                 <input id='search_btn' type="submit" value="确定" class="button"/>
@@ -53,9 +54,10 @@
             <p>
                 搜索：
                 <select name="key">
-                    <option value="order_sn">订单编号</option>
-                    <option value="consignee">收货人</option>
-                    <option value="mobile">联系电话</option>
+                    <option value="order_sn" <eq name='Think.get.key' value='order_sn'>selected</eq>>订单编号</option>
+                    <option value="consignee" <eq name='Think.get.key' value='consignee'>selected</eq>>收货人</option>
+                    <option value="mobile" <eq name='Think.get.key' value='mobile'>selected</eq>>联系电话</option>
+                    <option value="school" <eq name='Think.get.key' value='school'>selected</eq>>学校</option>
                 </select>
                 <input value="{twotree#$Think.get.val}" name="val" type="text" class="text-input small-input" placeholder="关键字"/>
                 
@@ -297,7 +299,7 @@ if(school_id)
 
 $('#district_id').change(function(){
 	var county_id = $(this).val();
-	alert(county_id);
+	
 	$.post("{twotree#:U('Ajax/school')}",{'county_id':county_id},function(data){
 		
 		school_str = "<option value='0'>请选择学校</option>";
