@@ -75,11 +75,11 @@ class CliAction extends Action {
 		} // end if
 	}
 	
-	// 获取当前时间48小时还未确认收货的订单
+	// 获取当前时间2小时还未确认收货的订单
 	private function _getWaitConfirmOrder()
 	{
 		$order    = M('order_info');
-		$deadline = time() - 48*3600;
+		$deadline = time() - 2*3600;
 		
 		$map = array(
 			'role_id'      => 1,
