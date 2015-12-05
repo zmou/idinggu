@@ -1,0 +1,126 @@
+<extend name="RBAC:base" />
+<block name="content-title">
+    <h4>校园CEO列表</h4>
+    <a style="float:right;margin:10px;" href="{twotree#:U('add')}" class="btn">添加</a>
+</block>
+<block name="content">
+    <div class="tab-content default-tab" id="tab1">
+		<form action="" method="get">
+			<p>
+				搜索：
+				<select name="key">
+					<option value="username">账户名</option>
+					<option value="real_name">姓名</option>
+					<option value="mobile">联系电话</option>
+				</select>
+				<input value="{twotree#$Think.get.val}" name="val" type="text" class="text-input small-input" placeholder="关键字" /> &nbsp;&nbsp; 注册时间：
+				<input value="{twotree#$Think.get.begin_time}" name="begin_time" type="text" class="text-input small-input" placeholder="起始时间" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" /> ~
+				<input value="{twotree#$Think.get.end_time}" name="end_time" type="text" class="text-input small-input" placeholder="截止时间" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+				<input id='btn-so' type="button" value="搜索" class="button" /> &nbsp;&nbsp;&nbsp;
+				<a href="{twotree#:U('index')}">查看全部</a> &nbsp;&nbsp;&nbsp;
+			</p>
+		</form>
+        <table width='100%'>
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>用户名</th>
+                    <th>姓名</th>
+                    <th>头像</th>
+                    <th>收货地址</th>
+                    <th>邮箱</th>
+                    <th>手机</th>
+                    <th>上任时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <volist name="list" id="v">
+                    <tr>
+                        <td>【{twotree#$v.id}】</td>
+						<td>
+                            <a title="{twotree#$v.username}" href="{twotree#:U('edit',array('id'=>$v['id']))}" target="_blank">{twotree#$v.username|mb_substr=###,0,8,'utf-8'|default='暂无'}
+							</a>
+                        </td>
+						<td>
+                            <a title="{twotree#$v.real_name}">{twotree#$v.real_name|mb_substr=###,0,8,'utf-8'|default='暂无'}
+							</a>
+                        </td>
+                        <td>
+                            <neq name="v.headimgurl" value="">
+                                <php>
+                                    $picurl=base64_encode($v['headimgurl']);
+                                </php>
+                                <a rel="modal" title="查看原图" href="{twotree#:U('Index/show_img',array('picurl'=>$picurl))}" target="_blank"><img src="{twotree#$v.headimgurl}" class='thumb'></a>
+                            </neq>
+                        </td>
+                        <td>
+                            {twotree#$v.receiving_address}
+                        </td>
+                        <td>
+                            {twotree#$v.email}
+                        </td>
+                        <td>
+                            {twotree#$v.mobile}
+                        </td>
+                        <td>
+                            {twotree#$v.take_office_time}
+                        </td>
+                        <td>
+                            <a title="查看编辑用户信息" class='btn' href="{twotree#:U('edit',array('id'=>$v['id']))}">编辑</a>
+                            <neq name="v.username" value="">
+                                <a class='btn' href="{twotree#:U('pwd',array('id'=>$v['id']))}">修改密码</a>
+                            </neq>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="8">
+                        <div class="pagination">
+                            {twotree#$show}
+                        </div>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- End #tab1 -->
+    <style>
+        select,input[type='text']{border-radius:3px;padding:3px 5px;border:1px solid #CCC}
+    </style>
+    <script>
+        $(function() {
+            $("#btn-so").click(function() {
+                var key = $("select[name='key'] option:selected").val();
+                var val = $("input[name='val']").val();
+                var begin_time = $("input[name='begin_time']").val();
+                var end_time = $("input[name='end_time']").val();
+                var param = '';
+                if (key != '' && val != '') {
+                    param += "&key=" + key + '&val=' + val;
+                }
+                if (begin_time != '') {
+                    param += '&begin_time=' + begin_time;
+                }
+                if (end_time != '') {
+                    param += '&end_time=' + end_time;
+                }
+                if (param == '') {
+                    //alert('请输入关键字！')
+                    artDialog({
+                        content: '请输入搜索条件！',
+                        style: 'alert',
+                        lock: false
+                    }, function() {});
+                } else {
+                    location.href = "{twotree#:U('index')}" + param;
+                }
+            });
+        });
+    </script>
+</block>

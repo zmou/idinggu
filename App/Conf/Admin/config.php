@@ -4,8 +4,8 @@ return array(
 		//'__PUBLIC__'=>__ROOT__.'/'.APP_NAME.'/Tpl/Admin/Public',
 		'__PUBLIC__'=>__ROOT__.'/Public/Static',
 	),
-	'URL_HTML_SUFFIX'		=>	'.html',
-	'SHOW_PAGE_TRACE'        => false,   // 显示页面Trace信息
+	'URL_HTML_SUFFIX' =>	'.html',
+	'SHOW_PAGE_TRACE' => false,   // 显示页面Trace信息
 	/**********************************RBAC******************************************/
 	'RBAC_SUPERADMIN'		=>	'admin',
 	'ADMIN_AUTH_KEY'		=>	'superadmin',
@@ -17,5 +17,8 @@ return array(
 	'RBAC_ROLE_TABLE'		=>	'twotree_role',
 	'RBAC_USER_TABLE'		=>	'twotree_role_user',
 	'RBAC_NODE_TABLE'		=>	'twotree_node',
-	'RBAC_ACCESS_TABLE'		=>	'twotree_access'
+	'RBAC_ACCESS_TABLE'		=>	'twotree_access',
+	
+	/*********************************网站信息配置**********************************/
+	'SERVICE_DOMAIN' => 'http://service.idinggu.com/'
 );

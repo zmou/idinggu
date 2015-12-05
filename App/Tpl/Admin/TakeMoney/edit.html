@@ -53,21 +53,35 @@
 				</neq>  
 			</div>
 			<br/>
-			<legend class="button">用户账户信息</legend>
-			<div class="block">
-				<p>用户名　：【{twotree#$user.name}】</p>
-				<p>OPENID　：【{twotree#$user.wechatid}】</p>
-				<p><font color="red"><b> 账户资金：【&yen; {twotree#$user['money_account']+$user['money_dongjie']}】</b></font></p> 
-				<p>身份证　：【{twotree#$user.id_card}】</p>
-				<p>地址　：【{twotree#$user.province}-{twotree#$user.city}-{twotree#$user.town}】</p>
-				<p>收货地址　：【{twotree#$user.shipping_address}】</p>
-				<p>微信昵称　：【{twotree#$user.nickname}】</p>
-				<p>头像　：<br>
-				<img src="{twotree#$user.headimgurl}" width="100" height="100"/>
-				</p>
-
-			</div>
-
+			
+			<eq name="info.role_id" value="1">
+				<legend class="button">用户账户信息</legend>
+				<div class="block">
+					<p>用户名　：【{twotree#$user.name}】</p>
+					<p>OPENID　：【{twotree#$user.wechatid}】</p>
+					<p><font color="red"><b> 账户资金：【&yen; {twotree#$user['money_account']+$user['money_dongjie']}】</b></font></p> 
+					<p>身份证　：【{twotree#$user.id_card}】</p>
+					<p>地址　：【{twotree#$user.province}-{twotree#$user.city}-{twotree#$user.town}】</p>
+					<p>收货地址　：【{twotree#$user.shipping_address}】</p>
+					<p>微信昵称　：【{twotree#$user.nickname}】</p>
+					<p>头像　：<br>
+					<img src="{twotree#$user.headimgurl}" width="100" height="100"/>
+					</p>
+				</div>
+			</eq>
+			<eq name="info.role_id" value="2">
+				<legend class="button">校园CEO账户信息</legend>
+				<div class="block">
+					<p>姓名　：【{twotree#$user.real_name}】</p>
+					<p><font color="red"><b>账户资金：【&yen; {twotree#$ceoAccountMoney}】</b></font></p>
+					<p>身份证　：【{twotree#$user.id_card}】</p>
+					<p>收货地址　：【{twotree#$user.receiving_address}】</p>
+					<p>就职时间　：【{twotree#$user.take_office_time}】</p>
+					<p>学生证　：<br>
+					<img src="{twotree#:C('SERVICE_DOMAIN')}{twotree#$user.student_card}" width="100" height="100"/>
+					</p>
+				</div>
+			</eq>
 			<p>
 			<eq name="info.status" value="0">
 			备注信息：<input name="remark" type='text' class="text-input small-input" placeholder="失败原因或成功备注"/>

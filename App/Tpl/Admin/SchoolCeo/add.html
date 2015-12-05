@@ -1,0 +1,302 @@
+<extend name="RBAC:base" />
+<block name="jq">
+    <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+</block>
+<block name="content-title">
+    <h4>添加校园CEO</h4>
+    <a style="margin:5px 10px;" class="btn align-right" href="{twotree#:U('index')}">返回列表</a>
+</block>
+<block name="content">
+    <div class="tab-content default-tab" id="tab1">
+        <form method="post" action="{twotree#:U('doAdd')}">
+            <fieldset>
+                <p>
+                    用户名：
+                    <input placeholder="用户名" required type="text" name="username" class="text-input small-input">
+                </p>
+                <p>
+                    姓名：
+                    <input placeholder="姓名" required type="text" name="real_name" class="text-input small-input">
+                </p>
+                <p>
+                    密码：
+                    <input placeholder="密码" required type="text" name="password" class="text-input small-input">
+                </p>
+                <p>
+                    上任时间：
+                    <input placeholder="上任时间" required type="text" name="take_office_time" class="text-input small-input num" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+                </p>
+                <p>
+                    授权学校：
+                    <select name="province_id" id="province_id">
+                    </select>
+                    省
+                    <select name="city_id" id="city_id">
+                    </select>
+                    市
+                    <select name="district_id" id="district_id">
+                    </select>
+                    区
+                    <select name="school_id[]" id="school_id" hidden multiple="multiple">
+                    </select>
+                </p>
+                <p>
+                    <input type="submit" value="提 交" class="button">
+                </p>
+            </fieldset>
+            <div class="clear"></div>
+        </form>
+    </div>
+    <script>
+        $('.add-color').click(function() {
+            if ($('.option').length >= 10) {
+                alert('最多只能增加10个');
+                return false;
+            }
+            var html = '<span class="option"><input required name="color[]"  class="text-input small" /><i class="fa fa-minus-circle fa-lg remove" style="color:#BC1313"></i></span>';
+            $(this).before(html + '&nbsp;&nbsp;');
+        });
+        $('.remove').live('click', function() {
+            $(this).parent(".option").remove();
+        });
+        $('.add-size').click(function() {
+            if ($('.option').length >= 10) {
+                alert('最多只能加10个');
+                return false;
+            }
+            var html = '<span class="option"><input required name="size[]"  class="text-input small" /><i class="fa fa-minus-circle fa-lg remove" style="color:#BC1313"></i></span>';
+            $(this).before(html + '&nbsp;&nbsp;');
+        });
+    </script>
+    <!--kindeditor-->
+    <link rel="stylesheet" href="/plugins/kindeditor/themes/default/default.css" />
+    <script charset="utf-8" src="/plugins/kindeditor/kindeditor-min.js"></script>
+    <script charset="utf-8" src="/plugins/kindeditor/lang/zh_CN.js"></script>
+    <!--kindeditor-->
+    <script>
+        $(function() {
+            $(".num").keyup(function() {
+                if (isNaN($(this).val())) {
+                    $(this).val('');
+                }
+            });
+        });
+        KindEditor.ready(function(K) {
+            //初始化编辑器
+            var editor1 = K.create('.editor', {
+                cssPath: '/plugins/kindeditor/plugins/code/prettify.css',
+                uploadJson: '/plugins/kindeditor/php/upload_json.php',
+                fileManagerJson: '/plugins/kindeditor/php/file_manager_json.php',
+                allowFileManager: true,
+                afterCreate: function() {}
+            });
+            prettyPrint();
+        });
+        //单图上传
+        KindEditor.ready(function(K) {
+            var editor = K.editor({
+                allowFileManager: true
+            });
+            K('#image1').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl: K('#url1').val(),
+                        clickFn: function(url, title, width, height, border, align) {
+                            K('#url1').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+            K('#image2').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl: K('#url2').val(),
+                        clickFn: function(url, title, width, height, border, align) {
+                            K('#url2').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+            K('#image3').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl: K('#url3').val(),
+                        clickFn: function(url, title, width, height, border, align) {
+                            K('#url3').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+        });
+        //批量上传图片
+        KindEditor.ready(function(K) {
+            var editor = K.editor({
+                allowFileManager: true
+            });
+            K('#J_selectImage').click(function() {
+                editor.loadPlugin('multiimage', function() {
+                    editor.plugin.multiImageDialog({
+                        clickFn: function(urlList) {
+                            var div = K('#J_imageView');
+                            div.html('');
+                            K.each(urlList, function(i, data) {
+                                div.append('<img src="' + data.url + '">');
+                            });
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        /*
+                       地区联动
+                       */
+        var province_id = '{twotree#$map.province_id}';
+        var city_id = '{twotree#$map.city_id}';
+        var district_id = '{twotree#$map.district_id}';
+        var school_id = '{twotree#$map.school_id}';
+        var build_id = '{twotree#$map.build_id}';
+        $.post("index.php?g=Admin&m=Ajax&a=province", '', function(json) {
+            var html = '<option value="0">-请选择-</option>';
+            $.each(json, function(i, obj) {
+                if (province_id == obj.id) {
+                    html += '<option value=' + obj.id + ' selected>' + obj.region_name + '</option>';
+                } else {
+                    html += '<option value=' + obj.id + '>' + obj.region_name + '</option>';
+                }
+            });
+            $("#province_id").html(html);
+        }, 'json');
+        if (province_id) {
+            $.post("index.php?g=Admin&m=Ajax&a=city", {
+                'parent_id': province_id
+            }, function(json) {
+                var html = '<option value="">-请选择-</option>';
+                $.each(json, function(i, obj) {
+                    if (city_id == obj.id) {
+                        html += '<option value=' + obj.id + ' selected>' + obj.region_name + '</option>';
+                    } else {
+                        html += '<option value=' + obj.id + '>' + obj.region_name + '</option>';
+                    }
+                });
+                $("#city_id").html(html);
+            }, 'json');
+        }
+        if (city_id) {
+            $.post("index.php?g=Admin&m=Ajax&a=district", {
+                'parent_id': city_id
+            }, function(json) {
+                var html = '<option value="">-请选择-</option>';
+                $.each(json, function(i, obj) {
+                    if (district_id == obj.id) {
+                        html += '<option value=' + obj.id + ' selected>' + obj.region_name + '</option>';
+                    } else {
+                        html += '<option value=' + obj.id + '>' + obj.region_name + '</option>';
+                    }
+                });
+                $("#district_id").html(html);
+            }, 'json');
+        }
+        if (district_id) {
+            $.post("index.php?g=Admin&m=Ajax&a=school", {
+                'county_id': district_id
+            }, function(json) {
+                var html = '<option value="">-请选择-</option>';
+                $.each(json, function(i, obj) {
+                    if (school_id == obj.id) {
+                        html += '<option value=' + obj.id + ' selected>' + obj.name + '</option>';
+                    } else {
+                        html += '<option value=' + obj.id + '>' + obj.name + '</option>';
+                    }
+                });
+                $("#school_id").html(html);
+            }, 'json');
+        }
+        if (school_id) {
+            $.post("index.php?g=Admin&m=Ajax&a=build", {
+                'sch_id': school_id
+            }, function(json) {
+                var html = '<option value="">-请选择-</option>';
+                $.each(json, function(i, obj) {
+                    if (build_id == obj.id) {
+                        html += '<option value=' + obj.id + ' selected>' + obj.name + '</option>';
+                    } else {
+                        html += '<option value=' + obj.id + '>' + obj.name + '</option>';
+                    }
+                });
+                $("#build_id").html(html);
+            }, 'json');
+        }
+        $("#province_id").change(function() {
+            $.post("index.php?g=Admin&m=Ajax&a=city", {
+                'parent_id': $(this).val()
+            }, function(json) {
+                var html = '<option value="">-请选择-</option>';
+                $.each(json, function(i, obj) {
+                    if (city_id == obj.id) {
+                        html += '<option value=' + obj.id + ' selected>' + obj.region_name + '</option>';
+                    } else {
+                        html += '<option value=' + obj.id + '>' + obj.region_name + '</option>';
+                    }
+                });
+                $("#city_id").html(html);
+            }, 'json');
+        });
+        $("#city_id").change(function() {
+            $("#district").html('<option value="0">-区县-</option>');
+            $.post("index.php?g=Admin&m=Ajax&a=district", {
+                'parent_id': $(this).val()
+            }, function(json) {
+                var html = '<option value="">-请选择-</option>';
+                $.each(json, function(i, obj) {
+                    html += '<option value=' + obj.id + '>' + obj.region_name + '</option>';
+                });
+                $("#district_id").html(html);
+            }, 'json');
+        });
+        $('#district_id').change(function() {
+            $('#school_id').show();
+            var county_id = $(this).val();
+            $.post("{twotree#:U('Ajax/school')}", {
+                'county_id': county_id
+            }, function(data) {
+                school_str = "";
+                if (!data) {
+                    alert('该区暂时无学校！');
+                    $('#school').html('');
+                    return false;
+                }
+                for (i = 0; i < data.length; i++) {
+                    build = data[i];
+                    school_str += "<option value='" + build.id + "'>" + build.name + "</option>";
+                }
+                //alert(build_str);
+                $('#school_id').html(school_str);
+            }, 'json');
+        });
+        $('#school_id').change(function() {
+            var school_id = $(this).val();
+            $.post("{twotree#:U('Ajax/build')}", {
+                'sch_id': school_id
+            }, function(data) {
+                build_str = "<option value='0'>请选择楼栋</option>";
+                if (!data) {
+                    alert('该学校暂时没有开放！');
+                    $('#build').html('');
+                    return false;
+                }
+                for (i = 0; i < data.length; i++) {
+                    build = data[i];
+                    build_str += "<option value='" + build.id + "'>" + build.name + "</option>";
+                }
+                //alert(build_str);
+                $('#build_id').html(build_str);
+            }, 'json');
+        });
+    </script>
+</block>
