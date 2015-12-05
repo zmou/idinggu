@@ -1130,17 +1130,15 @@ replenishment
 		}
 		$this->assign('page_title',$page_title);
 
-
-
 		$count = $db->where($map)->count();
-		$Page = new Page($count,20);
+		$Page = new Page($count,10);
 		$Page->setConfig('prev', '上一页');
 		$Page->setConfig('next', '下一页');
 		$Page->setConfig('theme',"%upPage% %downPage%");
 		$page = $Page->show();
 		$this->assign('page',$page);
 
-		$list=$db->where($map)->order($order)->limit($Page->firstRow.','.$Page->listRows)->select();
+		$list=$db->where($map)->order($order)->select();
 		$this->assign('list',$list);
 	/*
 	商品分类
