@@ -124,6 +124,12 @@ class SchoolCeoAction extends PublicAction
 		$district_id      = I('post.district_id');
 		$school_id 		  = implode(",", I('post.school_id'));
 		
+		// 查找是否存在用户名重复
+		$i = M('school_ceo')->where(array('username'=>$username))->count();
+		if ($i > 0) {
+			$this->error('用户名已存在', U('add'));
+		}
+		
 		$ceo = array(
 			'username' 	       => $username,
 			'real_name'        => $real_name,

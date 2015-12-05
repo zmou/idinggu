@@ -1,0 +1,203 @@
+<div id="sidebar">
+	<div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+      <h1 id="sidebar-title"><a href="#">奥克斯</a></h1>
+      <!-- Logo (221px wide) -->
+     <!-- <a href="{twotree#:U('Index/index')}"><center><img id="logo" src="__PUBLIC__/Images/logo.jpg"/></center></a>-->
+      <!-- Sidebar Profile links -->
+      <div id="profile-links">
+        <!--你好, <a href="{twotree#:U('RBAC/editUser',array('id'=>1))}" title="修改密码">{twotree#:I('session.username')}</a>
+        , 您有 <a href="#messages" rel="modal" title="3 Messages">3 条未读消息</a>-->
+        <br />
+        <br />
+        <a href="{twotree#:U('Weixin/Index/index')}" title="商城首页" target="_blank">商城首页</a> |
+        <a href="{twotree#:U('Index/index')}" title="管理中心">管理中心</a> |
+         <a href="{twotree#:U('Login/logout')}" title="退 出">退 出</a>
+      </div>
+     
+      <ul id="main-nav">  
+      <!-- Accordion Menu -->
+<if condition="(I('session.username') eq C('RBAC_SUPERADMIN'))">
+		<li>
+			<a href="#" class="nav-top-item">
+			管理中心权限管理
+			</a>
+			<ul class="dlink">
+				<li><a href="{twotree#:U('RBAC/index')}">管理员列表</a></li>
+				<li><a href="{twotree#:U('RBAC/role')}">角色列表</a></li>
+				<li><a href="{twotree#:U('RBAC/node')}">节点列表</a></li>
+				<li><a href="{twotree#:U('RBAC/addNode')}">添加节点</a></li>
+			</ul>
+		</li>
+</if> 
+		<li> 
+          <a href="#" class="nav-top-item">
+          微信商城管理
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Goods/index')}">商品管理</a></li>
+            <li><a href="{twotree#:U('GoodsCate/index')}">分类管理</a></li>
+            <li><a href="{twotree#:U('GoodsBrand/index')}">品牌管理</a></li>
+            <li><a href="{twotree#:U('TakeMoney/index')}">提现申请</a></li>
+          </ul>
+        </li> 
+        <li> 
+          <a href="#" class="nav-top-item">
+          订单管理
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Order/index')}">订单列表</a></li>
+            <li><a href="{twotree#:U('Order/refund_list')}">售后申请</a></li>
+          </ul>
+        </li> 
+        <li> 
+          <a href="#" class="nav-top-item">
+          热门城市管理
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Hotcity/index')}">城市列表</a></li>
+          </ul>
+        </li>
+        <li> 
+          <a href="#" class="nav-top-item">
+          学校管理
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('School/index')}">学校列表</a></li>
+          </ul>
+        </li>
+		
+        <li>
+		<a rel="modal" class="shortcut-button" href="{twotree#:U('Admin/Delcache/index')}" ><span>
+          <img src="__PUBLIC__/Images/icons/clear.png" alt="icon"><br>
+          清空缓存
+        </span></a></li>
+
+        <!--<li> 
+          <a href="#" class="nav-top-item">
+          商城导航管理
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Navlink/index')}">首页导航</a></li>
+          </ul>
+        </li> 
+        <li> 
+          <a href="#" class="nav-top-item">
+          分销设置
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Conf/resale')}">佣金分配设置</a></li>
+          </ul>
+        </li> -->
+        <!--<li> 
+          <a href="#" class="nav-top-item">
+          积分规则
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('Conf/jifen')}">积分规则设置</a></li>
+          </ul>
+        </li> -->
+        <li> 
+          <a href="#" class="nav-top-item">
+          咕币商城管理
+          </a>
+          <ul class="dlink">
+          	<li><a href="{twotree#:U('Conf/jifen')}">咕币规则设置</a></li>
+            <li><a href="{twotree#:U('Jifen/index')}">商品管理</a></li>
+            <li><a href="{twotree#:U('Jifen/order_list')}">订单管理</a></li>
+          </ul>
+        </li> 
+        
+       
+        <li>
+          <a href="#" class="nav-top-item">
+            微信管理系统
+          </a>
+          <ul class="dlink">
+            <li><a href="{twotree#:U('WechatPub/index')}">1、公众账号设置</a></li>
+            <li><a href="{twotree#:U('WechatMenu/index')}">2、微信菜单设置</a></li>
+            <li><a href="{twotree#:U('WechatText/index')}">3、微信回复设置</a></li>
+            <!--<li><a href="{twotree#:U('Wxusers/fans_analyze')}">4、粉丝统计分析</a></li>
+            <li><a href="{twotree#:U('Wxusers/list_wxfans')}">4、拉取粉丝列表</a></li>-->
+          </ul>
+        </li>
+         <li>
+          <a href="#" class="nav-top-item">
+            会员管理
+          </a>
+          <ul class="dlink">
+            <!--<li><a href="{twotree#:U('WxGroup/index')}">微信用户分组</a></li>-->
+            <li><a href="{twotree#:U('Wxusers/index')}">会员列表</a></li>
+            <!--<li><a href="{twotree#:U('Wxusers/level')}">会员等级管理</a></li>-->
+          </ul>
+        </li>
+         <li> 
+          <a href="#" class="nav-top-item">
+          店长管理
+          </a>
+          <ul class="dlink"> 
+            <li><a href="{twotree#:U('Shop/index')}">店长列表</a></li>
+            <li><a href="{twotree#:U('Shop/audit')}">店铺申请</a></li>
+            <li><a href="{twotree#:U('Shop/shop_order')}">店长订单</a></li>
+          </ul>
+        </li> 
+           
+        <li> 
+          <a href="#" class="nav-top-item">
+          内容管理系统
+          </a>
+          <ul class="dlink"> 
+            <li><a href="{twotree#:U('CmsSort/sortlist')}">栏目管理</a></li>
+            <li><a href="{twotree#:U('CmsArt/artlist')}">文章管理</a></li>
+            <li><a href="{twotree#:U('Feedback/index')}">用户反馈</a></li>
+          </ul>
+        </li>     
+		<li>
+          <a href="#" class="nav-top-item">
+            系统配置
+          </a>
+          <ul class="dlink">
+         	<li><a href="{twotree#:U('Conf/index')}">系统信息设置</a></li>
+            <li><a href="{twotree#:U('Recharge/index')}">充值金额配置</a></li>
+           	<!--<li><a href="{twotree#:U('Conf/msg')}">短信网关设置</a></li>
+            <li><a href="#">短信模板管理</a></li>
+            <li><a href="{twotree#:U('Conf/email')}">邮件服务器设置</a></li>-->
+            <li><a href="{twotree#:U('Log/index')}">后台登录日志</a></li>
+            <li><a href="{twotree#:U('FriendLink/index')}">友情链接管理</a></li>
+			<li><a href="{twotree#:U('Slide/index')}">轮播图片管理</a></li>
+          </ul>
+        </li>
+<if condition="(I('session.username') eq C('RBAC_SUPERADMIN'))">        	
+        <li>
+          <a href="#" class="nav-top-item">
+            数据备份恢复
+          </a>
+          <ul class="dlink">
+			<li><a href="{twotree#:U('Database/index')}">数据备份</a></li>
+          	<li><a href="{twotree#:U('Database/recover')}">数据恢复</a></li>
+          </ul>
+        </li>	
+</if>        
+      </ul> <!-- End #main-nav -->
+      
+    </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var url=window.location.search;
+	$('#main-nav li ul li a').each(function(){
+		var aurl='?'+$(this).attr("href").split("?")[1];
+
+		var pul=$(this).parent().parent().prev();
+		var tul=$(this).parent().parent().parent();
+		if(aurl.indexOf(url)>=0){
+			$(this).addClass("current").siblings("a").removeClass("current");
+			$(".nav-top-item").removeClass("current");
+			pul.addClass("current");
+			$(".dlink").css("display","none");
+			$(this).parent().parent().css("display","block");
+			
+		}
+	});
+});
+</script> 
+
+</div> <!-- End #sidebar -->
