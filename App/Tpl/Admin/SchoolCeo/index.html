@@ -2,23 +2,22 @@
 <block name="content-title">
     <h4>校园CEO列表</h4>
     <a style="float:right;margin:10px;" href="{twotree#:U('add')}" class="btn">添加</a>
+    <a style="float:right;margin:10px;" href="{twotree#:U('export_school_ceo')}" class="btn">导出</a>
 </block>
 <block name="content">
     <div class="tab-content default-tab" id="tab1">
-		<form action="" method="get">
-			<p>
+		<form action="{twotree#:U('index')}" method="get" style="display:inline;">
 				搜索：
 				<select name="key">
-					<option value="username">账户名</option>
-					<option value="real_name">姓名</option>
-					<option value="mobile">联系电话</option>
+					<option value="username" <eq name='Think.get.key' value='username'>selected</eq>>账户名</option>
+					<option value="real_name" <eq name='Think.get.key' value='real_name'>selected</eq>>姓名</option>
+					<option value="mobile" <eq name='Think.get.key' value='mobile'>selected</eq>>联系电话</option>
 				</select>
-				<input value="{twotree#$Think.get.val}" name="val" type="text" class="text-input small-input" placeholder="关键字" /> &nbsp;&nbsp; 注册时间：
+				<input value="{twotree#$Think.get.val}" name="val" type="text" class="text-input small-input" placeholder="关键字" />注册时间：
 				<input value="{twotree#$Think.get.begin_time}" name="begin_time" type="text" class="text-input small-input" placeholder="起始时间" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" /> ~
 				<input value="{twotree#$Think.get.end_time}" name="end_time" type="text" class="text-input small-input" placeholder="截止时间" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
-				<input id='btn-so' type="button" value="搜索" class="button" /> &nbsp;&nbsp;&nbsp;
-				<a href="{twotree#:U('index')}">查看全部</a> &nbsp;&nbsp;&nbsp;
-			</p>
+				<input id='btn-so' type="button" value="搜索" class="button" />
+				<a href="{twotree#:U('index')}">查看全部</a>
 		</form>
         <table width='100%'>
             <thead>
