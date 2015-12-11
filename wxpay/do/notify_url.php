@@ -152,7 +152,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
 
 			}';
             
-            $res = http_request($url, $msgData);
+            $res = http_request($msgurl, $msgData);
 			file_put_contents("test.txt",$res);
             /************************************微信模板消息end****************************************/
             
@@ -207,7 +207,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
 		$accessToken = $Wxjssdk->getAccessToken();
 		$msgurl       = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
 		
-		file_put_contents("test.txt",$res);
+		file_put_contents("test.txt",$accessToken);
 		
 		$msgData = '{
 			"touser":"' . $shop_keeper['wechatid'] . '",
@@ -247,7 +247,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
 
 		}';
 		
-		$res = http_request($url, $msgData);
+		$res = http_request($msgurl, $msgData);
 		file_put_contents("test.txt",$res);
 		/************************************微信模板消息end****************************************/
         
