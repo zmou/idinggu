@@ -120,7 +120,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
                 $r_url       = "http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0&order_style=2";
             }
             $msgData = '{
-				"touser":"' . $user_info['wechatid'] . '",
+				"touser":"' . $shop_keeper['wechatid'] . '",
 				"template_id":"IjTG04BVBCs-2td9YG7aMAIzWJKe8UNpNMKQ8xycV8M",
 				"url":"' . $r_url . '",
 				"topcolor":"#FF0000",
