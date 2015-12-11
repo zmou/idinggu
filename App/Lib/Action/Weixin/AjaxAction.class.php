@@ -39,12 +39,12 @@ class AjaxAction extends Action{
 		$msgurl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
 		
 		if ($order_info['order_style'] == 1) {
-			$r_url = 'http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0';
 			$orderType = '自己买';
 		} else {
-			$r_url = 'http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0&order_style=2';
 			$orderType = '朋友请';
 		}
+		
+		$r_url = 'http://m.idinggu.com/index.php?m=Ucenter&a=shop_order&order_status=1&pay_status=1';
 		
 		$msgData = '{
 			"touser":"' . $shop_keeper['wechatid'] . '",
