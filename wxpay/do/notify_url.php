@@ -112,17 +112,10 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
             $Wxjssdk      = new Wxjssdk($wechatConfig['appid'], $wechatConfig['appsecret']);
             $msgurl       = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
             
-            if ($order_info['order_style'] == 1) {
-                $order_style = "自己买";
-                $r_url       = "http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0";
-            } else {
-                $order_style = "朋友请";
-                $r_url       = "http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0&order_style=2";
-            }
             $msgData = '{
 				"touser":"' . $shop_keeper['wechatid'] . '",
 				"template_id":"IjTG04BVBCs-2td9YG7aMAIzWJKe8UNpNMKQ8xycV8M",
-				"url":"' . $r_url . '",
+				"url":"http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0&order_style=2",
 				"topcolor":"#FF0000",
 				"data":{
 					"first": {
@@ -134,7 +127,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
 						"color":"#173177"
 					},
 					"orderType": {
-						"value":"' . $order_style . '",
+						"value":"朋友请",
 						"color":"#173177"
 					},
 					"customerInfo":{
@@ -203,6 +196,54 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
             
             $res         = send_sms($shop_keeper['mobile'], $sms_content);
         }
+		
+		/***********************************发送微信模板消息**********************************/
+		$query        = $db->query("SELECT * FROM `twotree_wechat_config`");
+		$wechatConfig = $db->get_one($query);
+		$Wxjssdk      = new Wxjssdk($wechatConfig['appid'], $wechatConfig['appsecret']);
+		$msgurl       = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
+		
+		$msgData = '{
+			"touser":"' . $shop_keeper['wechatid'] . '",
+			"template_id":"IjTG04BVBCs-2td9YG7aMAIzWJKe8UNpNMKQ8xycV8M",
+			"url":"http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0",
+			"topcolor":"#FF0000",
+			"data":{
+				"first": {
+					"value":"亲！又来新订单啦，走起~~",
+					"color":"#173177"
+				},
+				"tradeDateTime":{
+					"value":"' . date("Y-m-d H:i:s", $order_info['order_time']) . '",
+					"color":"#173177"
+				},
+				"orderType": {
+					"value":"自己买",
+					"color":"#173177"
+				},
+				"customerInfo":{
+					"value":"寝室号：' . $order_info['address'] . ",姓名：" . $user_info['name'] . ",电话：" . $order_info['mobile'] . '",
+					"color":"#173177"
+				},
+				"orderItemName":{
+					"value":"订单描述",
+					"color":"#173177"
+				},
+				"orderItemData":{
+					"value":"' . $order_info['order_title'] . '",
+					"color":"#173177"
+				},
+				"remark":{
+					"value":"' . $order_info['remark'] . '",
+					"color":"#173177"
+				}
+			}
+
+		}';
+		
+		$res = http_request($url, $msgData);
+		file_put_contents("test.txt",$res);
+		/************************************微信模板消息end****************************************/
         
     }
     
