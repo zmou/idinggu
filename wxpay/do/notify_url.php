@@ -114,7 +114,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
             
             $msgData = '{
 				"touser":"' . $shop_keeper['wechatid'] . '",
-				"template_id":"IjTG04BVBCs-2td9YG7aMAIzWJKe8UNpNMKQ8xycV8M",
+				"template_id":"kzNDUqBXTDI7rrFxY-JvrHmlXygkQM7w16Q6SharRoY",
 				"url":"http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0&order_style=2",
 				"topcolor":"#FF0000",
 				"data":{
@@ -205,7 +205,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
 		
 		$msgData = '{
 			"touser":"' . $shop_keeper['wechatid'] . '",
-			"template_id":"IjTG04BVBCs-2td9YG7aMAIzWJKe8UNpNMKQ8xycV8M",
+			"template_id":"kzNDUqBXTDI7rrFxY-JvrHmlXygkQM7w16Q6SharRoY",
 			"url":"http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0",
 			"topcolor":"#FF0000",
 			"data":{
