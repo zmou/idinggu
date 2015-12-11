@@ -152,7 +152,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
 
 			}';
             
-            $res = http_request($msgurl, $msgData);
+            //$res = http_request($msgurl, $msgData);
 			file_put_contents("test.txt",$res);
             /************************************微信模板消息end****************************************/
             
@@ -247,7 +247,7 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
 
 		}';
 		
-		$res = http_request($msgurl, $msgData);
+		//$res = http_request($msgurl, $msgData);
 		file_put_contents("test.txt",$res);
 		/************************************微信模板消息end****************************************/
         
