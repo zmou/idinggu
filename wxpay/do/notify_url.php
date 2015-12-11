@@ -110,6 +110,8 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
             $query        = $db->query("SELECT * FROM `twotree_wechat_config`");
             $wechatConfig = $db->get_one($query);
             $Wxjssdk      = new Wxjssdk($wechatConfig['appid'], $wechatConfig['appsecret']);
+			// 获取access_token
+			$accessToken = $Wxjssdk->getAccessToken();
             $msgurl       = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
             
             $msgData = '{
@@ -201,7 +203,11 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
 		$query        = $db->query("SELECT * FROM `twotree_wechat_config`");
 		$wechatConfig = $db->get_one($query);
 		$Wxjssdk      = new Wxjssdk($wechatConfig['appid'], $wechatConfig['appsecret']);
+		// 获取access_token
+		$accessToken = $Wxjssdk->getAccessToken();
 		$msgurl       = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
+		
+		file_put_contents("test.txt",$res);
 		
 		$msgData = '{
 			"touser":"' . $shop_keeper['wechatid'] . '",
