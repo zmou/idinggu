@@ -19,6 +19,77 @@ class AjaxAction extends Action{
 		M('user_address')->add($data);
 		echo 1;
 	}
+	
+	// 发送微信模板消息
+	public function sendTplMsg()
+	{
+		$out_trade_no = I('get.order_sn');
+		
+		/***********************************发送微信模板消息**********************************/
+        $order_info   = M('order_info')->where(array('order_sn'=>$out_trade_no))->find();
+        $user_info    = M('wechat_user')->where(array('id'=>$order_info['user_id']))->find();
+        $shop         = M('shop')->where(array('id'=>$order_info['shop_id']))->find();
+        $shop_keeper  = M('wechat_user')->where(array('id'=>$shop['uid']))->find();
+		$wechatConfig = M('wechat_config')->find();
+		
+		import("@.ORG.Wxjssdk");
+		$Wxjssdk      = new Wxjssdk($wechatConfig['appid'], $wechatConfig['appsecret']);
+		// 获取access_token
+		$accessToken = $Wxjssdk->getAccessToken();
+		$msgurl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
+		
+		if ($order_info['order_style'] == 1) {
+			$r_url = 'http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0';
+			$orderType = '自己买';
+		} else {
+			$r_url = 'http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0&order_style=2';
+			$orderType = '朋友请';
+		}
+		
+		$msgData = '{
+			"touser":"' . $shop_keeper['wechatid'] . '",
+			"template_id":"kzNDUqBXTDI7rrFxY-JvrHmlXygkQM7w16Q6SharRoY",
+			"url":"'.$r_url.'",
+			"topcolor":"#FF0000",
+			"data":{
+				"first": {
+					"value":"亲！又来新订单啦，走起~~",
+					"color":"#173177"
+				},
+				"tradeDateTime":{
+					"value":"' . date("Y-m-d H:i:s", $order_info['order_time']) . '",
+					"color":"#173177"
+				},
+				"orderType": {
+					"value":"'.$orderType.'",
+					"color":"#173177"
+				},
+				"customerInfo":{
+					"value":"寝室号：' . $order_info['address'] . ",姓名：" . $user_info['name'] . ",电话：" . $order_info['mobile'] . '",
+					"color":"#173177"
+				},
+				"orderItemName":{
+					"value":"订单描述",
+					"color":"#173177"
+				},
+				"orderItemData":{
+					"value":"' . $order_info['order_title'] . '",
+					"color":"#173177"
+				},
+				"remark":{
+					"value":"' . $order_info['remark'] . '",
+					"color":"#173177"
+				}
+			}
+
+		}';
+		
+		$res = http_request($msgurl, $msgData);
+		
+		/************************************微信模板消息end****************************************/
+	}
+	
+	
 	/*
 		添加购物车
 	 */

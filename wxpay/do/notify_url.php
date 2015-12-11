@@ -12,7 +12,7 @@ include_once("../WxPayPubHelper/WxPayPubHelper.php");
 include_once("../class/db.class.php");
 
 // 引入微信JSSDK
-include_once("../class/Wxjssdk.class.php");
+// include_once("../class/Wxjssdk.class.php");
 
 //使用通用通知接口
 $notify = new Notify_pub();
@@ -106,55 +106,8 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
                 send_sms($shop_keeper['mobile'], $sms_content);
             }
             
-            /***********************************发送微信模板消息**********************************/
-            $query        = $db->query("SELECT * FROM `twotree_wechat_config`");
-            $wechatConfig = $db->get_one($query);
-            $Wxjssdk      = new Wxjssdk($wechatConfig['appid'], $wechatConfig['appsecret']);
-			// 获取access_token
-			$accessToken = $Wxjssdk->getAccessToken();
-            $msgurl       = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
-            
-            $msgData = '{
-				"touser":"' . $shop_keeper['wechatid'] . '",
-				"template_id":"kzNDUqBXTDI7rrFxY-JvrHmlXygkQM7w16Q6SharRoY",
-				"url":"http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0&order_style=2",
-				"topcolor":"#FF0000",
-				"data":{
-					"first": {
-						"value":"亲！又来新订单啦，走起~~",
-						"color":"#173177"
-					},
-					"tradeDateTime":{
-						"value":"' . date("Y-m-d H:i:s", $order_info['order_time']) . '",
-						"color":"#173177"
-					},
-					"orderType": {
-						"value":"朋友请",
-						"color":"#173177"
-					},
-					"customerInfo":{
-						"value":"寝室号：' . $order_info['address'] . ",姓名：" . $user_info['name'] . ",电话：" . $order_info['mobile'] . '",
-						"color":"#173177"
-					},
-					"orderItemName":{
-						"value":"订单描述",
-						"color":"#173177"
-					},
-					"orderItemData":{
-						"value":"' . $order_info['order_title'] . '",
-						"color":"#173177"
-					},
-					"remark":{
-						"value":"' . $order_info['remark'] . '",
-						"color":"#173177"
-					}
-				}
-
-			}';
-            
-            //$res = http_request($msgurl, $msgData);
-			file_put_contents("test.txt",$res);
-            /************************************微信模板消息end****************************************/
+			// 发送模板消息
+            http_request('http://m.idinggu.com/index.php?m=Ajax&a=sendTplMsg&order_sn='.$out_trade_no);
             
         }
         
@@ -199,57 +152,8 @@ if ($result_code == 'SUCCESS' && $return_code == 'SUCCESS') {
             $res         = send_sms($shop_keeper['mobile'], $sms_content);
         }
 		
-		/***********************************发送微信模板消息**********************************/
-		$query        = $db->query("SELECT * FROM `twotree_wechat_config`");
-		$wechatConfig = $db->get_one($query);
-		$Wxjssdk      = new Wxjssdk($wechatConfig['appid'], $wechatConfig['appsecret']);
-		// 获取access_token
-		$accessToken = $Wxjssdk->getAccessToken();
-		$msgurl       = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$accessToken";
-		
-		file_put_contents("test.txt",$accessToken);
-		
-		$msgData = '{
-			"touser":"' . $shop_keeper['wechatid'] . '",
-			"template_id":"kzNDUqBXTDI7rrFxY-JvrHmlXygkQM7w16Q6SharRoY",
-			"url":"http://m.idinggu.com/index.php?m=Ucenter&a=order_list&pay_status=0",
-			"topcolor":"#FF0000",
-			"data":{
-				"first": {
-					"value":"亲！又来新订单啦，走起~~",
-					"color":"#173177"
-				},
-				"tradeDateTime":{
-					"value":"' . date("Y-m-d H:i:s", $order_info['order_time']) . '",
-					"color":"#173177"
-				},
-				"orderType": {
-					"value":"自己买",
-					"color":"#173177"
-				},
-				"customerInfo":{
-					"value":"寝室号：' . $order_info['address'] . ",姓名：" . $user_info['name'] . ",电话：" . $order_info['mobile'] . '",
-					"color":"#173177"
-				},
-				"orderItemName":{
-					"value":"订单描述",
-					"color":"#173177"
-				},
-				"orderItemData":{
-					"value":"' . $order_info['order_title'] . '",
-					"color":"#173177"
-				},
-				"remark":{
-					"value":"' . $order_info['remark'] . '",
-					"color":"#173177"
-				}
-			}
-
-		}';
-		
-		//$res = http_request($msgurl, $msgData);
-		file_put_contents("test.txt",$res);
-		/************************************微信模板消息end****************************************/
+		// 发送模板消息
+        http_request('http://m.idinggu.com/index.php?m=Ajax&a=sendTplMsg&order_sn='.$out_trade_no);
         
     }
     
