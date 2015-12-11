@@ -32,6 +32,51 @@
 				}
 			}
 		}
+		
+		public function addWeixinMenu()
+		{
+			$conf = M('wechat_config')->find();
+			//微信js接口
+			import("@.ORG.Wxjssdk");
+			
+			$Wxjssdk = new Wxjssdk($conf['appid'], $conf['appsecret']);
+			// 获取access_token
+			$accessToken = $Wxjssdk->getAccessToken();
+			$url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$accessToken";
+			$data = '{
+     "button":[
+     {	
+          "type":"view",
+          "name":"夜猫店",
+          "url":"http://m.idinggu.com/"
+      },
+	  {	
+          "type":"view",
+          "name":"校园CEO",
+          "url":"http://m.idinggu.com/index.php?m=Index&a=location_city"
+      },
+      {
+           "name":"@我",
+           "sub_button":[
+           {	
+               "type":"view",
+               "name":"叮咕部落",
+               "url":"http://s.p.qq.com/pub/jump?d=AAAV-bUv"
+            },
+            {
+               "type":"view",
+               "name":"我的叮咕",
+               "url":"http://m.idinggu.com/index.php?m=Ucenter&a=index"
+            }
+            ]
+       }]
+ }';
+ 
+			$res = http_request($url, $data);
+			var_dump($res);
+ 
+ 
+		}
 
 		public function update_school()
 		{
