@@ -17,6 +17,32 @@ function get_city_id(){
 	}
 
 }
+
+// http请求
+function http_request($url, $postData = null)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_VERBOSE, 0);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_FAILONERROR, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    
+    // post请求
+    if (!is_null($postData)) {
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    }
+    
+    $content = curl_exec($ch);
+    curl_close($ch);
+    
+    return $content;
+}
+
 	/*
 	根据IP地址定位
 	eg:117.89.35.58
