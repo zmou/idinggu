@@ -55,9 +55,27 @@ class TakeMoneyAction extends PublicAction{
 			if($db->autoCheckToken($_POST)){
 				
 				$map=array('id'=>$info['user_id']);
-				if($arr['status']==1){		//成功
-					//冻结账户-相应提现金额
-					M('wechat_user')->where($map)->setDec('money_dongjie',$info['money']);
+				if ($info['role_id'] == 1) {
+					if($arr['status']==1){		//成功
+						//冻结账户-相应提现金额
+						M('wechat_user')->where($map)->setDec('money_dongjie',$info['money']);
+						//记录资金流水
+						$water['user_id']=$info['user_id'];
+						$water['type']=2;						//支出【提现】
+						$water['amount']=$info['money'];
+						$water['way']='take_money';
+						$water['way_name']='提现';
+						$water['posttime']=time();
+						//添加流水记录
+						M('money_water')->add($water);
+					}else{		//提现失败
+						//解除相应金额冻结资金
+						if(M('wechat_user')->where($map)->setDec('money_dongjie',$info['money'])){
+							//增加可用资金
+							M('wechat_user')->where($map)->setInc('money_account',$info['money']);
+						}
+					}
+				} else if ($info['role_id'] == 2) {
 					//记录资金流水
 					$water['user_id']=$info['user_id'];
 					$water['type']=2;						//支出【提现】
@@ -67,12 +85,6 @@ class TakeMoneyAction extends PublicAction{
 					$water['posttime']=time();
 					//添加流水记录
 					M('money_water')->add($water);
-				}else{		//提现失败
-					//解除相应金额冻结资金
-					if(M('wechat_user')->where($map)->setDec('money_dongjie',$info['money'])){
-						//增加可用资金
-						M('wechat_user')->where($map)->setInc('money_account',$info['money']);
-					}
 				}
 				$arr['handle_time']=time();
 				$db->where(array('id'=>$id))->save($arr);
